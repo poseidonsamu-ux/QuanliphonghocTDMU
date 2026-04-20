@@ -26,15 +26,15 @@ namespace QuanLiPhongHocTDMU
             {
                 menuQuanLyDanhMuc.Visible = false;
                 menuDuyetYeuCau.Visible = false;
+                menuThongKe.Visible = false; // Giảng viên không được xem thống kê tổng
             }
         }
 
         private void LoadDashboard()
         {
-            // Code load giao diện trang chủ sau này
+            // Nơi load biểu đồ, thông tin tổng quan sau này
         }
 
-        // Hàm lõi: Dùng để nhúng Form con vào giữa Panel của Form Main
         private void openChildForm(Form childForm)
         {
             if (activeForm != null)
@@ -53,7 +53,35 @@ namespace QuanLiPhongHocTDMU
             childForm.Show();
         }
 
-        // --- CÁC NÚT MENU QUẢN LÝ DANH MỤC ---
+        // ================== MENU HỆ THỐNG ==================
+        private void mnuDangNhap_Click(object sender, EventArgs e)
+        {
+            openChildForm(new frmDangNhap());
+        }
+
+        private void mnuDangXuat_Click(object sender, EventArgs e)
+        {
+            if (activeForm != null) activeForm.Close();
+            MessageBox.Show("Đã đăng xuất thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // Xử lý chuyển về form đăng nhập sau
+        }
+
+        private void mnuDoiMatKhau_Click(object sender, EventArgs e)
+        {
+            openChildForm(new frmDoiMatKhau());
+        }
+
+        private void mnuCauHinh_Click(object sender, EventArgs e)
+        {
+            openChildForm(new frmCauHinh());
+        }
+
+        private void mnuThoat_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        // ================== MENU DANH MỤC ==================
         private void mnuToaNha_Click(object sender, EventArgs e)
         {
             openChildForm(new frmQuanLiToaNha());
@@ -74,7 +102,7 @@ namespace QuanLiPhongHocTDMU
             openChildForm(new frmQuanLiGiangVien());
         }
 
-        // --- CÁC NÚT MENU NGHIỆP VỤ ---
+        // ================== MENU NGHIỆP VỤ ==================
         private void mnuDatPhong_Click(object sender, EventArgs e)
         {
             openChildForm(new frmDatPhong());
@@ -90,10 +118,30 @@ namespace QuanLiPhongHocTDMU
             openChildForm(new frmDuyetYeuCau());
         }
 
-        // --- HỆ THỐNG ---
-        private void mnuThoat_Click(object sender, EventArgs e)
+        private void mnuBaoCaoSuCo_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            openChildForm(new frmBaoCaoSuCo());
+        }
+
+        private void mnuCheckInQR_Click(object sender, EventArgs e)
+        {
+            openChildForm(new frmCheckInQR());
+        }
+
+        // ================== MENU THỐNG KÊ ==================
+        private void mnuThongKeSuDung_Click(object sender, EventArgs e)
+        {
+            openChildForm(new frmThongKeSuDung());
+        }
+
+        private void mnuThongKeThietBi_Click(object sender, EventArgs e)
+        {
+            openChildForm(new frmThongKeThietBi());
+        }
+
+        private void mnuXuatBaoCao_Click(object sender, EventArgs e)
+        {
+            openChildForm(new frmXuatBaoCao());
         }
     }
 }
