@@ -126,10 +126,6 @@ namespace QuanLiPhongHocTDMU
             openChildForm(new frmBaoCaoSuCo());
         }
 
-        private void mnuCheckInQR_Click(object sender, EventArgs e)
-        {
-            openChildForm(new frmCheckInQR());
-        }
 
         // ================== MENU THỐNG KÊ ==================
         private void mnuThongKeSuDung_Click(object sender, EventArgs e)

@@ -155,13 +155,6 @@
             mnuBaoCaoSuCo.Text = "Báo cáo sự cố";
             mnuBaoCaoSuCo.Click += mnuBaoCaoSuCo_Click;
             // 
-            // mnuCheckInQR
-            // 
-            mnuCheckInQR.Name = "mnuCheckInQR";
-            mnuCheckInQR.Size = new Size(227, 26);
-            mnuCheckInQR.Text = "Check-in QR";
-            mnuCheckInQR.Click += mnuCheckInQR_Click;
-            // 
             // menuThongKe
             // 
             menuThongKe.DropDownItems.AddRange(new ToolStripItem[] { mnuThongKeSuDung, mnuThongKeThietBi, mnuXuatBaoCao });

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace QuanLiPhongHocTDMU
 {
@@ -15,41 +17,47 @@ namespace QuanLiPhongHocTDMU
 
         private void frmTrangChu_Load(object sender, EventArgs e)
         {
-            string role = frmDangNhap.Role;
-            string maGV = frmDangNhap.MaGV;
-            lblWelcome.Text = "XIN CHÀO, " + role.ToUpper();
+            LoadCacChiSo();
+            LoadBieuDoThietBi();
+        }
 
-            // 1. Thẻ xanh: Phòng trống (Chung cho cả 2)
-            DataTable dtPhong = kn.ExecuteQuery("SELECT COUNT(*) FROM PhongHoc WHERE TrangThai = N'Sẵn sàng'");
-            lblPhongTrong.Text = dtPhong.Rows[0][0].ToString();
+        private void LoadCacChiSo()
+        {
+            string sqlTongPhong = "SELECT COUNT(*) FROM PhongHoc WHERE TrangThai = N'Sẵn sàng'";
+            string sqlDangDung = "SELECT COUNT(DISTINCT MaPhong) FROM LichDatPhong WHERE NgayDat = CAST(GETDATE() AS DATE) AND TrangThaiDuyet = N'Đã duyệt'";
+            string sqlChoDuyet = "SELECT COUNT(*) FROM LichDatPhong WHERE TrangThaiDuyet = N'Chờ duyệt'";
 
-            if (role == "Admin")
+            int tongPhong = Convert.ToInt32(kn.ExecuteQuery(sqlTongPhong).Rows[0][0]);
+            int dangDung = Convert.ToInt32(kn.ExecuteQuery(sqlDangDung).Rows[0][0]);
+            int phongTrong = tongPhong - dangDung;
+            int choDuyet = Convert.ToInt32(kn.ExecuteQuery(sqlChoDuyet).Rows[0][0]);
+
+            lblPhongDangDung.Text = dangDung.ToString();
+            lblPhongTrong.Text = phongTrong.ToString();
+            lblChoDuyet.Text = choDuyet.ToString();
+        }
+
+        private void LoadBieuDoThietBi()
+        {
+            string sqlThietBi = "SELECT TinhTrang, SUM(SoLuong) AS TongSoLuong FROM TrangBiPhong GROUP BY TinhTrang";
+            DataTable dt = kn.ExecuteQuery(sqlThietBi);
+
+            chartThietBi.Series.Clear();
+            chartThietBi.Titles.Clear();
+
+            chartThietBi.Titles.Add("TỈ LỆ TÌNH TRẠNG THIẾT BỊ");
+            chartThietBi.Titles[0].Font = new Font("Segoe UI", 14, FontStyle.Bold);
+
+            Series series = new Series("TinhTrang");
+            series.ChartType = SeriesChartType.Pie;
+            series.IsValueShownAsLabel = true;
+            chartThietBi.Series.Add(series);
+
+            foreach (DataRow row in dt.Rows)
             {
-                // GIAO DIỆN ADMIN: Nhìn tổng quan toàn trường
-                label4.Text = "YÊU CẦU CHỜ DUYỆT"; // Tiêu đề thẻ đỏ
-                DataTable dtDuyet = kn.ExecuteQuery("SELECT COUNT(*) FROM LichDatPhong WHERE TrangThaiDuyet = N'Chờ duyệt'");
-                lblChoDuyet.Text = dtDuyet.Rows[0][0].ToString();
-
-                label6.Text = "TỔNG THIẾT BỊ"; // Tiêu đề thẻ xanh dương
-                DataTable dtThietBi = kn.ExecuteQuery("SELECT COUNT(*) FROM ThietBi");
-                lblThietBi.Text = dtThietBi.Rows[0][0].ToString();
-                pnlThietBi.BackColor = System.Drawing.Color.CornflowerBlue;
-            }
-            else
-            {
-                // GIAO DIỆN GIẢNG VIÊN: Chỉ hiện thông tin cá nhân
-                label4.Text = "ĐƠN ĐANG CHỜ DUYỆT"; // Đơn của riêng giảng viên này
-                string sqlCho = string.Format("SELECT COUNT(*) FROM LichDatPhong WHERE MaGV = '{0}' AND TrangThaiDuyet = N'Chờ duyệt'", maGV);
-                DataTable dtCho = kn.ExecuteQuery(sqlCho);
-                lblChoDuyet.Text = dtCho.Rows[0][0].ToString();
-
-                label6.Text = "LỊCH ĐÃ ĐƯỢC DUYỆT"; // Đổi thành xem lịch cá nhân
-                string sqlDuyet = string.Format("SELECT COUNT(*) FROM LichDatPhong WHERE MaGV = '{0}' AND TrangThaiDuyet = N'Đã duyệt'", maGV);
-                DataTable dtDuyet = kn.ExecuteQuery(sqlDuyet);
-                lblThietBi.Text = dtDuyet.Rows[0][0].ToString();
-
-                // Đổi màu thẻ thứ 3 sang màu cam cho khác biệt
-                pnlThietBi.BackColor = System.Drawing.Color.Orange;
+                string tinhTrang = row["TinhTrang"].ToString();
+                int soLuong = Convert.ToInt32(row["TongSoLuong"]);
+                series.Points.AddXY(tinhTrang, soLuong);
             }
         }
     }

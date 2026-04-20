@@ -13,167 +13,154 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
         private void InitializeComponent()
         {
-            lblWelcome = new Label();
-            pnlPhong = new Panel();
-            lblPhongTrong = new Label();
-            label2 = new Label();
-            pnlDuyet = new Panel();
-            lblChoDuyet = new Label();
-            label4 = new Label();
-            pnlThietBi = new Panel();
-            lblThietBi = new Label();
-            label6 = new Label();
-            pnlPhong.SuspendLayout();
-            pnlDuyet.SuspendLayout();
-            pnlThietBi.SuspendLayout();
-            SuspendLayout();
-            // 
-            // lblWelcome
-            // 
-            lblWelcome.AutoSize = true;
-            lblWelcome.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
-            lblWelcome.ForeColor = Color.DimGray;
-            lblWelcome.Location = new Point(397, 28);
-            lblWelcome.Name = "lblWelcome";
-            lblWelcome.Size = new Size(186, 46);
-            lblWelcome.TabIndex = 0;
-            lblWelcome.Text = "XIN CHÀO";
-            // 
-            // pnlPhong
-            // 
-            pnlPhong.BackColor = Color.MediumSeaGreen;
-            pnlPhong.Controls.Add(lblPhongTrong);
-            pnlPhong.Controls.Add(label2);
-            pnlPhong.Location = new Point(50, 130);
-            pnlPhong.Name = "pnlPhong";
-            pnlPhong.Size = new Size(260, 150);
-            pnlPhong.TabIndex = 1;
-            // 
-            // lblPhongTrong
-            // 
-            lblPhongTrong.AutoSize = true;
-            lblPhongTrong.Font = new Font("Segoe UI", 36F, FontStyle.Bold);
-            lblPhongTrong.ForeColor = Color.White;
-            lblPhongTrong.Location = new Point(20, 50);
-            lblPhongTrong.Name = "lblPhongTrong";
-            lblPhongTrong.Size = new Size(70, 81);
-            lblPhongTrong.TabIndex = 1;
-            lblPhongTrong.Text = "0";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(20, 20);
-            label2.Name = "label2";
-            label2.Size = new Size(192, 28);
-            label2.TabIndex = 0;
-            label2.Text = "PHÒNG SẴN SÀNG";
-            // 
-            // pnlDuyet
-            // 
-            pnlDuyet.BackColor = Color.IndianRed;
-            pnlDuyet.Controls.Add(lblChoDuyet);
-            pnlDuyet.Controls.Add(label4);
-            pnlDuyet.Location = new Point(350, 130);
-            pnlDuyet.Name = "pnlDuyet";
-            pnlDuyet.Size = new Size(260, 150);
-            pnlDuyet.TabIndex = 2;
-            // 
-            // lblChoDuyet
-            // 
-            lblChoDuyet.AutoSize = true;
-            lblChoDuyet.Font = new Font("Segoe UI", 36F, FontStyle.Bold);
-            lblChoDuyet.ForeColor = Color.White;
-            lblChoDuyet.Location = new Point(20, 50);
-            lblChoDuyet.Name = "lblChoDuyet";
-            lblChoDuyet.Size = new Size(70, 81);
-            lblChoDuyet.TabIndex = 1;
-            lblChoDuyet.Text = "0";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label4.ForeColor = Color.White;
-            label4.Location = new Point(20, 20);
-            label4.Name = "label4";
-            label4.Size = new Size(178, 28);
-            label4.TabIndex = 0;
-            label4.Text = "ĐƠN CHỜ DUYỆT";
-            // 
-            // pnlThietBi
-            // 
-            pnlThietBi.BackColor = Color.CornflowerBlue;
-            pnlThietBi.Controls.Add(lblThietBi);
-            pnlThietBi.Controls.Add(label6);
-            pnlThietBi.Location = new Point(650, 130);
-            pnlThietBi.Name = "pnlThietBi";
-            pnlThietBi.Size = new Size(260, 150);
-            pnlThietBi.TabIndex = 3;
-            // 
-            // lblThietBi
-            // 
-            lblThietBi.AutoSize = true;
-            lblThietBi.Font = new Font("Segoe UI", 36F, FontStyle.Bold);
-            lblThietBi.ForeColor = Color.White;
-            lblThietBi.Location = new Point(20, 50);
-            lblThietBi.Name = "lblThietBi";
-            lblThietBi.Size = new Size(70, 81);
-            lblThietBi.TabIndex = 1;
-            lblThietBi.Text = "0";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label6.ForeColor = Color.White;
-            label6.Location = new Point(20, 20);
-            label6.Name = "label6";
-            label6.Size = new Size(156, 28);
-            label6.TabIndex = 0;
-            label6.Text = "TỔNG THIẾT BỊ";
-            // 
-            // frmTrangChu
-            // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.WhiteSmoke;
-            ClientSize = new Size(960, 560);
-            Controls.Add(pnlThietBi);
-            Controls.Add(pnlDuyet);
-            Controls.Add(pnlPhong);
-            Controls.Add(lblWelcome);
-            Name = "frmTrangChu";
-            Text = "Trang Chủ";
-            Load += frmTrangChu_Load;
-            pnlPhong.ResumeLayout(false);
-            pnlPhong.PerformLayout();
-            pnlDuyet.ResumeLayout(false);
-            pnlDuyet.PerformLayout();
-            pnlThietBi.ResumeLayout(false);
-            pnlThietBi.PerformLayout();
-            ResumeLayout(false);
-            PerformLayout();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            this.pnlPhongDangDung = new System.Windows.Forms.Panel();
+            this.lblPhongDangDung = new System.Windows.Forms.Label();
+            this.lblTitle1 = new System.Windows.Forms.Label();
+            this.pnlPhongTrong = new System.Windows.Forms.Panel();
+            this.lblPhongTrong = new System.Windows.Forms.Label();
+            this.lblTitle2 = new System.Windows.Forms.Label();
+            this.pnlChoDuyet = new System.Windows.Forms.Panel();
+            this.lblChoDuyet = new System.Windows.Forms.Label();
+            this.lblTitle3 = new System.Windows.Forms.Label();
+            this.chartThietBi = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.pnlPhongDangDung.SuspendLayout();
+            this.pnlPhongTrong.SuspendLayout();
+            this.pnlChoDuyet.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartThietBi)).BeginInit();
+            this.SuspendLayout();
+
+            this.pnlPhongDangDung.BackColor = System.Drawing.Color.Orange;
+            this.pnlPhongDangDung.Controls.Add(this.lblPhongDangDung);
+            this.pnlPhongDangDung.Controls.Add(this.lblTitle1);
+            this.pnlPhongDangDung.Location = new System.Drawing.Point(30, 30);
+            this.pnlPhongDangDung.Name = "pnlPhongDangDung";
+            this.pnlPhongDangDung.Size = new System.Drawing.Size(250, 150);
+            this.pnlPhongDangDung.TabIndex = 0;
+
+            this.lblPhongDangDung.AutoSize = true;
+            this.lblPhongDangDung.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Bold);
+            this.lblPhongDangDung.ForeColor = System.Drawing.Color.White;
+            this.lblPhongDangDung.Location = new System.Drawing.Point(20, 50);
+            this.lblPhongDangDung.Name = "lblPhongDangDung";
+            this.lblPhongDangDung.Size = new System.Drawing.Size(70, 81);
+            this.lblPhongDangDung.TabIndex = 1;
+            this.lblPhongDangDung.Text = "0";
+
+            this.lblTitle1.AutoSize = true;
+            this.lblTitle1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblTitle1.ForeColor = System.Drawing.Color.White;
+            this.lblTitle1.Location = new System.Drawing.Point(20, 20);
+            this.lblTitle1.Name = "lblTitle1";
+            this.lblTitle1.Size = new System.Drawing.Size(193, 28);
+            this.lblTitle1.TabIndex = 0;
+            this.lblTitle1.Text = "PHÒNG ĐANG BẬN";
+
+            this.pnlPhongTrong.BackColor = System.Drawing.Color.LightBlue;
+            this.pnlPhongTrong.Controls.Add(this.lblPhongTrong);
+            this.pnlPhongTrong.Controls.Add(this.lblTitle2);
+            this.pnlPhongTrong.Location = new System.Drawing.Point(310, 30);
+            this.pnlPhongTrong.Name = "pnlPhongTrong";
+            this.pnlPhongTrong.Size = new System.Drawing.Size(250, 150);
+            this.pnlPhongTrong.TabIndex = 1;
+
+            this.lblPhongTrong.AutoSize = true;
+            this.lblPhongTrong.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Bold);
+            this.lblPhongTrong.ForeColor = System.Drawing.Color.Black;
+            this.lblPhongTrong.Location = new System.Drawing.Point(20, 50);
+            this.lblPhongTrong.Name = "lblPhongTrong";
+            this.lblPhongTrong.Size = new System.Drawing.Size(70, 81);
+            this.lblPhongTrong.TabIndex = 1;
+            this.lblPhongTrong.Text = "0";
+
+            this.lblTitle2.AutoSize = true;
+            this.lblTitle2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblTitle2.ForeColor = System.Drawing.Color.Black;
+            this.lblTitle2.Location = new System.Drawing.Point(20, 20);
+            this.lblTitle2.Name = "lblTitle2";
+            this.lblTitle2.Size = new System.Drawing.Size(161, 28);
+            this.lblTitle2.TabIndex = 0;
+            this.lblTitle2.Text = "PHÒNG TRỐNG";
+
+            this.pnlChoDuyet.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.pnlChoDuyet.Controls.Add(this.lblChoDuyet);
+            this.pnlChoDuyet.Controls.Add(this.lblTitle3);
+            this.pnlChoDuyet.Location = new System.Drawing.Point(590, 30);
+            this.pnlChoDuyet.Name = "pnlChoDuyet";
+            this.pnlChoDuyet.Size = new System.Drawing.Size(250, 150);
+            this.pnlChoDuyet.TabIndex = 2;
+
+            this.lblChoDuyet.AutoSize = true;
+            this.lblChoDuyet.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Bold);
+            this.lblChoDuyet.ForeColor = System.Drawing.Color.White;
+            this.lblChoDuyet.Location = new System.Drawing.Point(20, 50);
+            this.lblChoDuyet.Name = "lblChoDuyet";
+            this.lblChoDuyet.Size = new System.Drawing.Size(70, 81);
+            this.lblChoDuyet.TabIndex = 1;
+            this.lblChoDuyet.Text = "0";
+
+            this.lblTitle3.AutoSize = true;
+            this.lblTitle3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblTitle3.ForeColor = System.Drawing.Color.White;
+            this.lblTitle3.Location = new System.Drawing.Point(20, 20);
+            this.lblTitle3.Name = "lblTitle3";
+            this.lblTitle3.Size = new System.Drawing.Size(206, 28);
+            this.lblTitle3.TabIndex = 0;
+            this.lblTitle3.Text = "YÊU CẦU CHỜ DUYỆT";
+
+            this.chartThietBi.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            chartArea1.Name = "ChartArea1";
+            this.chartThietBi.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartThietBi.Legends.Add(legend1);
+            this.chartThietBi.Location = new System.Drawing.Point(30, 210);
+            this.chartThietBi.Name = "chartThietBi";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series1.Legend = "Legend1";
+            series1.Name = "ThietBi";
+            this.chartThietBi.Series.Add(series1);
+            this.chartThietBi.Size = new System.Drawing.Size(810, 320);
+            this.chartThietBi.TabIndex = 3;
+            this.chartThietBi.Text = "chart1";
+
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.ClientSize = new System.Drawing.Size(880, 560);
+            this.Controls.Add(this.chartThietBi);
+            this.Controls.Add(this.pnlChoDuyet);
+            this.Controls.Add(this.pnlPhongTrong);
+            this.Controls.Add(this.pnlPhongDangDung);
+            this.Name = "frmTrangChu";
+            this.Text = "Dashboard Thống Kê";
+            this.Load += new System.EventHandler(this.frmTrangChu_Load);
+            this.pnlPhongDangDung.ResumeLayout(false);
+            this.pnlPhongDangDung.PerformLayout();
+            this.pnlPhongTrong.ResumeLayout(false);
+            this.pnlPhongTrong.PerformLayout();
+            this.pnlChoDuyet.ResumeLayout(false);
+            this.pnlChoDuyet.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartThietBi)).EndInit();
+            this.ResumeLayout(false);
 
         }
 
-        #endregion
-
-        private System.Windows.Forms.Label lblWelcome;
-        private System.Windows.Forms.Panel pnlPhong;
+        private System.Windows.Forms.Panel pnlPhongDangDung;
+        private System.Windows.Forms.Label lblPhongDangDung;
+        private System.Windows.Forms.Label lblTitle1;
+        private System.Windows.Forms.Panel pnlPhongTrong;
         private System.Windows.Forms.Label lblPhongTrong;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Panel pnlDuyet;
+        private System.Windows.Forms.Label lblTitle2;
+        private System.Windows.Forms.Panel pnlChoDuyet;
         private System.Windows.Forms.Label lblChoDuyet;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Panel pnlThietBi;
-        private System.Windows.Forms.Label lblThietBi;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblTitle3;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartThietBi;
     }
 }
