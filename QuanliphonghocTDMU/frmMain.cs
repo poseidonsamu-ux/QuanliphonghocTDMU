@@ -41,7 +41,8 @@ namespace QuanLiPhongHocTDMU
             openChildForm(new frmTrangChu());
         }
 
-        private void openChildForm(Form childForm)
+        // ĐÃ SỬA THÀNH PUBLIC Ở ĐÂY ĐỂ CÁC FORM KHÁC GỌI ĐƯỢC
+        public void openChildForm(Form childForm)
         {
             if (activeForm != null)
             {
@@ -109,10 +110,6 @@ namespace QuanLiPhongHocTDMU
         }
 
         // ================== MENU NGHIỆP VỤ ==================
-        private void mnuDatPhong_Click(object sender, EventArgs e)
-        {
-            openChildForm(new frmDatPhong());
-        }
 
         private void mnuTraCuu_Click(object sender, EventArgs e)
         {
