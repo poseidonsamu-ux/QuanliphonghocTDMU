@@ -16,7 +16,13 @@ namespace QuanLiPhongHocTDMU
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            PhanQuyen(roleHienTai);
+            // Lấy quyền từ Form Đăng Nhập truyền sang
+            string role = frmDangNhap.Role;
+
+            // Đổi tiêu đề phần mềm để biết ai đang đăng nhập
+            this.Text = "Hệ thống Quản lý Phòng học TDMU - Đang đăng nhập: " + role;
+
+            PhanQuyen(role);
             LoadDashboard();
         }
 
