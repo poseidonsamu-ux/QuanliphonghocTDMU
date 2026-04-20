@@ -38,7 +38,7 @@ namespace QuanLiPhongHocTDMU
 
         private void LoadDashboard()
         {
-            // Nơi load biểu đồ, thông tin tổng quan sau này
+            openChildForm(new frmTrangChu());
         }
 
         private void openChildForm(Form childForm)
