@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Data;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 
 namespace QuanLiPhongHocTDMU
 {
     public class KetNoiCSDL
     {
-        // Chuỗi kết nối chính chủ máy của bạn
         private string strConnect = @"Data Source=LAPTOP-DG7E8GEE;Initial Catalog=QLPhongHoc_TDMU;Integrated Security=True";
 
-        // Hàm 1: Chạy lệnh SELECT (Lấy dữ liệu)
         public DataTable ExecuteQuery(string query)
         {
             DataTable data = new DataTable();
@@ -31,7 +29,6 @@ namespace QuanLiPhongHocTDMU
             return data;
         }
 
-        // Hàm 2: Chạy lệnh INSERT, UPDATE, DELETE (Thêm, Sửa, Xóa)
         public bool ExecuteNonQuery(string query)
         {
             try
