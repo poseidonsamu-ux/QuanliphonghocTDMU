@@ -1,47 +1,54 @@
-﻿using System;
-using System.Data;
+﻿using QuanLiPhongHocTDMU.BLL;
+using QuanLiPhongHocTDMU.DTO;
+using System;
 using System.Windows.Forms;
 
 namespace QuanLiPhongHocTDMU
 {
     public partial class frmQuanLiToaNha : Form
     {
-        // Gọi file kết nối CSDL (Hãy chắc chắn bạn đã tạo file KetNoiCSDL.cs như bài trước)
-        KetNoiCSDL kn = new KetNoiCSDL();
+        ToaNhaBLL bll = new ToaNhaBLL();
 
         public frmQuanLiToaNha()
         {
             InitializeComponent();
         }
 
-        // Sự kiện: Chạy ngay khi mở form
         private void frmQuanLiToaNha_Load(object sender, EventArgs e)
         {
             LoadDanhSachToaNha();
         }
 
-        // Hàm: Lấy danh sách đổ lên DataGridView
         private void LoadDanhSachToaNha()
         {
-            string sql = "SELECT MaToaNha AS [Mã Tòa Nhà], TenKhu AS [Tên Khu], SoTang AS [Số Tầng], GhiChu AS [Ghi Chú] FROM ToaNha";
-            dgvToaNha.DataSource = kn.ExecuteQuery(sql);
+            dgvToaNha.DataSource = bll.LayToaNha();
         }
 
-        // Sự kiện: Bấm vào dòng nào trên bảng thì hiện dữ liệu lên TextBox
         private void dgvToaNha_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int r = e.RowIndex;
             if (r >= 0)
             {
-                txtMaToaNha.Text = dgvToaNha.Rows[r].Cells["Mã Tòa Nhà"].Value.ToString();
-                txtSoTang.Text = dgvToaNha.Rows[r].Cells["Số Tầng"].Value.ToString();
-                txtGhiChu.Text = dgvToaNha.Rows[r].Cells["Ghi Chú"].Value.ToString();
+                txtMaToaNha.Text = dgvToaNha.Rows[r].Cells["Mã Tòa Nhà"].Value?.ToString();
+                txtSoTang.Text = dgvToaNha.Rows[r].Cells["Số Tầng"].Value?.ToString();
+                txtGhiChu.Text = dgvToaNha.Rows[r].Cells["Ghi Chú"].Value?.ToString();
 
-                txtMaToaNha.Enabled = false; // Khóa ô Mã Tòa Nhà, không cho sửa Khóa chính
+                txtMaToaNha.Enabled = false;
             }
         }
 
-        // NÚT THÊM
+        // Đóng gói dữ liệu vào DTO trước khi gửi xuống BLL
+        private ToaNhaDTO LayDuLieuTuForm()
+        {
+            return new ToaNhaDTO
+            {
+                MaToaNha = txtMaToaNha.Text,
+                TenKhu = "Khu " + txtMaToaNha.Text, // Tự động sinh Tên Khu
+                SoTang = string.IsNullOrEmpty(txtSoTang.Text) ? 1 : int.Parse(txtSoTang.Text), // Mặc định là 1 nếu bỏ trống
+                GhiChu = txtGhiChu.Text
+            };
+        }
+
         private void btnThem_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtMaToaNha.Text))
@@ -50,22 +57,16 @@ namespace QuanLiPhongHocTDMU
                 return;
             }
 
-            // Tự động sinh Tên Khu dựa vào Mã (Ví dụ: Nhập A1 -> Tên Khu A1)
-            string tenKhu = "Khu " + txtMaToaNha.Text;
-            string soTang = string.IsNullOrEmpty(txtSoTang.Text) ? "1" : txtSoTang.Text;
+            ToaNhaDTO tn = LayDuLieuTuForm();
 
-            string sqlThem = string.Format("INSERT INTO ToaNha(MaToaNha, TenKhu, SoTang, GhiChu) VALUES ('{0}', N'{1}', {2}, N'{3}')",
-                                            txtMaToaNha.Text, tenKhu, soTang, txtGhiChu.Text);
-
-            if (kn.ExecuteNonQuery(sqlThem))
+            if (bll.Them(tn))
             {
                 MessageBox.Show("Thêm thành công!");
                 LoadDanhSachToaNha();
-                btnLamMoi_Click(sender, e); // Xóa trắng ô nhập
+                btnLamMoi_Click(sender, e);
             }
         }
 
-        // NÚT SỬA
         private void btnSua_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtMaToaNha.Text))
@@ -74,12 +75,9 @@ namespace QuanLiPhongHocTDMU
                 return;
             }
 
-            string soTang = string.IsNullOrEmpty(txtSoTang.Text) ? "1" : txtSoTang.Text;
+            ToaNhaDTO tn = LayDuLieuTuForm();
 
-            string sqlSua = string.Format("UPDATE ToaNha SET SoTang = {0}, GhiChu = N'{1}' WHERE MaToaNha = '{2}'",
-                                            soTang, txtGhiChu.Text, txtMaToaNha.Text);
-
-            if (kn.ExecuteNonQuery(sqlSua))
+            if (bll.Sua(tn))
             {
                 MessageBox.Show("Cập nhật thành công!");
                 LoadDanhSachToaNha();
@@ -87,7 +85,6 @@ namespace QuanLiPhongHocTDMU
             }
         }
 
-        // NÚT XÓA
         private void btnXoa_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtMaToaNha.Text))
@@ -98,9 +95,7 @@ namespace QuanLiPhongHocTDMU
 
             if (MessageBox.Show("Bạn có chắc muốn xóa Tòa Nhà này không? Toàn bộ phòng học thuộc tòa nhà này sẽ biến mất!", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
-                string sqlXoa = string.Format("DELETE FROM ToaNha WHERE MaToaNha = '{0}'", txtMaToaNha.Text);
-
-                if (kn.ExecuteNonQuery(sqlXoa))
+                if (bll.Xoa(txtMaToaNha.Text))
                 {
                     MessageBox.Show("Xóa thành công!");
                     LoadDanhSachToaNha();
@@ -109,13 +104,12 @@ namespace QuanLiPhongHocTDMU
             }
         }
 
-        // NÚT LÀM MỚI (Xóa trắng Textbox)
         private void btnLamMoi_Click(object sender, EventArgs e)
         {
             txtMaToaNha.Clear();
             txtSoTang.Clear();
             txtGhiChu.Clear();
-            txtMaToaNha.Enabled = true; // Mở khóa lại ô Mã Tòa Nhà để nhập mới
+            txtMaToaNha.Enabled = true;
             txtMaToaNha.Focus();
         }
     }

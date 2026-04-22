@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLiPhongHocTDMU.DAL;
+using System;
 using System.Data;
 using System.Windows.Forms;
 

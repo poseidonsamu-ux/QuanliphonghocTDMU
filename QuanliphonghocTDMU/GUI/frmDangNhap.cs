@@ -1,14 +1,15 @@
-﻿using System;
-using System.Data;
+﻿using QuanLiPhongHocTDMU.BLL;
+using QuanLiPhongHocTDMU.DTO;
+using System;
 using System.Windows.Forms;
 
 namespace QuanLiPhongHocTDMU
 {
     public partial class frmDangNhap : Form
     {
-        KetNoiCSDL kn = new KetNoiCSDL();
+        TaiKhoanBLL bll = new TaiKhoanBLL();
 
-        // Biến toàn cục để các Form khác có thể gọi và biết ai đang đăng nhập
+        // Vẫn giữ lại 2 biến tĩnh này để làm cầu nối truyền dữ liệu sang frmMain
         public static string Role = "";
         public static string MaGV = "";
 
@@ -19,28 +20,26 @@ namespace QuanLiPhongHocTDMU
 
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
-            if (txtTenDangNhap.Text == "" || txtMatKhau.Text == "")
+            if (string.IsNullOrEmpty(txtTenDangNhap.Text) || string.IsNullOrEmpty(txtMatKhau.Text))
             {
                 MessageBox.Show("Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            string sql = string.Format("SELECT Quyen, MaGV FROM TaiKhoan WHERE TenDangNhap = '{0}' AND MatKhau = '{1}'",
-                                        txtTenDangNhap.Text, txtMatKhau.Text);
-            DataTable dt = kn.ExecuteQuery(sql);
+            // Gọi BLL để kiểm tra đăng nhập
+            TaiKhoanDTO tk = bll.DangNhap(txtTenDangNhap.Text, txtMatKhau.Text);
 
-            if (dt.Rows.Count > 0)
+            if (tk != null) // Nếu tk khác null => Có tài khoản trong CSDL
             {
-                // Lưu lại thông tin người dùng hiện tại
-                Role = dt.Rows[0]["Quyen"].ToString();
-                MaGV = dt.Rows[0]["MaGV"].ToString();
+                Role = tk.Quyen;
+                MaGV = tk.MaGV;
 
-                MessageBox.Show("Đăng nhập thành công với quyền: " + Role, "Thông báo");
+                MessageBox.Show("Đăng nhập thành công với quyền: " + Role, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Mở Form Main
                 frmMain frm = new frmMain();
                 frm.Show();
-                this.Hide(); // Ẩn form đăng nhập đi
+                this.Hide();
             }
             else
             {

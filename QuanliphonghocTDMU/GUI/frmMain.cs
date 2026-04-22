@@ -41,7 +41,7 @@ namespace QuanLiPhongHocTDMU
             openChildForm(new frmTrangChu());
         }
 
-        // ĐÃ SỬA THÀNH PUBLIC Ở ĐÂY ĐỂ CÁC FORM KHÁC GỌI ĐƯỢC
+
         public void openChildForm(Form childForm)
         {
             if (activeForm != null)
@@ -60,7 +60,7 @@ namespace QuanLiPhongHocTDMU
             childForm.Show();
         }
 
-        // ================== MENU HỆ THỐNG ==================
+        // Menu Hệ Thống
         private void mnuDangNhap_Click(object sender, EventArgs e)
         {
             openChildForm(new frmDangNhap());
@@ -88,7 +88,7 @@ namespace QuanLiPhongHocTDMU
             Application.Exit();
         }
 
-        // ================== MENU DANH MỤC ==================
+        // Menu Danh Mục
         private void mnuToaNha_Click(object sender, EventArgs e)
         {
             openChildForm(new frmQuanLiToaNha());
@@ -141,6 +141,11 @@ namespace QuanLiPhongHocTDMU
         private void mnuXuatBaoCao_Click(object sender, EventArgs e)
         {
             openChildForm(new frmXuatBaoCao());
+        }
+
+        private void quảnLýPhòngHọcToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openChildForm(new frmQuanLiPhongHoc());
         }
     }
 }

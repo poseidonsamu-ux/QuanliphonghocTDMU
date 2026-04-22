@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Data;
 using Microsoft.Data.SqlClient;
+using System.Configuration;
 
-namespace QuanLiPhongHocTDMU
+namespace QuanLiPhongHocTDMU.DAL
 {
     public class KetNoiCSDL
     {
-        private string strConnect = @"Data Source=LAPTOP-DG7E8GEE;Initial Catalog=QLPhongHoc_TDMU;Integrated Security=True";
+        // Đọc chuỗi kết nối từ file App.config thông qua tên "ChuoiKetNoiTDMU"
+        private string strConnect = ConfigurationManager.ConnectionStrings["ChuoiKetNoiTDMU"].ConnectionString;
 
         public DataTable ExecuteQuery(string query)
         {
@@ -24,7 +26,7 @@ namespace QuanLiPhongHocTDMU
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show("Lỗi lấy dữ liệu: " + ex.Message);
+                MessageBox.Show("Lỗi lấy dữ liệu: " + ex.Message);
             }
             return data;
         }
@@ -44,7 +46,7 @@ namespace QuanLiPhongHocTDMU
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show("Lỗi thực thi CSDL: " + ex.Message);
+                MessageBox.Show("Lỗi thực thi CSDL: " + ex.Message);
                 return false;
             }
         }

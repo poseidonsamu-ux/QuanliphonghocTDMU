@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Data;
 using System.Windows.Forms;
+using QuanLiPhongHocTDMU.BLL;
 
 namespace QuanLiPhongHocTDMU
 {
     public partial class frmDuyetYeuCau : Form
     {
-        KetNoiCSDL kn = new KetNoiCSDL();
+        DuyetYeuCauBLL bll = new DuyetYeuCauBLL();
         string maDatPhongDangChon = "";
 
         public frmDuyetYeuCau()
@@ -21,24 +21,8 @@ namespace QuanLiPhongHocTDMU
 
         private void LoadDanhSachChoDuyet()
         {
-            // Chỉ lấy những yêu cầu đang ở trạng thái 'Chờ duyệt'
-            string sql = @"
-                SELECT 
-                    l.MaDatPhong AS [Mã Đặt], 
-                    p.TenPhong AS [Phòng], 
-                    g.HoTen AS [Giảng Viên], 
-                    l.NgayDat AS [Ngày Đặt], 
-                    l.CaHoc AS [Ca], 
-                    l.MucDich AS [Mục Đích],
-                    l.TrangThaiDuyet AS [Trạng Thái]
-                FROM LichDatPhong l
-                JOIN PhongHoc p ON l.MaPhong = p.MaPhong
-                JOIN GiangVien g ON l.MaGV = g.MaGV
-                WHERE l.TrangThaiDuyet = N'Chờ duyệt'
-                ORDER BY l.NgayDat ASC";
-
-            dgvYeuCau.DataSource = kn.ExecuteQuery(sql);
-            maDatPhongDangChon = ""; // Reset
+            dgvYeuCau.DataSource = bll.LayDanhSach();
+            maDatPhongDangChon = "";
             lblTrangThai.Text = "Đang chọn: Chưa có";
         }
 
@@ -55,14 +39,13 @@ namespace QuanLiPhongHocTDMU
 
         private void btnDuyet_Click(object sender, EventArgs e)
         {
-            if (maDatPhongDangChon == "")
+            if (string.IsNullOrEmpty(maDatPhongDangChon))
             {
                 MessageBox.Show("Vui lòng chọn một yêu cầu từ danh sách!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            string sql = string.Format("UPDATE LichDatPhong SET TrangThaiDuyet = N'Đã duyệt' WHERE MaDatPhong = {0}", maDatPhongDangChon);
-            if (kn.ExecuteNonQuery(sql))
+            if (bll.DuyetYeuCau(maDatPhongDangChon))
             {
                 MessageBox.Show("Đã DUYỆT yêu cầu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadDanhSachChoDuyet();
@@ -71,18 +54,16 @@ namespace QuanLiPhongHocTDMU
 
         private void btnTuChoi_Click(object sender, EventArgs e)
         {
-            if (maDatPhongDangChon == "")
+            if (string.IsNullOrEmpty(maDatPhongDangChon))
             {
                 MessageBox.Show("Vui lòng chọn một yêu cầu từ danh sách!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Hỏi lại cho chắc chắn
             DialogResult dr = MessageBox.Show("Bạn có chắc chắn muốn TỪ CHỐI yêu cầu này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dr == DialogResult.Yes)
             {
-                string sql = string.Format("UPDATE LichDatPhong SET TrangThaiDuyet = N'Từ chối' WHERE MaDatPhong = {0}", maDatPhongDangChon);
-                if (kn.ExecuteNonQuery(sql))
+                if (bll.TuChoiYeuCau(maDatPhongDangChon))
                 {
                     MessageBox.Show("Đã TỪ CHỐI yêu cầu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadDanhSachChoDuyet();
