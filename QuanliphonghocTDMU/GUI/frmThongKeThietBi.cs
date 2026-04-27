@@ -1,20 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using QuanLiPhongHocTDMU.BLL;
 
 namespace QuanLiPhongHocTDMU
 {
     public partial class frmThongKeThietBi : Form
     {
-        public frmThongKeThietBi()
+        ThongKeThietBiBLL bll = new ThongKeThietBiBLL();
+
+        public frmThongKeThietBi() { InitializeComponent(); }
+
+        private void frmThongKeThietBi_Load(object sender, EventArgs e)
         {
-            InitializeComponent();
+            // Gọi hàm LayBangThongKe
+            dgvThietBi.DataSource = bll.LayBangThongKe();
+        }
+
+        private void btnXuatExcel_Click(object sender, EventArgs e)
+        {
+            // Gọi hàm XuatExcelThietBi
+            bll.XuatExcelThietBi(dgvThietBi);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace QuanLiPhongHocTDMU.DAL
 
         public DataTable LayPhongHocTheoToaNha(string maToaNha)
         {
-            // Lấy hết phòng để test cho hiện nút đã
+            // Lấy hết phòng để test cho hiện 
             string sql = (maToaNha == "ALL")
                 ? "SELECT MaPhong, TenPhong, LoaiPhong, SucChua FROM PhongHoc"
                 : string.Format("SELECT MaPhong, TenPhong, LoaiPhong, SucChua FROM PhongHoc WHERE MaToaNha = '{0}'", maToaNha);

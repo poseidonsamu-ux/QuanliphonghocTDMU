@@ -1,20 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using QuanLiPhongHocTDMU.BLL;
 
 namespace QuanLiPhongHocTDMU
 {
     public partial class frmThongKeSuDung : Form
     {
-        public frmThongKeSuDung()
+        ThongKeSuDungBLL bll = new ThongKeSuDungBLL();
+
+        public frmThongKeSuDung() { InitializeComponent(); }
+
+        private void frmThongKeSuDung_Load(object sender, EventArgs e)
         {
-            InitializeComponent();
+            dgvThongKe.DataSource = bll.LayDanhSach();
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                bll.XuatExcel(dgvThongKe);
+                MessageBox.Show("Đã trích xuất dữ liệu sang Excel thành công!", "Thông báo");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi xuất báo cáo: " + ex.Message);
+            }
         }
     }
 }

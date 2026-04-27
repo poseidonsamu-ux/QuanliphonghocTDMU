@@ -1,15 +1,13 @@
-﻿using QuanLiPhongHocTDMU.BLL;
-using QuanLiPhongHocTDMU.DTO;
-using System;
+﻿using System;
 using System.Windows.Forms;
+using QuanLiPhongHocTDMU.BLL;
+using QuanLiPhongHocTDMU.DTO;
 
 namespace QuanLiPhongHocTDMU
 {
     public partial class frmDangNhap : Form
     {
         TaiKhoanBLL bll = new TaiKhoanBLL();
-
-        // Vẫn giữ lại 2 biến tĩnh này để làm cầu nối truyền dữ liệu sang frmMain
         public static string Role = "";
         public static string MaGV = "";
 
@@ -20,30 +18,29 @@ namespace QuanLiPhongHocTDMU
 
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtTenDangNhap.Text) || string.IsNullOrEmpty(txtMatKhau.Text))
+            if (string.IsNullOrWhiteSpace(txtTenDangNhap.Text) || string.IsNullOrWhiteSpace(txtMatKhau.Text))
             {
-                MessageBox.Show("Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Gọi BLL để kiểm tra đăng nhập
             TaiKhoanDTO tk = bll.DangNhap(txtTenDangNhap.Text, txtMatKhau.Text);
 
-            if (tk != null) // Nếu tk khác null => Có tài khoản trong CSDL
+            if (tk != null)
             {
                 Role = tk.Quyen;
                 MaGV = tk.MaGV;
 
-                MessageBox.Show("Đăng nhập thành công với quyền: " + Role, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Mở Form Main
-                frmMain frm = new frmMain();
-                frm.Show();
                 this.Hide();
+                frmMain frm = new frmMain();
+                frm.FormClosed += (s, args) => Application.Exit();
+                frm.Show();
             }
             else
             {
-                MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Sai tài khoản hoặc mật khẩu!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

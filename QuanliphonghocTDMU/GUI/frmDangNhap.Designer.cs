@@ -27,8 +27,9 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.pnlLogin.SuspendLayout();
             this.SuspendLayout();
-
-            // pnlLogin (Cái thẻ màu trắng chứa form đăng nhập)
+            // 
+            // pnlLogin
+            // 
             this.pnlLogin.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pnlLogin.BackColor = System.Drawing.Color.White;
             this.pnlLogin.Controls.Add(this.btnThoat);
@@ -42,50 +43,52 @@
             this.pnlLogin.Name = "pnlLogin";
             this.pnlLogin.Size = new System.Drawing.Size(460, 300);
             this.pnlLogin.TabIndex = 0;
-
+            // 
             // lblTitle
+            // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
             this.lblTitle.Location = new System.Drawing.Point(85, 30);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(315, 37);
-            this.lblTitle.TabIndex = 6;
             this.lblTitle.Text = "ĐĂNG NHẬP HỆ THỐNG";
-
+            // 
             // label1
+            // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(40, 100);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(107, 20);
-            this.label1.TabIndex = 4;
             this.label1.Text = "Tên đăng nhập";
-
+            // 
             // txtTenDangNhap
+            // 
             this.txtTenDangNhap.Location = new System.Drawing.Point(160, 97);
             this.txtTenDangNhap.Name = "txtTenDangNhap";
             this.txtTenDangNhap.Size = new System.Drawing.Size(250, 27);
             this.txtTenDangNhap.TabIndex = 0;
-
+            // 
             // label2
+            // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(40, 160);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(70, 20);
-            this.label2.TabIndex = 5;
             this.label2.Text = "Mật khẩu";
-
+            // 
             // txtMatKhau
+            // 
             this.txtMatKhau.Location = new System.Drawing.Point(160, 157);
             this.txtMatKhau.Name = "txtMatKhau";
             this.txtMatKhau.PasswordChar = '*';
             this.txtMatKhau.Size = new System.Drawing.Size(250, 27);
             this.txtMatKhau.TabIndex = 1;
-
+            // 
             // btnDangNhap
+            // 
             this.btnDangNhap.BackColor = System.Drawing.Color.DodgerBlue;
-            this.btnDangNhap.FlatAppearance.BorderSize = 0;
             this.btnDangNhap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDangNhap.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnDangNhap.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnDangNhap.ForeColor = System.Drawing.Color.White;
             this.btnDangNhap.Location = new System.Drawing.Point(160, 220);
             this.btnDangNhap.Name = "btnDangNhap";
@@ -94,13 +97,12 @@
             this.btnDangNhap.Text = "Đăng nhập";
             this.btnDangNhap.UseVisualStyleBackColor = false;
             this.btnDangNhap.Click += new System.EventHandler(this.btnDangNhap_Click);
-
+            // 
             // btnThoat
+            // 
             this.btnThoat.BackColor = System.Drawing.Color.LightGray;
-            this.btnThoat.FlatAppearance.BorderSize = 0;
             this.btnThoat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnThoat.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnThoat.ForeColor = System.Drawing.Color.Black;
+            this.btnThoat.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnThoat.Location = new System.Drawing.Point(300, 220);
             this.btnThoat.Name = "btnThoat";
             this.btnThoat.Size = new System.Drawing.Size(110, 40);
@@ -108,8 +110,9 @@
             this.btnThoat.Text = "Thoát";
             this.btnThoat.UseVisualStyleBackColor = false;
             this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
-
+            // 
             // frmDangNhap
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSteelBlue;
@@ -122,7 +125,6 @@
             this.pnlLogin.ResumeLayout(false);
             this.pnlLogin.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
         #endregion

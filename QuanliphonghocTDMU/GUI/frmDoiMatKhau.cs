@@ -7,7 +7,6 @@ namespace QuanLiPhongHocTDMU
 {
     public partial class frmDoiMatKhau : Form
     {
-        // Khai báo BLL ở đây là CHUẨN
         TaiKhoanBLL bll = new TaiKhoanBLL();
 
         public frmDoiMatKhau()
@@ -15,7 +14,6 @@ namespace QuanLiPhongHocTDMU
             InitializeComponent();
         }
 
-        // OnResize viết ở đây là CHUẨN
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
@@ -27,7 +25,6 @@ namespace QuanLiPhongHocTDMU
             }
         }
 
-        // btnDoiMatKhau_Click viết ở đây là CHUẨN
         private void btnDoiMatKhau_Click(object sender, EventArgs e)
         {
             string ketQua = bll.ThucHienDoiMatKhau(
