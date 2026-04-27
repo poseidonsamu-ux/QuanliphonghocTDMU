@@ -1,7 +1,8 @@
 ﻿using System.Data;
+using QuanLiPhongHocTDMU.DAL;
 using QuanLiPhongHocTDMU.DTO;
 
-namespace QuanLiPhongHocTDMU.DAL
+namespace QuanLiPhongHocTDMU
 {
     public class TraCuuDAL
     {
@@ -12,16 +13,20 @@ namespace QuanLiPhongHocTDMU.DAL
 
         public DataTable LayPhongHocTheoToaNha(string maToaNha)
         {
-            // Lấy hết phòng để test cho hiện 
             string sql = (maToaNha == "ALL")
                 ? "SELECT MaPhong, TenPhong, LoaiPhong, SucChua FROM PhongHoc"
                 : string.Format("SELECT MaPhong, TenPhong, LoaiPhong, SucChua FROM PhongHoc WHERE MaToaNha = '{0}'", maToaNha);
             return kn.ExecuteQuery(sql);
         }
 
+        // CẬP NHẬT: Lấy thêm tên Giảng viên đã đặt
         public DataTable LayPhongDaBiDat(string ngay, string ca)
         {
-            string sql = string.Format("SELECT MaPhong FROM LichDatPhong WHERE NgayDat = '{0}' AND CaHoc = {1} AND TrangThaiDuyet != N'Từ chối'", ngay, ca);
+            string sql = string.Format(@"
+                SELECT l.MaPhong, g.HoTen 
+                FROM LichDatPhong l 
+                JOIN GiangVien g ON l.MaGV = g.MaGV 
+                WHERE l.NgayDat = '{0}' AND l.CaHoc = {1} AND l.TrangThaiDuyet != N'Từ chối'", ngay, ca);
             return kn.ExecuteQuery(sql);
         }
 
@@ -35,6 +40,13 @@ namespace QuanLiPhongHocTDMU.DAL
         {
             string sql = string.Format("INSERT INTO LichDatPhong (MaPhong, MaGV, NgayDat, CaHoc, TietBatDau, TietKetThuc, MucDich, TrangThaiDuyet) VALUES ('{0}', '{1}', '{2}', {3}, {4}, {5}, N'{6}', N'{7}')",
                 ld.MaPhong, ld.MaGV, ld.NgayDat.ToString("yyyy-MM-dd"), ld.CaHoc, ld.TietBatDau, ld.TietKetThuc, ld.MucDich, ld.TrangThaiDuyet);
+            return kn.ExecuteNonQuery(sql);
+        }
+
+        // THÊM MỚI: Hàm xóa lịch đặt phòng
+        public bool XoaDatPhong(string maPhong, string ngay, string ca)
+        {
+            string sql = string.Format("DELETE FROM LichDatPhong WHERE MaPhong = '{0}' AND NgayDat = '{1}' AND CaHoc = {2}", maPhong, ngay, ca);
             return kn.ExecuteNonQuery(sql);
         }
     }

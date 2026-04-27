@@ -17,196 +17,309 @@
 
         private void InitializeComponent()
         {
-            this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
-            this.grpBoLoc = new System.Windows.Forms.GroupBox();
-            this.btnTraCuu = new System.Windows.Forms.Button();
-            this.cmbCa = new System.Windows.Forms.ComboBox();
-            this.dtpNgay = new System.Windows.Forms.DateTimePicker();
-            this.cmbToaNha = new System.Windows.Forms.ComboBox();
-            this.tableLayoutPanelContent = new System.Windows.Forms.TableLayoutPanel();
-            this.flpSoDo = new System.Windows.Forms.FlowLayoutPanel();
-            this.pnlDetail = new System.Windows.Forms.Panel();
-            this.lblLoaiPhong = new System.Windows.Forms.Label();
-            this.lblSucChua = new System.Windows.Forms.Label();
-            this.lblThietBiTitle = new System.Windows.Forms.Label();
-            this.lstThietBi = new System.Windows.Forms.ListBox();
-            this.lblPhongChonTitle = new System.Windows.Forms.Label();
-            this.txtPhongChon = new System.Windows.Forms.TextBox();
-            this.lblMucDichTitle = new System.Windows.Forms.Label();
-            this.txtMucDich = new System.Windows.Forms.TextBox();
-            this.lblGV = new System.Windows.Forms.Label();
-            this.cmbGiangVien = new System.Windows.Forms.ComboBox();
-            this.btnXacNhanDat = new System.Windows.Forms.Button();
-            this.tableLayoutPanelMain.SuspendLayout();
-            this.grpBoLoc.SuspendLayout();
-            this.tableLayoutPanelContent.SuspendLayout();
-            this.pnlDetail.SuspendLayout();
-            this.SuspendLayout();
+            tableLayoutPanelMain = new TableLayoutPanel();
+            grpBoLoc = new GroupBox();
+            btnTraCuu = new Button();
+            cmbCa = new ComboBox();
+            dtpNgay = new DateTimePicker();
+            cmbToaNha = new ComboBox();
+            tableLayoutPanelContent = new TableLayoutPanel();
+            flpSoDo = new FlowLayoutPanel();
+            pnlDetail = new Panel();
+            lblNguoiDat = new Label();
+            btnXoaDat = new Button();
+            lblLoaiPhong = new Label();
+            lblSucChua = new Label();
+            lblThietBiTitle = new Label();
+            lstThietBi = new ListBox();
+            lblPhongChonTitle = new Label();
+            txtPhongChon = new TextBox();
+            lblMucDichTitle = new Label();
+            txtMucDich = new TextBox();
+            lblGV = new Label();
+            cmbGiangVien = new ComboBox();
+            btnXacNhanDat = new Button();
+            tableLayoutPanelMain.SuspendLayout();
+            grpBoLoc.SuspendLayout();
+            tableLayoutPanelContent.SuspendLayout();
+            pnlDetail.SuspendLayout();
+            SuspendLayout();
             // 
-            // tableLayoutPanelMain (Chia hàng dọc: Lọc và Nội dung)
+            // tableLayoutPanelMain
             // 
-            this.tableLayoutPanelMain.ColumnCount = 1;
-            this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelMain.Controls.Add(this.grpBoLoc, 0, 0);
-            this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelContent, 0, 1);
-            this.tableLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanelMain.Name = "tableLayoutPanelMain";
-            this.tableLayoutPanelMain.RowCount = 2;
-            this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelMain.Size = new System.Drawing.Size(1200, 750);
+            tableLayoutPanelMain.ColumnCount = 1;
+            tableLayoutPanelMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanelMain.Controls.Add(grpBoLoc, 0, 0);
+            tableLayoutPanelMain.Controls.Add(tableLayoutPanelContent, 0, 1);
+            tableLayoutPanelMain.Dock = DockStyle.Fill;
+            tableLayoutPanelMain.Location = new Point(0, 0);
+            tableLayoutPanelMain.Margin = new Padding(3, 4, 3, 4);
+            tableLayoutPanelMain.Name = "tableLayoutPanelMain";
+            tableLayoutPanelMain.RowCount = 2;
+            tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 100F));
+            tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanelMain.Size = new Size(1200, 938);
+            tableLayoutPanelMain.TabIndex = 0;
             // 
             // grpBoLoc
             // 
-            this.grpBoLoc.Controls.Add(this.btnTraCuu);
-            this.grpBoLoc.Controls.Add(this.cmbCa);
-            this.grpBoLoc.Controls.Add(this.dtpNgay);
-            this.grpBoLoc.Controls.Add(this.cmbToaNha);
-            this.grpBoLoc.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpBoLoc.Location = new System.Drawing.Point(3, 3);
-            this.grpBoLoc.Name = "grpBoLoc";
-            this.grpBoLoc.Size = new System.Drawing.Size(1194, 74);
-            this.grpBoLoc.TabIndex = 0;
-            this.grpBoLoc.TabStop = false;
-            this.grpBoLoc.Text = "Bộ lọc tra cứu";
+            grpBoLoc.Controls.Add(btnTraCuu);
+            grpBoLoc.Controls.Add(cmbCa);
+            grpBoLoc.Controls.Add(dtpNgay);
+            grpBoLoc.Controls.Add(cmbToaNha);
+            grpBoLoc.Dock = DockStyle.Fill;
+            grpBoLoc.Location = new Point(3, 4);
+            grpBoLoc.Margin = new Padding(3, 4, 3, 4);
+            grpBoLoc.Name = "grpBoLoc";
+            grpBoLoc.Padding = new Padding(3, 4, 3, 4);
+            grpBoLoc.Size = new Size(1194, 92);
+            grpBoLoc.TabIndex = 0;
+            grpBoLoc.TabStop = false;
+            grpBoLoc.Text = "Bộ lọc tra cứu";
             // 
             // btnTraCuu
             // 
-            this.btnTraCuu.BackColor = System.Drawing.Color.DodgerBlue;
-            this.btnTraCuu.ForeColor = System.Drawing.Color.White;
-            this.btnTraCuu.Location = new System.Drawing.Point(550, 25);
-            this.btnTraCuu.Name = "btnTraCuu";
-            this.btnTraCuu.Size = new System.Drawing.Size(120, 35);
-            this.btnTraCuu.TabIndex = 3;
-            this.btnTraCuu.Text = "Xem Sơ Đồ";
-            this.btnTraCuu.UseVisualStyleBackColor = false;
-            this.btnTraCuu.Click += new System.EventHandler(this.btnTraCuu_Click);
+            btnTraCuu.BackColor = Color.DodgerBlue;
+            btnTraCuu.ForeColor = Color.White;
+            btnTraCuu.Location = new Point(550, 31);
+            btnTraCuu.Margin = new Padding(3, 4, 3, 4);
+            btnTraCuu.Name = "btnTraCuu";
+            btnTraCuu.Size = new Size(120, 44);
+            btnTraCuu.TabIndex = 3;
+            btnTraCuu.Text = "Xem Sơ Đồ";
+            btnTraCuu.UseVisualStyleBackColor = false;
+            btnTraCuu.Click += btnTraCuu_Click;
             // 
-            // cmbToaNha, dtpNgay, cmbCa
-            this.cmbToaNha.Location = new System.Drawing.Point(20, 30); this.cmbToaNha.Size = new System.Drawing.Size(160, 24);
-            this.dtpNgay.Location = new System.Drawing.Point(200, 30); this.dtpNgay.Size = new System.Drawing.Size(200, 24);
-            this.cmbCa.Location = new System.Drawing.Point(420, 30); this.cmbCa.Size = new System.Drawing.Size(100, 24);
+            // cmbCa
             // 
-            // tableLayoutPanelContent (Chia cột ngang: 75% Sơ đồ, 25% Chi tiết)
+            cmbCa.Location = new Point(420, 38);
+            cmbCa.Margin = new Padding(3, 4, 3, 4);
+            cmbCa.Name = "cmbCa";
+            cmbCa.Size = new Size(100, 28);
+            cmbCa.TabIndex = 2;
             // 
-            this.tableLayoutPanelContent.ColumnCount = 2;
-            this.tableLayoutPanelContent.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanelContent.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanelContent.Controls.Add(this.flpSoDo, 0, 0);
-            this.tableLayoutPanelContent.Controls.Add(this.pnlDetail, 1, 0);
-            this.tableLayoutPanelContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelContent.Location = new System.Drawing.Point(3, 83);
-            this.tableLayoutPanelContent.Name = "tableLayoutPanelContent";
-            this.tableLayoutPanelContent.RowCount = 1;
-            this.tableLayoutPanelContent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelContent.Size = new System.Drawing.Size(1194, 664);
+            // dtpNgay
+            // 
+            dtpNgay.Location = new Point(200, 38);
+            dtpNgay.Margin = new Padding(3, 4, 3, 4);
+            dtpNgay.Name = "dtpNgay";
+            dtpNgay.Size = new Size(200, 27);
+            dtpNgay.TabIndex = 1;
+            // 
+            // cmbToaNha
+            // 
+            cmbToaNha.Location = new Point(20, 38);
+            cmbToaNha.Margin = new Padding(3, 4, 3, 4);
+            cmbToaNha.Name = "cmbToaNha";
+            cmbToaNha.Size = new Size(160, 28);
+            cmbToaNha.TabIndex = 0;
+            // 
+            // tableLayoutPanelContent
+            // 
+            tableLayoutPanelContent.ColumnCount = 2;
+            tableLayoutPanelContent.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 75F));
+            tableLayoutPanelContent.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanelContent.Controls.Add(flpSoDo, 0, 0);
+            tableLayoutPanelContent.Controls.Add(pnlDetail, 1, 0);
+            tableLayoutPanelContent.Dock = DockStyle.Fill;
+            tableLayoutPanelContent.Location = new Point(3, 104);
+            tableLayoutPanelContent.Margin = new Padding(3, 4, 3, 4);
+            tableLayoutPanelContent.Name = "tableLayoutPanelContent";
+            tableLayoutPanelContent.RowCount = 1;
+            tableLayoutPanelContent.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanelContent.Size = new Size(1194, 830);
+            tableLayoutPanelContent.TabIndex = 1;
             // 
             // flpSoDo
             // 
-            this.flpSoDo.AutoScroll = true;
-            this.flpSoDo.BackColor = System.Drawing.Color.White;
-            this.flpSoDo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flpSoDo.Location = new System.Drawing.Point(3, 3);
-            this.flpSoDo.Name = "flpSoDo";
-            this.flpSoDo.Size = new System.Drawing.Size(889, 658);
+            flpSoDo.AutoScroll = true;
+            flpSoDo.BackColor = Color.White;
+            flpSoDo.Dock = DockStyle.Fill;
+            flpSoDo.Location = new Point(3, 4);
+            flpSoDo.Margin = new Padding(3, 4, 3, 4);
+            flpSoDo.Name = "flpSoDo";
+            flpSoDo.Size = new Size(889, 822);
+            flpSoDo.TabIndex = 0;
             // 
-            // pnlDetail (KHUNG THÔNG TIN CHI TIẾT BÊN PHẢI)
+            // pnlDetail
             // 
-            this.pnlDetail.BackColor = System.Drawing.SystemColors.Control;
-            this.pnlDetail.Controls.Add(this.lblLoaiPhong);
-            this.pnlDetail.Controls.Add(this.lblSucChua);
-            this.pnlDetail.Controls.Add(this.lblThietBiTitle);
-            this.pnlDetail.Controls.Add(this.lstThietBi);
-            this.pnlDetail.Controls.Add(this.lblPhongChonTitle);
-            this.pnlDetail.Controls.Add(this.txtPhongChon);
-            this.pnlDetail.Controls.Add(this.lblMucDichTitle);
-            this.pnlDetail.Controls.Add(this.txtMucDich);
-            this.pnlDetail.Controls.Add(this.lblGV);
-            this.pnlDetail.Controls.Add(this.cmbGiangVien);
-            this.pnlDetail.Controls.Add(this.btnXacNhanDat);
-            this.pnlDetail.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlDetail.Location = new System.Drawing.Point(898, 3);
-            this.pnlDetail.Name = "pnlDetail";
-            this.pnlDetail.Padding = new System.Windows.Forms.Padding(15);
-            this.pnlDetail.Size = new System.Drawing.Size(293, 658);
+            pnlDetail.BackColor = SystemColors.Control;
+            pnlDetail.Controls.Add(lblNguoiDat);
+            pnlDetail.Controls.Add(btnXoaDat);
+            pnlDetail.Controls.Add(lblLoaiPhong);
+            pnlDetail.Controls.Add(lblSucChua);
+            pnlDetail.Controls.Add(lblThietBiTitle);
+            pnlDetail.Controls.Add(lstThietBi);
+            pnlDetail.Controls.Add(lblPhongChonTitle);
+            pnlDetail.Controls.Add(txtPhongChon);
+            pnlDetail.Controls.Add(lblMucDichTitle);
+            pnlDetail.Controls.Add(txtMucDich);
+            pnlDetail.Controls.Add(lblGV);
+            pnlDetail.Controls.Add(cmbGiangVien);
+            pnlDetail.Controls.Add(btnXacNhanDat);
+            pnlDetail.Dock = DockStyle.Fill;
+            pnlDetail.Location = new Point(898, 4);
+            pnlDetail.Margin = new Padding(3, 4, 3, 4);
+            pnlDetail.Name = "pnlDetail";
+            pnlDetail.Padding = new Padding(15, 19, 15, 19);
+            pnlDetail.Size = new Size(293, 822);
+            pnlDetail.TabIndex = 1;
             // 
-            // lblLoaiPhong & lblSucChua
-            this.lblLoaiPhong.AutoSize = true;
-            this.lblLoaiPhong.Location = new System.Drawing.Point(20, 20);
-            this.lblLoaiPhong.Text = "Loại phòng: -";
-            this.lblLoaiPhong.ForeColor = System.Drawing.Color.Blue;
-
-            this.lblSucChua.AutoSize = true;
-            this.lblSucChua.Location = new System.Drawing.Point(20, 50);
-            this.lblSucChua.Text = "Sức chứa: -";
-            this.lblSucChua.ForeColor = System.Drawing.Color.Blue;
-
-            // Thiết bị
-            this.lblThietBiTitle.AutoSize = true;
-            this.lblThietBiTitle.Location = new System.Drawing.Point(20, 90);
-            this.lblThietBiTitle.Text = "Thiết bị có sẵn:";
-
-            this.lstThietBi.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.lstThietBi.Location = new System.Drawing.Point(20, 115);
-            this.lstThietBi.Size = new System.Drawing.Size(250, 120);
-
-            // Phòng chọn
-            this.lblPhongChonTitle.AutoSize = true;
-            this.lblPhongChonTitle.Location = new System.Drawing.Point(20, 255);
-            this.lblPhongChonTitle.Text = "Phòng đã chọn:";
-
-            this.txtPhongChon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPhongChon.Location = new System.Drawing.Point(130, 252);
-            this.txtPhongChon.ReadOnly = true;
-            this.txtPhongChon.Size = new System.Drawing.Size(140, 22);
-
-            // Mục đích
-            this.lblMucDichTitle.AutoSize = true;
-            this.lblMucDichTitle.Location = new System.Drawing.Point(20, 290);
-            this.lblMucDichTitle.Text = "Mục đích sử dụng:";
-
-            this.txtMucDich.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMucDich.Location = new System.Drawing.Point(20, 315);
-            this.txtMucDich.Multiline = true;
-            this.txtMucDich.Size = new System.Drawing.Size(250, 60);
-
-            // Giảng viên
-            this.lblGV.AutoSize = true;
-            this.lblGV.Location = new System.Drawing.Point(20, 390);
-            this.lblGV.Text = "Giảng viên mượn:";
-
-            this.cmbGiangVien.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbGiangVien.Location = new System.Drawing.Point(20, 415);
-            this.cmbGiangVien.Size = new System.Drawing.Size(250, 24);
-
-            // Nút đăng ký
-            this.btnXacNhanDat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnXacNhanDat.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.btnXacNhanDat.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btnXacNhanDat.ForeColor = System.Drawing.Color.White;
-            this.btnXacNhanDat.Location = new System.Drawing.Point(20, 470);
-            this.btnXacNhanDat.Name = "btnXacNhanDat";
-            this.btnXacNhanDat.Size = new System.Drawing.Size(250, 45);
-            this.btnXacNhanDat.Text = "ĐĂNG KÝ PHÒNG";
-            this.btnXacNhanDat.UseVisualStyleBackColor = false;
-            this.btnXacNhanDat.Click += new System.EventHandler(this.btnXacNhanDat_Click);
+            // lblNguoiDat
+            // 
+            lblNguoiDat.AutoSize = true;
+            lblNguoiDat.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblNguoiDat.ForeColor = Color.Crimson;
+            lblNguoiDat.Location = new Point(20, 292);
+            lblNguoiDat.Name = "lblNguoiDat";
+            lblNguoiDat.Size = new Size(126, 18);
+            lblNguoiDat.TabIndex = 11;
+            lblNguoiDat.Text = "Người đang đặt:";
+            lblNguoiDat.Visible = false;
+            // 
+            // btnXoaDat
+            // 
+            btnXoaDat.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            btnXoaDat.BackColor = Color.Crimson;
+            btnXoaDat.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnXoaDat.ForeColor = Color.White;
+            btnXoaDat.Location = new Point(20, 662);
+            btnXoaDat.Margin = new Padding(3, 4, 3, 4);
+            btnXoaDat.Name = "btnXoaDat";
+            btnXoaDat.Size = new Size(250, 56);
+            btnXoaDat.TabIndex = 12;
+            btnXoaDat.Text = "HỦY LỊCH ĐẶT";
+            btnXoaDat.UseVisualStyleBackColor = false;
+            btnXoaDat.Visible = false;
+            btnXoaDat.Click += btnXoaDat_Click;
+            // 
+            // lblLoaiPhong
+            // 
+            lblLoaiPhong.AutoSize = true;
+            lblLoaiPhong.ForeColor = Color.Blue;
+            lblLoaiPhong.Location = new Point(20, 25);
+            lblLoaiPhong.Name = "lblLoaiPhong";
+            lblLoaiPhong.Size = new Size(97, 20);
+            lblLoaiPhong.TabIndex = 0;
+            lblLoaiPhong.Text = "Loại phòng: -";
+            // 
+            // lblSucChua
+            // 
+            lblSucChua.AutoSize = true;
+            lblSucChua.ForeColor = Color.Blue;
+            lblSucChua.Location = new Point(20, 62);
+            lblSucChua.Name = "lblSucChua";
+            lblSucChua.Size = new Size(82, 20);
+            lblSucChua.TabIndex = 1;
+            lblSucChua.Text = "Sức chứa: -";
+            // 
+            // lblThietBiTitle
+            // 
+            lblThietBiTitle.AutoSize = true;
+            lblThietBiTitle.Location = new Point(20, 112);
+            lblThietBiTitle.Name = "lblThietBiTitle";
+            lblThietBiTitle.Size = new Size(108, 20);
+            lblThietBiTitle.TabIndex = 2;
+            lblThietBiTitle.Text = "Thiết bị có sẵn:";
+            // 
+            // lstThietBi
+            // 
+            lstThietBi.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            lstThietBi.FormattingEnabled = true;
+            lstThietBi.Location = new Point(20, 144);
+            lstThietBi.Margin = new Padding(3, 4, 3, 4);
+            lstThietBi.Name = "lstThietBi";
+            lstThietBi.Size = new Size(250, 124);
+            lstThietBi.TabIndex = 3;
+            // 
+            // lblPhongChonTitle
+            // 
+            lblPhongChonTitle.AutoSize = true;
+            lblPhongChonTitle.Location = new Point(20, 346);
+            lblPhongChonTitle.Name = "lblPhongChonTitle";
+            lblPhongChonTitle.Size = new Size(111, 20);
+            lblPhongChonTitle.TabIndex = 4;
+            lblPhongChonTitle.Text = "Phòng đã chọn:";
+            // 
+            // txtPhongChon
+            // 
+            txtPhongChon.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtPhongChon.Location = new Point(130, 339);
+            txtPhongChon.Margin = new Padding(3, 4, 3, 4);
+            txtPhongChon.Name = "txtPhongChon";
+            txtPhongChon.ReadOnly = true;
+            txtPhongChon.Size = new Size(140, 27);
+            txtPhongChon.TabIndex = 5;
+            // 
+            // lblMucDichTitle
+            // 
+            lblMucDichTitle.AutoSize = true;
+            lblMucDichTitle.Location = new Point(20, 378);
+            lblMucDichTitle.Name = "lblMucDichTitle";
+            lblMucDichTitle.Size = new Size(129, 20);
+            lblMucDichTitle.TabIndex = 6;
+            lblMucDichTitle.Text = "Mục đích sử dụng:";
+            // 
+            // txtMucDich
+            // 
+            txtMucDich.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtMucDich.Location = new Point(20, 419);
+            txtMucDich.Margin = new Padding(3, 4, 3, 4);
+            txtMucDich.Multiline = true;
+            txtMucDich.Name = "txtMucDich";
+            txtMucDich.Size = new Size(250, 74);
+            txtMucDich.TabIndex = 7;
+            // 
+            // lblGV
+            // 
+            lblGV.AutoSize = true;
+            lblGV.Location = new Point(20, 497);
+            lblGV.Name = "lblGV";
+            lblGV.Size = new Size(125, 20);
+            lblGV.TabIndex = 8;
+            lblGV.Text = "Giảng viên mượn:";
+            // 
+            // cmbGiangVien
+            // 
+            cmbGiangVien.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            cmbGiangVien.FormattingEnabled = true;
+            cmbGiangVien.Location = new Point(20, 532);
+            cmbGiangVien.Margin = new Padding(3, 4, 3, 4);
+            cmbGiangVien.Name = "cmbGiangVien";
+            cmbGiangVien.Size = new Size(250, 28);
+            cmbGiangVien.TabIndex = 9;
+            // 
+            // btnXacNhanDat
+            // 
+            btnXacNhanDat.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            btnXacNhanDat.BackColor = Color.MediumSeaGreen;
+            btnXacNhanDat.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnXacNhanDat.ForeColor = Color.White;
+            btnXacNhanDat.Location = new Point(20, 598);
+            btnXacNhanDat.Margin = new Padding(3, 4, 3, 4);
+            btnXacNhanDat.Name = "btnXacNhanDat";
+            btnXacNhanDat.Size = new Size(250, 56);
+            btnXacNhanDat.TabIndex = 10;
+            btnXacNhanDat.Text = "ĐĂNG KÝ PHÒNG";
+            btnXacNhanDat.UseVisualStyleBackColor = false;
+            btnXacNhanDat.Click += btnXacNhanDat_Click;
             // 
             // frmTraCuu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1200, 750);
-            this.Controls.Add(this.tableLayoutPanelMain);
-            this.Name = "frmTraCuu";
-            this.Text = "Hệ thống Quản lý Phòng học TDMU - Tra Cứu";
-            this.Load += new System.EventHandler(this.frmTraCuu_Load);
-            this.tableLayoutPanelMain.ResumeLayout(false);
-            this.grpBoLoc.ResumeLayout(false);
-            this.tableLayoutPanelContent.ResumeLayout(false);
-            this.pnlDetail.ResumeLayout(false);
-            this.pnlDetail.PerformLayout();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1200, 938);
+            Controls.Add(tableLayoutPanelMain);
+            Margin = new Padding(3, 4, 3, 4);
+            Name = "frmTraCuu";
+            Text = "Hệ thống Quản lý Phòng học TDMU - Tra Cứu";
+            Load += frmTraCuu_Load;
+            tableLayoutPanelMain.ResumeLayout(false);
+            grpBoLoc.ResumeLayout(false);
+            tableLayoutPanelContent.ResumeLayout(false);
+            pnlDetail.ResumeLayout(false);
+            pnlDetail.PerformLayout();
+            ResumeLayout(false);
 
         }
 
@@ -225,6 +338,7 @@
         private System.Windows.Forms.Label lblSucChua;
         private System.Windows.Forms.Label lblThietBiTitle;
         private System.Windows.Forms.ListBox lstThietBi;
+        private System.Windows.Forms.Label lblNguoiDat;
         private System.Windows.Forms.Label lblPhongChonTitle;
         private System.Windows.Forms.TextBox txtPhongChon;
         private System.Windows.Forms.Label lblMucDichTitle;
@@ -232,5 +346,6 @@
         private System.Windows.Forms.Label lblGV;
         private System.Windows.Forms.ComboBox cmbGiangVien;
         private System.Windows.Forms.Button btnXacNhanDat;
+        private System.Windows.Forms.Button btnXoaDat;
     }
 }

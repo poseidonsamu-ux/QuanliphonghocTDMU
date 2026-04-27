@@ -18,10 +18,19 @@ namespace QuanLiPhongHocTDMU
         {
             LoadComboBoxPhong();
 
-            // Kiểm tra quyền từ form Đăng nhập (vẫn giữ static Role của bạn)
-            if (frmDangNhap.Role == "GiangVien")
+            string role = frmDangNhap.Role;
+            // Ẩn hiện theo quyền
+            if (role == "GiangVien" || role == "Giảng Viên" || role == "Giảng viên")
             {
-                btnDaSua.Visible = false;
+                btnDaSua.Visible = false; // GV không được sửa
+                lblSoLuongHong.Visible = true; // Hiện ô nhập số lượng cho GV
+                numSoLuongHong.Visible = true;
+            }
+            else
+            {
+                btnDaSua.Visible = true; // Admin được ấn đã sửa xong
+                lblSoLuongHong.Visible = false; // Ẩn chọn số lượng
+                numSoLuongHong.Visible = false;
             }
         }
 
@@ -45,6 +54,17 @@ namespace QuanLiPhongHocTDMU
             }
         }
 
+        // Sự kiện này giúp giới hạn số lượng hư hỏng không vượt quá số lượng thực tế
+        private void dgvThietBi_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvThietBi.CurrentRow != null)
+            {
+                int maxSoLuong = Convert.ToInt32(dgvThietBi.CurrentRow.Cells["Số Lượng"].Value);
+                numSoLuongHong.Maximum = maxSoLuong > 0 ? maxSoLuong : 1;
+                numSoLuongHong.Value = 1; // Mặc định mỗi lần bấm là 1
+            }
+        }
+
         private void btnBaoHong_Click(object sender, EventArgs e)
         {
             if (dgvThietBi.CurrentRow != null)
@@ -53,11 +73,15 @@ namespace QuanLiPhongHocTDMU
                 string maPhong = cmbPhong.SelectedValue.ToString();
                 string tinhTrang = dgvThietBi.CurrentRow.Cells["Tình Trạng"].Value.ToString();
 
-                string ketQua = bll.BaoHongThietBi(maPhong, maTB, tinhTrang);
+                // Lấy số lượng từ Form
+                int soLuongHong = (int)numSoLuongHong.Value;
+
+                // Truyền số lượng xuống BLL
+                string ketQua = bll.BaoHongThietBi(maPhong, maTB, tinhTrang, soLuongHong);
 
                 if (ketQua == "Thành công")
                 {
-                    MessageBox.Show("Đã ghi nhận sự cố thiết bị. Ban quản lý sẽ xử lý sớm!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"Đã báo hỏng {soLuongHong} thiết bị. BQL sẽ xử lý sớm!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadThietBiTrongPhong();
                 }
                 else

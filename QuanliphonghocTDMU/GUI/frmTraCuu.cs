@@ -40,7 +40,6 @@ namespace QuanLiPhongHocTDMU
                     if (cmbGiangVien != null) cmbGiangVien.Visible = false;
                 }
 
-                // Tự động bấm nút Xem sơ đồ khi vừa mở Form
                 btnTraCuu_Click(null, null);
             }
             catch { }
@@ -50,6 +49,10 @@ namespace QuanLiPhongHocTDMU
         {
             if (flpSoDo == null) return;
             flpSoDo.Controls.Clear();
+            txtPhongChon.Text = "";
+            lblNguoiDat.Visible = false;
+            btnXoaDat.Visible = false;
+            btnXacNhanDat.Enabled = true;
 
             string maTN = cmbToaNha.SelectedValue?.ToString() ?? "ALL";
             if (maTN == "System.Data.DataRowView") maTN = "ALL";
@@ -64,24 +67,32 @@ namespace QuanLiPhongHocTDMU
                 btn.FlatAppearance.BorderSize = 1;
                 btn.Font = new Font("Segoe UI", 8, FontStyle.Bold);
 
-                bool isBan = dtDat.Select(string.Format("MaPhong = '{0}'", ma)).Length > 0;
+                bool isBan = false;
+                string tenGVDat = "";
+
+                // Kiểm tra xem phòng này có trong danh sách bị đặt không
+                DataRow[] dongDat = dtDat.Select(string.Format("MaPhong = '{0}'", ma));
+                if (dongDat.Length > 0)
+                {
+                    isBan = true;
+                    tenGVDat = dongDat[0]["HoTen"].ToString(); // Lấy tên Giảng viên đã đặt
+                }
+
                 btn.BackColor = isBan ? Color.Orange : Color.LightBlue;
                 btn.Text = ma + (isBan ? "\n(Bận)" : "\n(Trống)");
 
-                // SỰ KIỆN KHI CLICK VÀO TỪNG NÚT PHÒNG
+                // SỰ KIỆN CLICK VÀO TỪNG NÚT PHÒNG
                 btn.Click += (s, ev) => {
                     lblLoaiPhong.Text = "Loại: " + r["LoaiPhong"];
                     lblSucChua.Text = "Sức chứa: " + r["SucChua"];
-                    txtPhongChon.Text = isBan ? "" : ma;
+                    txtPhongChon.Text = ma; // Luôn hiển thị tên phòng để biết đang chọn phòng nào
 
-                    // --- ĐOẠN FIX LỖI HIỂN THỊ THIẾT BỊ ---
-                    lstThietBi.Items.Clear(); // Xóa trắng danh sách cũ
-                    DataTable dtTB = bll.GetThietBi(ma); // Gọi BLL lấy thiết bị của phòng này
+                    lstThietBi.Items.Clear();
+                    DataTable dtTB = bll.GetThietBi(ma);
                     if (dtTB != null && dtTB.Rows.Count > 0)
                     {
                         foreach (DataRow rowTB in dtTB.Rows)
                         {
-                            // Thêm từng thiết bị vào ListBox
                             lstThietBi.Items.Add(string.Format("{0} (SL: {1})", rowTB["TenTB"], rowTB["SoLuong"]));
                         }
                     }
@@ -89,9 +100,27 @@ namespace QuanLiPhongHocTDMU
                     {
                         lstThietBi.Items.Add("Phòng chưa có thiết bị.");
                     }
-                    // ---------------------------------------
 
-                    if (isBan) MessageBox.Show("Phòng này đã có lịch đặt, vui lòng chọn phòng khác màu xanh!", "Thông báo");
+                    // Nếu phòng màu Cam (Đã Bận)
+                    if (isBan)
+                    {
+                        lblNguoiDat.Text = "Người đặt: " + tenGVDat;
+                        lblNguoiDat.Visible = true;
+                        btnXacNhanDat.Enabled = false; // Khóa nút Đăng ký
+
+                        // Chỉ Admin mới được quyền xóa
+                        if (frmDangNhap.Role == "Admin")
+                        {
+                            btnXoaDat.Visible = true;
+                        }
+                    }
+                    // Nếu phòng màu Xanh (Còn Trống)
+                    else
+                    {
+                        lblNguoiDat.Visible = false;
+                        btnXoaDat.Visible = false;
+                        btnXacNhanDat.Enabled = true; // Mở lại nút Đăng ký
+                    }
                 };
 
                 flpSoDo.Controls.Add(btn);
@@ -119,7 +148,30 @@ namespace QuanLiPhongHocTDMU
             if (bll.ThucHienDatPhong(ld))
             {
                 MessageBox.Show("Đăng ký thành công!");
-                btnTraCuu_Click(null, null); // Load lại sơ đồ để cập nhật màu cam
+                btnTraCuu_Click(null, null); // Load lại sơ đồ
+            }
+        }
+
+        // SỰ KIỆN KHI BẤM NÚT "HỦY LỊCH ĐẶT" (CHỈ DÀNH CHO ADMIN)
+        private void btnXoaDat_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtPhongChon.Text)) return;
+            string maPhong = txtPhongChon.Text;
+            string ngay = dtpNgay.Value.ToString("yyyy-MM-dd");
+            string ca = cmbCa.Text;
+
+            DialogResult dr = MessageBox.Show($"Bạn có chắc chắn muốn HỦY lịch đặt của phòng {maPhong} (Ca {ca} - Ngày {dtpNgay.Value.ToString("dd/MM/yyyy")}) không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (dr == DialogResult.Yes)
+            {
+                if (bll.HuyDatPhong(maPhong, ngay, ca))
+                {
+                    MessageBox.Show("Đã hủy lịch đặt phòng thành công!");
+                    btnTraCuu_Click(null, null); // Gọi lại để load lại màu sơ đồ
+                }
+                else
+                {
+                    MessageBox.Show("Có lỗi xảy ra khi hủy lịch đặt!");
+                }
             }
         }
     }

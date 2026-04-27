@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using QuanLiPhongHocTDMU.DAL;
 
-namespace QuanLiPhongHocTDMU.BLL
+namespace QuanLiPhongHocTDMU
 {
     public class BaoCaoSuCoBLL
     {
@@ -18,12 +18,14 @@ namespace QuanLiPhongHocTDMU.BLL
             return dal.LayThietBiTheoPhong(maPhong);
         }
 
-        public string BaoHongThietBi(string maPhong, string maTB, string tinhTrangHienTai)
+        public string BaoHongThietBi(string maPhong, string maTB, string tinhTrangHienTai, int soLuongHong)
         {
-            if (tinhTrangHienTai == "Hư hỏng")
+            if (tinhTrangHienTai.Contains("Hư hỏng"))
                 return "Thiết bị này đã được báo hỏng trước đó rồi!";
 
-            bool kq = dal.CapNhatTinhTrang(maPhong, maTB, "Hư hỏng");
+            string trangThaiMoi = "Hư hỏng (" + soLuongHong + " cái)";
+
+            bool kq = dal.CapNhatTinhTrang(maPhong, maTB, trangThaiMoi);
             return kq ? "Thành công" : "Lỗi khi cập nhật trạng thái!";
         }
 
