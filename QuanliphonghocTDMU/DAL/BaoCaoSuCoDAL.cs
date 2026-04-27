@@ -1,15 +1,14 @@
 ﻿using System.Data;
+using QuanLiPhongHocTDMU;
+using QuanLiPhongHocTDMU.DAL;
 
-namespace QuanLiPhongHocTDMU.DAL
+namespace QuanLiPhongHocTDMU
 {
     public class BaoCaoSuCoDAL
     {
         KetNoiCSDL kn = new KetNoiCSDL();
 
-        public DataTable LayDanhSachPhong()
-        {
-            return kn.ExecuteQuery("SELECT MaPhong, TenPhong FROM PhongHoc");
-        }
+        public DataTable LayDanhSachPhong() => kn.ExecuteQuery("SELECT MaPhong, TenPhong FROM PhongHoc");
 
         public DataTable LayThietBiTheoPhong(string maPhong)
         {
@@ -19,6 +18,19 @@ namespace QuanLiPhongHocTDMU.DAL
                 FROM TrangBiPhong tbp
                 JOIN ThietBi tb ON tbp.MaTB = tb.MaTB
                 WHERE tbp.MaPhong = '{0}'", maPhong);
+            return kn.ExecuteQuery(sql);
+        }
+
+        public DataTable LayTatCaThietBiLoi()
+        {
+            string sql = @"
+                SELECT tbp.MaPhong AS [Mã Phòng], p.TenPhong AS [Tên Phòng],
+                       tb.MaTB AS [Mã TB], tb.TenTB AS [Tên Thiết Bị], 
+                       tbp.SoLuong AS [Số Lượng], tbp.TinhTrang AS [Tình Trạng]
+                FROM TrangBiPhong tbp
+                JOIN ThietBi tb ON tbp.MaTB = tb.MaTB
+                JOIN PhongHoc p ON tbp.MaPhong = p.MaPhong
+                WHERE tbp.TinhTrang LIKE N'%Hư hỏng%'";
             return kn.ExecuteQuery(sql);
         }
 

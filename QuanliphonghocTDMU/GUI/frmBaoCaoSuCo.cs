@@ -8,101 +8,57 @@ namespace QuanLiPhongHocTDMU
     public partial class frmBaoCaoSuCo : Form
     {
         BaoCaoSuCoBLL bll = new BaoCaoSuCoBLL();
-
-        public frmBaoCaoSuCo()
-        {
-            InitializeComponent();
-        }
+        public frmBaoCaoSuCo() { InitializeComponent(); }
 
         private void frmBaoCaoSuCo_Load(object sender, EventArgs e)
         {
             LoadComboBoxPhong();
-
-            string role = frmDangNhap.Role;
-            // Ẩn hiện theo quyền
-            if (role == "GiangVien" || role == "Giảng Viên" || role == "Giảng viên")
+            if (frmDangNhap.Role == "Admin")
             {
-                btnDaSua.Visible = false; // GV không được sửa
-                lblSoLuongHong.Visible = true; // Hiện ô nhập số lượng cho GV
-                numSoLuongHong.Visible = true;
+                btnDaSua.Visible = true; lblSoLuongHong.Visible = false; numSoLuongHong.Visible = false;
+                dgvThietBi.DataSource = bll.GetTatCaLoi(); // Hiện sớ táo quân đồ hư toàn trường
             }
             else
             {
-                btnDaSua.Visible = true; // Admin được ấn đã sửa xong
-                lblSoLuongHong.Visible = false; // Ẩn chọn số lượng
-                numSoLuongHong.Visible = false;
+                btnDaSua.Visible = false; lblSoLuongHong.Visible = true; numSoLuongHong.Visible = true;
+                LoadThietBiTrongPhong();
             }
         }
 
-        private void LoadComboBoxPhong()
-        {
-            cmbPhong.DataSource = bll.GetPhong();
-            cmbPhong.DisplayMember = "TenPhong";
-            cmbPhong.ValueMember = "MaPhong";
-        }
+        private void LoadComboBoxPhong() { cmbPhong.DataSource = bll.GetPhong(); cmbPhong.DisplayMember = "TenPhong"; cmbPhong.ValueMember = "MaPhong"; }
 
-        private void cmbPhong_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            LoadThietBiTrongPhong();
-        }
+        private void cmbPhong_SelectedIndexChanged(object sender, EventArgs e) => LoadThietBiTrongPhong();
 
         private void LoadThietBiTrongPhong()
         {
             if (cmbPhong.SelectedValue != null && !(cmbPhong.SelectedValue is DataRowView))
-            {
                 dgvThietBi.DataSource = bll.GetThietBiByPhong(cmbPhong.SelectedValue.ToString());
-            }
         }
 
-        // Sự kiện này giúp giới hạn số lượng hư hỏng không vượt quá số lượng thực tế
         private void dgvThietBi_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvThietBi.CurrentRow != null)
-            {
-                int maxSoLuong = Convert.ToInt32(dgvThietBi.CurrentRow.Cells["Số Lượng"].Value);
-                numSoLuongHong.Maximum = maxSoLuong > 0 ? maxSoLuong : 1;
-                numSoLuongHong.Value = 1; // Mặc định mỗi lần bấm là 1
-            }
+            if (dgvThietBi.CurrentRow != null && dgvThietBi.CurrentRow.Cells["Số Lượng"].Value != null)
+                numSoLuongHong.Maximum = Convert.ToInt32(dgvThietBi.CurrentRow.Cells["Số Lượng"].Value);
         }
 
         private void btnBaoHong_Click(object sender, EventArgs e)
         {
-            if (dgvThietBi.CurrentRow != null)
-            {
-                string maTB = dgvThietBi.CurrentRow.Cells["Mã TB"].Value.ToString();
-                string maPhong = cmbPhong.SelectedValue.ToString();
-                string tinhTrang = dgvThietBi.CurrentRow.Cells["Tình Trạng"].Value.ToString();
-
-                // Lấy số lượng từ Form
-                int soLuongHong = (int)numSoLuongHong.Value;
-
-                // Truyền số lượng xuống BLL
-                string ketQua = bll.BaoHongThietBi(maPhong, maTB, tinhTrang, soLuongHong);
-
-                if (ketQua == "Thành công")
-                {
-                    MessageBox.Show($"Đã báo hỏng {soLuongHong} thiết bị. BQL sẽ xử lý sớm!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadThietBiTrongPhong();
-                }
-                else
-                {
-                    MessageBox.Show(ketQua, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
+            if (dgvThietBi.CurrentRow == null) return;
+            // SỬA LỖI CS1503: Dùng Columns.Contains thay vì Cells.Contains
+            string maP = dgvThietBi.Columns.Contains("Mã Phòng") ? dgvThietBi.CurrentRow.Cells["Mã Phòng"].Value.ToString() : cmbPhong.SelectedValue.ToString();
+            string kq = bll.BaoHongThietBi(maP, dgvThietBi.CurrentRow.Cells["Mã TB"].Value.ToString(), dgvThietBi.CurrentRow.Cells["Tình Trạng"].Value.ToString(), (int)numSoLuongHong.Value);
+            if (kq == "Thành công") { MessageBox.Show("Đã báo hỏng!"); LoadThietBiTrongPhong(); }
         }
 
         private void btnDaSua_Click(object sender, EventArgs e)
         {
-            if (dgvThietBi.CurrentRow != null)
+            if (dgvThietBi.CurrentRow == null) return;
+            // SỬA LỖI CS1503
+            string maP = dgvThietBi.Columns.Contains("Mã Phòng") ? dgvThietBi.CurrentRow.Cells["Mã Phòng"].Value.ToString() : cmbPhong.SelectedValue.ToString();
+            if (bll.SuaXongThietBi(maP, dgvThietBi.CurrentRow.Cells["Mã TB"].Value.ToString()))
             {
-                string maTB = dgvThietBi.CurrentRow.Cells["Mã TB"].Value.ToString();
-                string maPhong = cmbPhong.SelectedValue.ToString();
-
-                if (bll.SuaXongThietBi(maPhong, maTB))
-                {
-                    MessageBox.Show("Đã cập nhật trạng thái thiết bị thành: Bình thường!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadThietBiTrongPhong();
-                }
+                MessageBox.Show("Sửa xong!");
+                if (frmDangNhap.Role == "Admin") dgvThietBi.DataSource = bll.GetTatCaLoi(); else LoadThietBiTrongPhong();
             }
         }
     }

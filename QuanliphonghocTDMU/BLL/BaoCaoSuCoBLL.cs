@@ -6,32 +6,17 @@ namespace QuanLiPhongHocTDMU
     public class BaoCaoSuCoBLL
     {
         BaoCaoSuCoDAL dal = new BaoCaoSuCoDAL();
+        public DataTable GetPhong() => dal.LayDanhSachPhong();
+        public DataTable GetThietBiByPhong(string maP) => dal.LayThietBiTheoPhong(maP);
+        public DataTable GetTatCaLoi() => dal.LayTatCaThietBiLoi();
 
-        public DataTable GetPhong()
+        public string BaoHongThietBi(string maP, string maTB, string tinhTrangHienTai, int sl)
         {
-            return dal.LayDanhSachPhong();
+            if (tinhTrangHienTai.Contains("Hư hỏng")) return "Đồ này đã báo hỏng rồi!";
+            string ttMoi = "Hư hỏng (" + sl + " cái)";
+            return dal.CapNhatTinhTrang(maP, maTB, ttMoi) ? "Thành công" : "Lỗi hệ thống!";
         }
 
-        public DataTable GetThietBiByPhong(string maPhong)
-        {
-            if (string.IsNullOrEmpty(maPhong)) return null;
-            return dal.LayThietBiTheoPhong(maPhong);
-        }
-
-        public string BaoHongThietBi(string maPhong, string maTB, string tinhTrangHienTai, int soLuongHong)
-        {
-            if (tinhTrangHienTai.Contains("Hư hỏng"))
-                return "Thiết bị này đã được báo hỏng trước đó rồi!";
-
-            string trangThaiMoi = "Hư hỏng (" + soLuongHong + " cái)";
-
-            bool kq = dal.CapNhatTinhTrang(maPhong, maTB, trangThaiMoi);
-            return kq ? "Thành công" : "Lỗi khi cập nhật trạng thái!";
-        }
-
-        public bool SuaXongThietBi(string maPhong, string maTB)
-        {
-            return dal.CapNhatTinhTrang(maPhong, maTB, "Bình thường");
-        }
+        public bool SuaXongThietBi(string maP, string maTB) => dal.CapNhatTinhTrang(maP, maTB, "Bình thường");
     }
 }
