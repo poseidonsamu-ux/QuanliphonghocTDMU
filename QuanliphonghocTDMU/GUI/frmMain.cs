@@ -27,27 +27,31 @@ namespace QuanLiPhongHocTDMU
 
         private void SetupLoiChao(string role)
         {
+    
             if (role == "Admin")
             {
                 lblLoiChao.Text = "Xin chào Admin!";
-                lblHuongDan.Text = "Hãy lựa chọn các chức năng quản trị hệ thống bên dưới để bắt đầu công việc.";
-                lblLoiChao.ForeColor = System.Drawing.Color.DodgerBlue;
+                lblLoiChao.ForeColor = Color.FromArgb(0, 126, 249); 
             }
             else if (role == "GiangVien")
             {
                 lblLoiChao.Text = "Xin chào Giảng viên!";
-                lblHuongDan.Text = "Bạn hãy lựa chọn các chức năng để cập nhật lịch dạy, báo cáo sự cố hoặc tra cứu thiết bị phòng học.";
-                lblLoiChao.ForeColor = System.Drawing.Color.SeaGreen;
+                lblLoiChao.ForeColor = Color.FromArgb(95, 210, 161);
             }
             else
             {
                 lblLoiChao.Text = "Xin chào!";
-                lblHuongDan.Text = "Vui lòng chọn chức năng từ menu để tiếp tục.";
+                lblLoiChao.ForeColor = Color.White;
             }
+
+            lblHuongDan.Text = role == "Admin" ? "Hệ thống quản trị đã sẵn sàng." : "Vui lòng chọn chức năng để tiếp tục.";
 
             lblLoiChao.Visible = true;
             lblHuongDan.Visible = true;
             if (picHome != null) picHome.Visible = true;
+
+            // Cập nhật màu nền cho Panel Content đồng bộ
+            pnlContent.BackColor = Color.FromArgb(34, 33, 74);
         }
 
         private void PhanQuyen(string role)

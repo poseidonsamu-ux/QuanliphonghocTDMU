@@ -64,28 +64,28 @@
             // mnuDangNhap
             // 
             mnuDangNhap.Name = "mnuDangNhap";
-            mnuDangNhap.Size = new Size(183, 26);
+            mnuDangNhap.Size = new Size(224, 26);
             mnuDangNhap.Text = "Đăng Nhập";
             mnuDangNhap.Click += mnuDangNhap_Click;
             // 
             // mnuDangXuat
             // 
             mnuDangXuat.Name = "mnuDangXuat";
-            mnuDangXuat.Size = new Size(183, 26);
+            mnuDangXuat.Size = new Size(224, 26);
             mnuDangXuat.Text = "Đăng Xuất";
             mnuDangXuat.Click += mnuDangXuat_Click;
             // 
             // mnuDoiMatKhau
             // 
             mnuDoiMatKhau.Name = "mnuDoiMatKhau";
-            mnuDoiMatKhau.Size = new Size(183, 26);
+            mnuDoiMatKhau.Size = new Size(224, 26);
             mnuDoiMatKhau.Text = "Đổi Mật Khẩu";
             mnuDoiMatKhau.Click += mnuDoiMatKhau_Click;
             // 
             // mnuThoat
             // 
             mnuThoat.Name = "mnuThoat";
-            mnuThoat.Size = new Size(183, 26);
+            mnuThoat.Size = new Size(224, 26);
             mnuThoat.Text = "Thoát";
             mnuThoat.Click += mnuThoat_Click;
             // 
@@ -99,28 +99,28 @@
             // mnuToaNha
             // 
             mnuToaNha.Name = "mnuToaNha";
-            mnuToaNha.Size = new Size(165, 26);
+            mnuToaNha.Size = new Size(224, 26);
             mnuToaNha.Text = "Tòa Nhà";
             mnuToaNha.Click += mnuToaNha_Click;
             // 
             // mnuPhongHoc
             // 
             mnuPhongHoc.Name = "mnuPhongHoc";
-            mnuPhongHoc.Size = new Size(165, 26);
+            mnuPhongHoc.Size = new Size(224, 26);
             mnuPhongHoc.Text = "Phòng Học";
             mnuPhongHoc.Click += mnuPhongHoc_Click;
             // 
             // mnuThietBi
             // 
             mnuThietBi.Name = "mnuThietBi";
-            mnuThietBi.Size = new Size(165, 26);
+            mnuThietBi.Size = new Size(224, 26);
             mnuThietBi.Text = "Thiết Bị";
             mnuThietBi.Click += mnuThietBi_Click;
             // 
             // mnuGiangVien
             // 
             mnuGiangVien.Name = "mnuGiangVien";
-            mnuGiangVien.Size = new Size(165, 26);
+            mnuGiangVien.Size = new Size(224, 26);
             mnuGiangVien.Text = "Giảng Viên";
             mnuGiangVien.Click += mnuGiangVien_Click;
             // 
@@ -134,21 +134,21 @@
             // mnuTraCuu
             // 
             mnuTraCuu.Name = "mnuTraCuu";
-            mnuTraCuu.Size = new Size(191, 26);
+            mnuTraCuu.Size = new Size(224, 26);
             mnuTraCuu.Text = "Tra Cứu Lịch";
             mnuTraCuu.Click += mnuTraCuu_Click;
             // 
             // menuDuyetYeuCau
             // 
             menuDuyetYeuCau.Name = "menuDuyetYeuCau";
-            menuDuyetYeuCau.Size = new Size(191, 26);
+            menuDuyetYeuCau.Size = new Size(224, 26);
             menuDuyetYeuCau.Text = "Duyệt Yêu Cầu";
             menuDuyetYeuCau.Click += menuDuyetYeuCau_Click;
             // 
             // mnuBaoCaoSuCo
             // 
             mnuBaoCaoSuCo.Name = "mnuBaoCaoSuCo";
-            mnuBaoCaoSuCo.Size = new Size(191, 26);
+            mnuBaoCaoSuCo.Size = new Size(224, 26);
             mnuBaoCaoSuCo.Text = "Báo Cáo Sự Cố";
             mnuBaoCaoSuCo.Click += mnuBaoCaoSuCo_Click;
             // 
@@ -162,21 +162,21 @@
             // mnuThongKeSuDung
             // 
             mnuThongKeSuDung.Name = "mnuThongKeSuDung";
-            mnuThongKeSuDung.Size = new Size(216, 26);
+            mnuThongKeSuDung.Size = new Size(224, 26);
             mnuThongKeSuDung.Text = "Thống Kê Sử Dụng";
             mnuThongKeSuDung.Click += mnuThongKeSuDung_Click;
             // 
             // mnuThongKeThietBi
             // 
             mnuThongKeThietBi.Name = "mnuThongKeThietBi";
-            mnuThongKeThietBi.Size = new Size(216, 26);
+            mnuThongKeThietBi.Size = new Size(224, 26);
             mnuThongKeThietBi.Text = "Thống Kê Thiết Bị";
             mnuThongKeThietBi.Click += mnuThongKeThietBi_Click;
             // 
             // mnuXuatBaoCao
             // 
             mnuXuatBaoCao.Name = "mnuXuatBaoCao";
-            mnuXuatBaoCao.Size = new Size(216, 26);
+            mnuXuatBaoCao.Size = new Size(224, 26);
             mnuXuatBaoCao.Text = "Xuất Báo Cáo";
             mnuXuatBaoCao.Click += mnuXuatBaoCao_Click;
             // 
