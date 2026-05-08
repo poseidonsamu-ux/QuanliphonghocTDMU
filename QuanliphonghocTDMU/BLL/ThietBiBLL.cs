@@ -8,25 +8,27 @@ namespace QuanLiPhongHocTDMU.BLL
     {
         ThietBiDAL dal = new ThietBiDAL();
 
-        public DataTable LayThietBi()
+        public DataTable GetThietBi()
         {
-            return dal.LayDanhSachThietBi();
+            return dal.GetThietBi();
         }
 
         public bool Them(ThietBiDTO tb)
         {
-            if (string.IsNullOrEmpty(tb.MaTB)) return false;
-            return dal.ThemThietBi(tb);
+            // Kiểm tra rỗng sơ bộ (có thể kiểm tra thêm ở GUI)
+            if (string.IsNullOrEmpty(tb.MaTB) || string.IsNullOrEmpty(tb.TenTB))
+                return false;
+            return dal.Them(tb);
         }
 
         public bool Sua(ThietBiDTO tb)
         {
-            return dal.SuaThietBi(tb);
+            return dal.Sua(tb);
         }
 
         public bool Xoa(string maTB)
         {
-            return dal.XoaThietBi(maTB);
+            return dal.Xoa(maTB);
         }
     }
 }

@@ -8,6 +8,7 @@ namespace QuanLiPhongHocTDMU
     public partial class frmQuanLiPhongHoc : Form
     {
         PhongHocBLL bll = new PhongHocBLL();
+        string action = ""; // Lưu trạng thái: "Them", "Sua", "Xoa"
 
         public frmQuanLiPhongHoc()
         {
@@ -17,10 +18,123 @@ namespace QuanLiPhongHocTDMU
         private void frmQuanLiPhongHoc_Load(object sender, EventArgs e)
         {
             LoadComboBoxToaNha();
+
+            // Nạp dữ liệu cứng cho 2 ComboBox nếu chưa có
+            cmbLoaiPhong.Items.AddRange(new string[] { "Phòng thường", "Phòng máy", "Phòng thí nghiệm", "Giảng đường", "Hội trường" });
+            cmbTrangThai.Items.AddRange(new string[] { "Sẵn sàng", "Đang bảo trì", "Không sử dụng" });
+
             LoadDanhSachPhongHoc();
+            TrangThaiBanDau();
+        }
+
+        // TẤT CẢ NÚT ĐỀU HIỂN THỊ, CHỈ LÀM MỜ NÚT LƯU/HỦY BAN ĐẦU
+        private void TrangThaiBanDau()
+        {
+            action = "";
+            txtMaPhong.Clear(); txtTenPhong.Clear(); txtTang.Clear(); txtSucChua.Clear();
+            txtMaPhong.Enabled = false;
 
             if (cmbLoaiPhong.Items.Count > 0) cmbLoaiPhong.SelectedIndex = 0;
             if (cmbTrangThai.Items.Count > 0) cmbTrangThai.SelectedIndex = 0;
+
+            // Khóa/Mở nút
+            btnThem.Enabled = true;
+            btnSua.Enabled = false;
+            btnXoa.Enabled = false;
+            btnLuu.Enabled = false;
+            btnHuy.Enabled = false;
+
+            dgvPhongHoc.Enabled = true;
+        }
+
+        // BẤM THÊM/SỬA/XÓA SẼ LÀM MỜ TỤI NÓ, MỞ SÁNG NÚT LƯU/HỦY
+        private void BatCheDoThaoTac()
+        {
+            btnThem.Enabled = false;
+            btnSua.Enabled = false;
+            btnXoa.Enabled = false;
+
+            btnLuu.Enabled = true;
+            btnHuy.Enabled = true;
+
+            dgvPhongHoc.Enabled = false; // Khóa lưới để tập trung nhập liệu
+        }
+
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            action = "Them";
+            txtMaPhong.Clear(); txtTenPhong.Clear(); txtTang.Clear(); txtSucChua.Clear();
+            txtMaPhong.Enabled = true;
+            txtMaPhong.Focus();
+            BatCheDoThaoTac();
+        }
+
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            action = "Sua";
+            BatCheDoThaoTac();
+        }
+
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            action = "Xoa";
+            BatCheDoThaoTac();
+            MessageBox.Show("Vui lòng nhấn LƯU để xác nhận xóa, hoặc HỦY để thôi!");
+        }
+
+        private void btnLuu_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtMaPhong.Text))
+            {
+                MessageBox.Show("Vui lòng nhập Mã Phòng!"); return;
+            }
+
+            PhongHocDTO ph = new PhongHocDTO
+            {
+                MaPhong = txtMaPhong.Text,
+                MaToaNha = cmbToaNha.SelectedValue.ToString(),
+                TenPhong = txtTenPhong.Text,
+                Tang = txtTang.Text,
+                LoaiPhong = cmbLoaiPhong.Text,
+                SucChua = string.IsNullOrEmpty(txtSucChua.Text) ? 40 : int.Parse(txtSucChua.Text),
+                TrangThai = cmbTrangThai.Text
+            };
+
+            bool kq = false;
+            if (action == "Them") kq = bll.Them(ph);
+            else if (action == "Sua") kq = bll.Sua(ph);
+            else if (action == "Xoa") kq = bll.Xoa(txtMaPhong.Text);
+
+            if (kq)
+            {
+                MessageBox.Show("Thao tác thành công!");
+                LoadDanhSachPhongHoc();
+                TrangThaiBanDau();
+            }
+        }
+
+        private void btnHuy_Click(object sender, EventArgs e)
+        {
+            TrangThaiBanDau();
+        }
+
+        private void dgvPhongHoc_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int r = e.RowIndex;
+            if (r >= 0 && action == "")
+            {
+                txtMaPhong.Text = dgvPhongHoc.Rows[r].Cells["Mã Phòng"].Value?.ToString();
+                cmbToaNha.Text = dgvPhongHoc.Rows[r].Cells["Tòa Nhà"].Value?.ToString();
+                txtTenPhong.Text = dgvPhongHoc.Rows[r].Cells["Tên Phòng"].Value?.ToString();
+                txtTang.Text = dgvPhongHoc.Rows[r].Cells["Tầng"].Value?.ToString();
+                cmbLoaiPhong.Text = dgvPhongHoc.Rows[r].Cells["Loại Phòng"].Value?.ToString();
+                txtSucChua.Text = dgvPhongHoc.Rows[r].Cells["Sức Chứa"].Value?.ToString();
+                cmbTrangThai.Text = dgvPhongHoc.Rows[r].Cells["Trạng Thái"].Value?.ToString();
+
+                // Bấm vào lưới thì mở sáng nút Sửa và Xóa
+                btnSua.Enabled = true;
+                btnXoa.Enabled = true;
+            }
         }
 
         private void LoadComboBoxToaNha()
@@ -33,89 +147,6 @@ namespace QuanLiPhongHocTDMU
         private void LoadDanhSachPhongHoc()
         {
             dgvPhongHoc.DataSource = bll.GetPhongHoc();
-        }
-
-        private void dgvPhongHoc_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            int r = e.RowIndex;
-            if (r >= 0)
-            {
-                txtMaPhong.Text = dgvPhongHoc.Rows[r].Cells["Mã Phòng"].Value.ToString();
-                cmbToaNha.Text = dgvPhongHoc.Rows[r].Cells["Tòa Nhà"].Value.ToString();
-                txtTenPhong.Text = dgvPhongHoc.Rows[r].Cells["Tên Phòng"].Value.ToString();
-                txtTang.Text = dgvPhongHoc.Rows[r].Cells["Tầng"].Value.ToString();
-                cmbLoaiPhong.Text = dgvPhongHoc.Rows[r].Cells["Loại Phòng"].Value.ToString();
-                txtSucChua.Text = dgvPhongHoc.Rows[r].Cells["Sức Chứa"].Value.ToString();
-                cmbTrangThai.Text = dgvPhongHoc.Rows[r].Cells["Trạng Thái"].Value.ToString();
-
-                txtMaPhong.Enabled = false;
-            }
-        }
-
-        private PhongHocDTO LayDataTuForm()
-        {
-            return new PhongHocDTO
-            {
-                MaPhong = txtMaPhong.Text,
-                MaToaNha = cmbToaNha.SelectedValue.ToString(),
-                TenPhong = txtTenPhong.Text,
-                Tang = txtTang.Text,
-                LoaiPhong = cmbLoaiPhong.Text,
-                SucChua = string.IsNullOrEmpty(txtSucChua.Text) ? 40 : int.Parse(txtSucChua.Text),
-                TrangThai = cmbTrangThai.Text
-            };
-        }
-
-        private void btnThem_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(txtMaPhong.Text))
-            {
-                MessageBox.Show("Vui lòng nhập Mã Phòng!"); return;
-            }
-
-            PhongHocDTO ph = LayDataTuForm();
-
-            if (bll.Them(ph))
-            {
-                MessageBox.Show("Thêm phòng học thành công!");
-                LoadDanhSachPhongHoc();
-                btnLamMoi_Click(sender, e);
-            }
-        }
-
-        private void btnSua_Click(object sender, EventArgs e)
-        {
-            PhongHocDTO ph = LayDataTuForm();
-
-            if (bll.Sua(ph))
-            {
-                MessageBox.Show("Cập nhật thành công!");
-                LoadDanhSachPhongHoc();
-                btnLamMoi_Click(sender, e);
-            }
-        }
-
-        private void btnXoa_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Bạn có chắc muốn xóa?", "Xác nhận", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                if (bll.Xoa(txtMaPhong.Text))
-                {
-                    MessageBox.Show("Đã xóa phòng học!");
-                    LoadDanhSachPhongHoc();
-                    btnLamMoi_Click(sender, e);
-                }
-            }
-        }
-
-        private void btnLamMoi_Click(object sender, EventArgs e)
-        {
-            txtMaPhong.Clear();
-            txtTenPhong.Clear();
-            txtTang.Clear();
-            txtSucChua.Clear();
-            txtMaPhong.Enabled = true;
-            txtMaPhong.Focus();
         }
     }
 }

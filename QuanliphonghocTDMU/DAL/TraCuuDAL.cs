@@ -1,52 +1,74 @@
-﻿using System.Data;
-using QuanLiPhongHocTDMU.DAL;
-using QuanLiPhongHocTDMU.DTO;
+﻿using System;
+using System.Data;
 
-namespace QuanLiPhongHocTDMU
+namespace QuanLiPhongHocTDMU.DAL
 {
     public class TraCuuDAL
     {
         KetNoiCSDL kn = new KetNoiCSDL();
 
-        public DataTable LayToaNha() => kn.ExecuteQuery("SELECT MaToaNha, TenKhu FROM ToaNha");
-        public DataTable LayGiangVien() => kn.ExecuteQuery("SELECT MaGV, HoTen FROM GiangVien");
+        public DataTable GetToaNha() => kn.ExecuteQuery("SELECT MaToaNha, TenKhu FROM ToaNha");
 
-        public DataTable LayPhongHocTheoToaNha(string maToaNha)
+        // 1. ADMIN: Lấy danh sách phòng
+        public DataTable GetDanhSachPhong(DateTime ngay, string ca, string maToaNha, bool chiLayPhongTrong)
         {
-            string sql = (maToaNha == "ALL")
-                ? "SELECT MaPhong, TenPhong, LoaiPhong, SucChua FROM PhongHoc"
-                : string.Format("SELECT MaPhong, TenPhong, LoaiPhong, SucChua FROM PhongHoc WHERE MaToaNha = '{0}'", maToaNha);
+            string ngayStr = ngay.ToString("yyyy-MM-dd");
+            string dieuKienCa = (ca != "ALL") ? $" AND ld.CaHoc = {ca}" : "";
+
+            string sql = $@"
+                SELECT p.MaPhong AS [Phòng], p.LoaiPhong AS [Loại], p.SucChua AS [Sức chứa],
+                       CASE WHEN EXISTS (SELECT 1 FROM LichDatPhong ld WHERE ld.MaPhong = p.MaPhong AND ld.NgayDat = '{ngayStr}' AND ld.TrangThaiDuyet = N'Đã duyệt' {dieuKienCa}) THEN N'Đang bận' ELSE N'Trống' END AS [Trạng thái],
+                       (SELECT TOP 1 gv.HoTen FROM LichDatPhong ld JOIN GiangVien gv ON ld.MaGV = gv.MaGV WHERE ld.MaPhong = p.MaPhong AND ld.NgayDat = '{ngayStr}' AND ld.TrangThaiDuyet = N'Đã duyệt' {dieuKienCa}) AS [Giảng viên]
+                FROM PhongHoc p WHERE 1=1 ";
+
+            if (maToaNha != "ALL") sql += $" AND p.MaToaNha = '{maToaNha}'";
+            if (chiLayPhongTrong) sql += $@" AND NOT EXISTS (SELECT 1 FROM LichDatPhong ld WHERE ld.MaPhong = p.MaPhong AND ld.NgayDat = '{ngayStr}' AND ld.TrangThaiDuyet = N'Đã duyệt' {dieuKienCa})";
+
             return kn.ExecuteQuery(sql);
         }
 
-        // CẬP NHẬT: Lấy thêm tên Giảng viên đã đặt
-        public DataTable LayPhongDaBiDat(string ngay, string ca)
+        // 2. Lấy yêu cầu mượn phòng (Chung cho Admin và GV)
+        public DataTable GetYeuCauMuonPhong(string maGV, string role)
         {
-            string sql = string.Format(@"
-                SELECT l.MaPhong, g.HoTen 
-                FROM LichDatPhong l 
-                JOIN GiangVien g ON l.MaGV = g.MaGV 
-                WHERE l.NgayDat = '{0}' AND l.CaHoc = {1} AND l.TrangThaiDuyet != N'Từ chối'", ngay, ca);
+            string sql = @"
+                SELECT ld.MaDatPhong AS [Mã YC], ld.NgayDat AS [Ngày], ld.CaHoc AS [Ca], 
+                       ld.MaPhong AS [Phòng], gv.HoTen AS [Giảng viên], ld.MucDich AS [Mục đích], ld.TrangThaiDuyet AS [Trạng thái]
+                FROM LichDatPhong ld JOIN GiangVien gv ON ld.MaGV = gv.MaGV ";
+            if (role == "Admin") sql += " WHERE ld.TrangThaiDuyet = N'Chờ duyệt'";
+            else sql += $" WHERE ld.MaGV = '{maGV}'";
+            return kn.ExecuteQuery(sql + " ORDER BY ld.NgayDat DESC");
+        }
+
+        // 3. ADMIN: Cập nhật duyệt/từ chối
+        public bool CapNhatTrangThaiYeuCau(int maDatPhong, string trangThai) => kn.ExecuteNonQuery($"UPDATE LichDatPhong SET TrangThaiDuyet = N'{trangThai}' WHERE MaDatPhong = {maDatPhong}");
+
+        // 4. ADMIN: Cảnh báo xung đột
+        public DataTable GetXungDotLich()
+        {
+            string sql = @"SELECT l1.NgayDat AS [Ngày], l1.CaHoc AS [Ca], l1.MaPhong AS [Phòng Trùng], g1.HoTen AS [GV 1], g2.HoTen AS [GV 2] FROM LichDatPhong l1 JOIN LichDatPhong l2 ON l1.NgayDat = l2.NgayDat AND l1.CaHoc = l2.CaHoc AND l1.MaPhong = l2.MaPhong AND l1.MaDatPhong < l2.MaDatPhong JOIN GiangVien g1 ON l1.MaGV = g1.MaGV JOIN GiangVien g2 ON l2.MaGV = g2.MaGV WHERE l1.TrangThaiDuyet = N'Đã duyệt' AND l2.TrangThaiDuyet = N'Đã duyệt'";
             return kn.ExecuteQuery(sql);
         }
 
-        public DataTable LayThietBiTheoPhong(string maPhong)
+        // 5. ADMIN: Xem chi tiết sự cố và thiết bị
+        public DataTable GetThietBiPhong(string maPhong) => kn.ExecuteQuery($"SELECT tb.TenTB + ' (SL: ' + CAST(tbp.SoLuong AS VARCHAR) + ')' AS ThongTin FROM TrangBiPhong tbp JOIN ThietBi tb ON tbp.MaTB = tb.MaTB WHERE tbp.MaPhong = '{maPhong}'");
+        public DataTable GetSuCoPhong(string maPhong) => kn.ExecuteQuery($"SELECT NgayBaoCao, MoTa, TrangThai FROM BaoCaoSuCo WHERE MaPhong = '{maPhong}' ORDER BY NgayBaoCao DESC");
+
+        // 6. GIẢNG VIÊN: Thuật toán Random
+        public string LayPhongRandomTheoYeuCau(string ngay, int ca, string loaiPhong)
         {
-            string sql = string.Format("SELECT tb.TenTB, tbp.SoLuong FROM TrangBiPhong tbp JOIN ThietBi tb ON tbp.MaTB = tb.MaTB WHERE tbp.MaPhong = '{0}'", maPhong);
-            return kn.ExecuteQuery(sql);
+            string sql = $@"
+                SELECT TOP 1 MaPhong FROM PhongHoc 
+                WHERE LoaiPhong = N'{loaiPhong}' 
+                  AND MaPhong NOT IN (SELECT MaPhong FROM LichDatPhong WHERE NgayDat = '{ngay}' AND CaHoc = {ca} AND TrangThaiDuyet != N'Từ chối')
+                ORDER BY NEWID()";
+            DataTable dt = kn.ExecuteQuery(sql);
+            if (dt.Rows.Count > 0) return dt.Rows[0]["MaPhong"].ToString();
+            return null;
         }
 
-        public bool DatPhong(LichDatPhongDTO ld)
+        public bool LuuYeuCauBocPhong(DTO.YeuCauBocPhongDTO yc)
         {
-            string sql = string.Format("INSERT INTO LichDatPhong (MaPhong, MaGV, NgayDat, CaHoc, TietBatDau, TietKetThuc, MucDich, TrangThaiDuyet) VALUES ('{0}', '{1}', '{2}', {3}, {4}, {5}, N'{6}', N'{7}')",
-                ld.MaPhong, ld.MaGV, ld.NgayDat.ToString("yyyy-MM-dd"), ld.CaHoc, ld.TietBatDau, ld.TietKetThuc, ld.MucDich, ld.TrangThaiDuyet);
-            return kn.ExecuteNonQuery(sql);
-        }
-
-        // THÊM MỚI: Hàm xóa lịch đặt phòng
-        public bool XoaDatPhong(string maPhong, string ngay, string ca)
-        {
-            string sql = string.Format("DELETE FROM LichDatPhong WHERE MaPhong = '{0}' AND NgayDat = '{1}' AND CaHoc = {2}", maPhong, ngay, ca);
+            string sql = $"INSERT INTO LichDatPhong (MaPhong, MaGV, NgayDat, CaHoc, MucDich, TrangThaiDuyet) VALUES ('{yc.MaPhong}', '{yc.MaGV}', '{yc.NgayDat}', {yc.CaHoc}, N'{yc.MucDich}', N'{yc.TrangThaiDuyet}')";
             return kn.ExecuteNonQuery(sql);
         }
     }
