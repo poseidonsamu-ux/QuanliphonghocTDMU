@@ -31,11 +31,18 @@ namespace QuanLiPhongHocTDMU
                 Role = tk.Quyen;
                 MaGV = tk.MaGV;
 
-                MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                 this.Hide();
+
                 frmMain frm = new frmMain();
-                frm.FormClosed += (s, args) => Application.Exit();
+
+                frm.FormClosed += (s, args) =>
+                {
+                    this.Show();
+                    txtTenDangNhap.Clear();
+                    txtMatKhau.Clear();
+                    txtTenDangNhap.Focus();
+                };
+
                 frm.Show();
             }
             else

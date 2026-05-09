@@ -168,9 +168,6 @@ namespace QuanLiPhongHocTDMU
             DialogResult dr = MessageBox.Show("Bạn có chắc chắn muốn đăng xuất?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dr == DialogResult.Yes)
             {
-                this.Hide();
-                frmDangNhap f = new frmDangNhap();
-                f.ShowDialog();
                 this.Close();
             }
         }
