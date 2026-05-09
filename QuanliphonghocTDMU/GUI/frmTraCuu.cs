@@ -15,7 +15,6 @@ namespace QuanLiPhongHocTDMU
 
         private void frmTraCuu_Load(object sender, EventArgs e)
         {
-            // Lấy thông tin từ Form Đăng Nhập
             role = frmDangNhap.Role;
             maGV = frmDangNhap.MaGV;
 
@@ -25,17 +24,22 @@ namespace QuanLiPhongHocTDMU
             cmbToaNha.DataSource = bll.GetToaNhaCombobox();
             cmbToaNha.DisplayMember = "TenKhu"; cmbToaNha.ValueMember = "MaToaNha";
 
-            // Load Combobox Giảng Viên
+            // Load Dữ liệu Gacha Giảng Viên (THÊM 2 COMBOBOX MỚI)
             cmbCaGV.Items.AddRange(new object[] { "1", "2", "3" });
             cmbCaGV.SelectedIndex = 0;
+
             cmbLoaiPhongGV.Items.AddRange(new object[] { "Phòng thường", "Phòng máy", "Giảng đường", "Phòng thí nghiệm", "Hội trường" });
             cmbLoaiPhongGV.SelectedIndex = 0;
 
-            // XỬ LÝ PHÂN QUYỀN
+            cmbSucChuaGV.Items.AddRange(new object[] { "40", "45", "50", "60", "100", "200" });
+            cmbSucChuaGV.SelectedIndex = 0;
+
+            cmbMucDichChung.Items.AddRange(new object[] { "Dạy bù", "Dạy bổ trợ", "Dạy lý thuyết", "Thực hành/Thí nghiệm", "Thi/Kiểm tra", "Họp/Sinh hoạt CLB", "Khác (Tự ghi)" });
+            cmbMucDichChung.SelectedIndex = 0;
+
             if (role == "GiangVien")
             {
                 tabMain.TabPages.Remove(tabTraCuuAdmin);
-                tabMain.TabPages.Remove(tabQuyTrinhAdmin);
                 tabMain.TabPages.Remove(tabXungDotAdmin);
                 pnlTopAdmin.Visible = false;
                 splitContainer1.Panel2Collapsed = true;
@@ -49,11 +53,9 @@ namespace QuanLiPhongHocTDMU
             }
         }
 
-        // ---------- CHỨC NĂNG ADMIN ----------
         private void btnTimKiem_Click(object sender, EventArgs e)
         {
             dgvPhong.DataSource = bll.GetDanhSachPhong(dtpNgay.Value, cmbCaHoc.Text, cmbToaNha.SelectedValue.ToString(), false);
-            dgvYeuCau.DataSource = bll.GetYeuCau(maGV, role);
             dgvXungDot.DataSource = bll.GetXungDot();
         }
 
@@ -66,28 +68,26 @@ namespace QuanLiPhongHocTDMU
             }
         }
 
-        private void btnDuyet_Click(object sender, EventArgs e) => XuLyYeuCauAdmin("Đã duyệt");
-        private void btnTuChoi_Click(object sender, EventArgs e) => XuLyYeuCauAdmin("Từ chối");
-
-        private void XuLyYeuCauAdmin(string trangThai)
-        {
-            if (dgvYeuCau.CurrentRow != null)
-            {
-                int maDat = Convert.ToInt32(dgvYeuCau.CurrentRow.Cells["Mã YC"].Value);
-                if (bll.DuyetYeuCau(maDat, trangThai)) { MessageBox.Show("Đã cập nhật!"); btnTimKiem_Click(null, null); }
-            }
-        }
-
-        // ---------- CHỨC NĂNG GIẢNG VIÊN ----------
         private void LoadLichSuGV() => dgvLichSuGV.DataSource = bll.GetYeuCau(maGV, "GiangVien");
 
         private void btnTienHanhBocPhong_Click(object sender, EventArgs e)
         {
-            string ketQua = bll.ThucHienBocPhong(dtpNgayGV.Value, cmbCaGV.Text, cmbLoaiPhongGV.Text, txtMucDichGV.Text, maGV);
+            // Truyền thêm Sức chứa và Mục đích chung xuống BLL
+            string ketQua = bll.ThucHienBocPhong(
+                dtpNgayGV.Value,
+                cmbCaGV.Text,
+                cmbLoaiPhongGV.Text,
+                cmbSucChuaGV.Text,
+                cmbMucDichChung.Text,
+                txtMucDichGV.Text,
+                maGV
+            );
+
             if (ketQua.StartsWith("THÀNH CÔNG"))
             {
                 MessageBox.Show(ketQua.Split('|')[1], "🎉 Chúc mừng");
-                txtMucDichGV.Clear(); LoadLichSuGV();
+                txtMucDichGV.Clear();
+                LoadLichSuGV();
             }
             else MessageBox.Show(ketQua, "Cảnh báo");
         }

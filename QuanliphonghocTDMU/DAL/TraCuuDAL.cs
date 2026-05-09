@@ -54,13 +54,15 @@ namespace QuanLiPhongHocTDMU.DAL
         public DataTable GetSuCoPhong(string maPhong) => kn.ExecuteQuery($"SELECT NgayBaoCao, MoTa, TrangThai FROM BaoCaoSuCo WHERE MaPhong = '{maPhong}' ORDER BY NgayBaoCao DESC");
 
         // 6. GIẢNG VIÊN: Thuật toán Random
-        public string LayPhongRandomTheoYeuCau(string ngay, int ca, string loaiPhong)
+        public string LayPhongRandomTheoYeuCau(string ngay, int ca, string loaiPhong, int sucChua)
         {
             string sql = $@"
-                SELECT TOP 1 MaPhong FROM PhongHoc 
-                WHERE LoaiPhong = N'{loaiPhong}' 
-                  AND MaPhong NOT IN (SELECT MaPhong FROM LichDatPhong WHERE NgayDat = '{ngay}' AND CaHoc = {ca} AND TrangThaiDuyet != N'Từ chối')
-                ORDER BY NEWID()";
+        SELECT TOP 1 MaPhong FROM PhongHoc 
+        WHERE LoaiPhong = N'{loaiPhong}' 
+          AND SucChua >= {sucChua}  -- THÊM ĐIỀU KIỆN SỨC CHỨA VÀO ĐÂY
+          AND MaPhong NOT IN (SELECT MaPhong FROM LichDatPhong WHERE NgayDat = '{ngay}' AND CaHoc = {ca} AND TrangThaiDuyet != N'Từ chối')
+        ORDER BY NEWID()";
+
             DataTable dt = kn.ExecuteQuery(sql);
             if (dt.Rows.Count > 0) return dt.Rows[0]["MaPhong"].ToString();
             return null;
@@ -70,6 +72,24 @@ namespace QuanLiPhongHocTDMU.DAL
         {
             string sql = $"INSERT INTO LichDatPhong (MaPhong, MaGV, NgayDat, CaHoc, MucDich, TrangThaiDuyet) VALUES ('{yc.MaPhong}', '{yc.MaGV}', '{yc.NgayDat}', {yc.CaHoc}, N'{yc.MucDich}', N'{yc.TrangThaiDuyet}')";
             return kn.ExecuteNonQuery(sql);
+        }
+
+        // 7. Lấy Email của giảng viên dựa trên Mã đặt phòng (Dùng cho gửi mail thông báo)
+        public string GetEmailGiangVienByMaDat(int maDatPhong)
+        {
+            // Truy vấn kết nối bảng LichDatPhong và GiangVien để lấy đúng Email của người đặt
+            string sql = $@"
+        SELECT gv.Email 
+        FROM GiangVien gv
+        JOIN LichDatPhong ld ON gv.MaGV = ld.MaGV
+        WHERE ld.MaDatPhong = {maDatPhong}";
+
+            DataTable dt = kn.ExecuteQuery(sql);
+            if (dt.Rows.Count > 0)
+            {
+                return dt.Rows[0]["Email"].ToString();
+            }
+            return ""; // Trả về rỗng nếu không tìm thấy
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
 using QuanLiPhongHocTDMU.BLL;
 
@@ -28,11 +29,13 @@ namespace QuanLiPhongHocTDMU
 
         private void dgvYeuCau_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            // Sửa lại tên cột ở đây cho khớp đúng với SQL nè má!
+            if (e.RowIndex >= 0 && dgvYeuCau.Columns.Contains("Mã YC"))
             {
-                maDatPhongDangChon = dgvYeuCau.Rows[e.RowIndex].Cells["Mã Đặt"].Value.ToString();
+                maDatPhongDangChon = dgvYeuCau.Rows[e.RowIndex].Cells["Mã YC"].Value.ToString();
                 string tenPhong = dgvYeuCau.Rows[e.RowIndex].Cells["Phòng"].Value.ToString();
-                string giangVien = dgvYeuCau.Rows[e.RowIndex].Cells["Giảng Viên"].Value.ToString();
+                string giangVien = dgvYeuCau.Rows[e.RowIndex].Cells["Giảng viên"].Value.ToString();
+
                 lblTrangThai.Text = string.Format("Đang chọn: Duyệt cho {0} mượn {1}", giangVien, tenPhong);
             }
         }
