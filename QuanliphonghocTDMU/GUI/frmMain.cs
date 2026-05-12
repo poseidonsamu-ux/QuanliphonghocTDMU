@@ -1,13 +1,16 @@
 ﻿using System;
-using System.Data;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using QuanLiPhongHocTDMU.BLL;
+using QuanLiPhongHocTDMU.DTO;
 
 namespace QuanLiPhongHocTDMU
 {
     public partial class frmMain : Form
     {
         private Form activeForm = null;
+        private TrangChuBLL bllTrangChu = new TrangChuBLL();
 
         public frmMain()
         {
@@ -17,10 +20,8 @@ namespace QuanLiPhongHocTDMU
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            // 1. FIX LỖI MẢNG MÀU TRẮNG CHE MẤT CHỮ
             pnlWelcome.BackColor = Color.Transparent;
             pnlWelcome.FillColor = Color.FromArgb(108, 40, 217);
-
             pnlSystemStatus.BackColor = Color.Transparent;
             pnlSystemStatus.FillColor = Color.White;
 
@@ -30,11 +31,9 @@ namespace QuanLiPhongHocTDMU
             lblStatusTitle.BringToFront();
             lblStatusDesc.BringToFront();
 
-            // 2. NẠP DỮ LIỆU THỰC TẾ CHO TRANG TỔNG QUAN
             LoadPendingRequests();
             LoadUrgentIncidents();
 
-            // 3. XỬ LÝ PHÂN QUYỀN
             string role = frmDangNhap.Role;
             lblUserRole.Text = "Quyền: " + role;
             PhanQuyen(role);
@@ -43,32 +42,38 @@ namespace QuanLiPhongHocTDMU
 
         private void LoadPendingRequests()
         {
-            // Nạp dữ liệu mẫu mượn phòng (hoặc lấy từ DB của bạn)
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Phòng");
-            dt.Columns.Add("Giảng viên");
-            dt.Columns.Add("Thời gian");
+            try
+            {
+                List<YeuCauMoiNhatDTO> dsYeuCau = bllTrangChu.LayYeuCauMoiNhat();
+                dgvPendingRequests.DataSource = dsYeuCau;
 
-            dt.Rows.Add("B201", "ThS. Nguyễn Văn A", "07:30 - 09:15");
-            dt.Rows.Add("C103", "TS. Lê Thị B", "09:30 - 11:15");
-            dt.Rows.Add("B105", "ThS. Trần Văn C", "13:00 - 15:30");
-
-            dgvPendingRequests.DataSource = dt;
+                // Set tên cột tiếng Việt (vì DTO dạng cơ bản)
+                dgvPendingRequests.Columns["Phong"].HeaderText = "Phòng";
+                dgvPendingRequests.Columns["GiangVien"].HeaderText = "Giảng viên";
+                dgvPendingRequests.Columns["ThoiGian"].HeaderText = "Thời gian";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi lấy dữ liệu Yêu cầu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void LoadUrgentIncidents()
         {
-            // Nạp dữ liệu mẫu sự cố thiết bị cần xử lý gấp
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Phòng");
-            dt.Columns.Add("Sự cố khẩn cấp");
-            dt.Columns.Add("Mức độ");
+            try
+            {
+                List<SuCoKhanCapDTO> dsSuCo = bllTrangChu.LaySuCoKhanCap();
+                dgvUrgentIncidents.DataSource = dsSuCo;
 
-            dt.Rows.Add("B302", "Hỏng máy chiếu", "Cao");
-            dt.Rows.Add("C101", "Mất kết nối mạng", "Trung bình");
-            dt.Rows.Add("A205", "Hỏng điều hòa", "Cao");
-
-            dgvUrgentIncidents.DataSource = dt;
+                // Set tên cột tiếng Việt (vì DTO dạng cơ bản)
+                dgvUrgentIncidents.Columns["Phong"].HeaderText = "Phòng";
+                dgvUrgentIncidents.Columns["SuCo"].HeaderText = "Sự cố khẩn cấp";
+                dgvUrgentIncidents.Columns["MucDo"].HeaderText = "Mức độ";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi lấy dữ liệu Sự cố: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void SetupLoiChao(string role)
@@ -94,6 +99,10 @@ namespace QuanLiPhongHocTDMU
                 btnThongKe.Visible = false;
                 pnlSubThongKe.Visible = false;
                 btnDuyetYeuCau.Visible = false;
+                btnTraCuu.Visible = false;
+
+                // Ẩn nút cấp tài khoản với quyền Giảng Viên
+                btnCapTaiKhoan.Visible = false;
             }
         }
 
@@ -145,24 +154,40 @@ namespace QuanLiPhongHocTDMU
             pnlDashboardContainer.Visible = true;
             lblHeaderTitle.Text = "Tổng quan thống kê";
             CollapseAllSubMenus();
+
+            LoadPendingRequests();
+            LoadUrgentIncidents();
         }
 
-        // Chuyển hướng các form con
         private void btnDoiMatKhau_Click(object sender, EventArgs e) { lblHeaderTitle.Text = "Đổi Mật Khẩu"; openChildForm(new frmDoiMatKhau()); }
         private void btnToaNha_Click(object sender, EventArgs e) { lblHeaderTitle.Text = "Quản lý Tòa Nhà"; openChildForm(new frmQuanLiToaNha()); }
         private void btnPhongHoc_Click(object sender, EventArgs e) { lblHeaderTitle.Text = "Quản lý Phòng Học"; openChildForm(new frmQuanLiPhongHoc()); }
         private void btnThietBi_Click(object sender, EventArgs e) { lblHeaderTitle.Text = "Quản lý Thiết Bị"; openChildForm(new frmQuanLiThietBi()); }
         private void btnGiangVien_Click(object sender, EventArgs e) { lblHeaderTitle.Text = "Quản lý Giảng Viên"; openChildForm(new frmQuanLiGiangVien()); }
+
+        // Các form nghiệp vụ
         private void btnTraCuu_Click(object sender, EventArgs e) { lblHeaderTitle.Text = "Tra Cứu Lịch"; openChildForm(new frmTraCuu()); }
+
+        // Thêm sự kiện cho nút Đặt Phòng
+        private void btnDatPhong_Click(object sender, EventArgs e) { lblHeaderTitle.Text = "Đặt Phòng Học"; openChildForm(new frmDatPhong()); }
+
         private void btnDuyetYeuCau_Click(object sender, EventArgs e) { lblHeaderTitle.Text = "Duyệt Yêu Cầu"; openChildForm(new frmDuyetYeuCau()); }
+
+        // Thêm sự kiện cho nút Cấp Tài Khoản
+        private void btnCapTaiKhoan_Click(object sender, EventArgs e) { lblHeaderTitle.Text = "Cấp Tài Khoản Hệ Thống"; /* openChildForm(new frmQuanLiTaiKhoan()); */ }
+
         private void btnBaoCaoSuCo_Click(object sender, EventArgs e) { lblHeaderTitle.Text = "Báo Cáo Sự Cố"; openChildForm(new frmBaoCaoSuCo()); }
+
+        // Các form thống kê
         private void btnThongKeSuDung_Click(object sender, EventArgs e) { lblHeaderTitle.Text = "Thống Kê Sử Dụng"; openChildForm(new frmThongKeSuDung()); }
         private void btnThongKeThietBi_Click(object sender, EventArgs e) { lblHeaderTitle.Text = "Thống Kê Thiết Bị"; openChildForm(new frmThongKeThietBi()); }
+
         private void btnXuatBaoCao_Click(object sender, EventArgs e)
         {
             lblHeaderTitle.Text = "Xuất Báo Cáo";
             openChildForm(new frmXuatBaoCao());
         }
+
         private void btnDangXuat_Click(object sender, EventArgs e)
         {
             DialogResult dr = MessageBox.Show(

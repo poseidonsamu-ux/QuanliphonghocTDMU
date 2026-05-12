@@ -53,6 +53,13 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges34 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges35 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges36 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+
+            // CustomizableEdges for new buttons
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges53 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges54 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges55 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges56 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
@@ -90,7 +97,9 @@
             btnNghiepVu = new Guna.UI2.WinForms.Guna2Button();
             pnlSubNghiepVu = new Panel();
             btnBaoCaoSuCo = new Guna.UI2.WinForms.Guna2Button();
+            btnCapTaiKhoan = new Guna.UI2.WinForms.Guna2Button();
             btnDuyetYeuCau = new Guna.UI2.WinForms.Guna2Button();
+            btnDatPhong = new Guna.UI2.WinForms.Guna2Button();
             btnTraCuu = new Guna.UI2.WinForms.Guna2Button();
             btnThongKe = new Guna.UI2.WinForms.Guna2Button();
             pnlSubThongKe = new Panel();
@@ -429,12 +438,14 @@
             // 
             pnlSubNghiepVu.BackColor = Color.FromArgb(25, 25, 55);
             pnlSubNghiepVu.Controls.Add(btnBaoCaoSuCo);
+            pnlSubNghiepVu.Controls.Add(btnCapTaiKhoan);
             pnlSubNghiepVu.Controls.Add(btnDuyetYeuCau);
+            pnlSubNghiepVu.Controls.Add(btnDatPhong);
             pnlSubNghiepVu.Controls.Add(btnTraCuu);
             pnlSubNghiepVu.Location = new Point(10, 429);
             pnlSubNghiepVu.Margin = new Padding(0, 0, 0, 5);
             pnlSubNghiepVu.Name = "pnlSubNghiepVu";
-            pnlSubNghiepVu.Size = new Size(210, 125);
+            pnlSubNghiepVu.Size = new Size(210, 205); // Đã tăng kích thước để chứa 5 nút
             pnlSubNghiepVu.TabIndex = 6;
             // 
             // btnBaoCaoSuCo
@@ -449,7 +460,7 @@
             btnBaoCaoSuCo.ForeColor = Color.FromArgb(156, 163, 175);
             btnBaoCaoSuCo.HoverState.FillColor = Color.FromArgb(40, 40, 80);
             btnBaoCaoSuCo.HoverState.ForeColor = Color.White;
-            btnBaoCaoSuCo.Location = new Point(0, 80);
+            btnBaoCaoSuCo.Location = new Point(0, 160);
             btnBaoCaoSuCo.Name = "btnBaoCaoSuCo";
             btnBaoCaoSuCo.ShadowDecoration.CustomizableEdges = customizableEdges20;
             btnBaoCaoSuCo.Size = new Size(210, 40);
@@ -458,6 +469,28 @@
             btnBaoCaoSuCo.TextAlign = HorizontalAlignment.Left;
             btnBaoCaoSuCo.TextOffset = new Point(25, 0);
             btnBaoCaoSuCo.Click += btnBaoCaoSuCo_Click;
+            // 
+            // btnCapTaiKhoan
+            // 
+            btnCapTaiKhoan.Animated = true;
+            btnCapTaiKhoan.BackColor = Color.Transparent;
+            btnCapTaiKhoan.BorderRadius = 4;
+            btnCapTaiKhoan.CustomizableEdges = customizableEdges55;
+            btnCapTaiKhoan.Dock = DockStyle.Top;
+            btnCapTaiKhoan.FillColor = Color.Transparent;
+            btnCapTaiKhoan.Font = new Font("Segoe UI", 9.5F);
+            btnCapTaiKhoan.ForeColor = Color.FromArgb(156, 163, 175);
+            btnCapTaiKhoan.HoverState.FillColor = Color.FromArgb(40, 40, 80);
+            btnCapTaiKhoan.HoverState.ForeColor = Color.White;
+            btnCapTaiKhoan.Location = new Point(0, 120);
+            btnCapTaiKhoan.Name = "btnCapTaiKhoan";
+            btnCapTaiKhoan.ShadowDecoration.CustomizableEdges = customizableEdges56;
+            btnCapTaiKhoan.Size = new Size(210, 40);
+            btnCapTaiKhoan.TabIndex = 4;
+            btnCapTaiKhoan.Text = "• Cấp Tài Khoản";
+            btnCapTaiKhoan.TextAlign = HorizontalAlignment.Left;
+            btnCapTaiKhoan.TextOffset = new Point(25, 0);
+            btnCapTaiKhoan.Click += btnCapTaiKhoan_Click;
             // 
             // btnDuyetYeuCau
             // 
@@ -471,7 +504,7 @@
             btnDuyetYeuCau.ForeColor = Color.FromArgb(156, 163, 175);
             btnDuyetYeuCau.HoverState.FillColor = Color.FromArgb(40, 40, 80);
             btnDuyetYeuCau.HoverState.ForeColor = Color.White;
-            btnDuyetYeuCau.Location = new Point(0, 40);
+            btnDuyetYeuCau.Location = new Point(0, 80);
             btnDuyetYeuCau.Name = "btnDuyetYeuCau";
             btnDuyetYeuCau.ShadowDecoration.CustomizableEdges = customizableEdges22;
             btnDuyetYeuCau.Size = new Size(210, 40);
@@ -480,6 +513,28 @@
             btnDuyetYeuCau.TextAlign = HorizontalAlignment.Left;
             btnDuyetYeuCau.TextOffset = new Point(25, 0);
             btnDuyetYeuCau.Click += btnDuyetYeuCau_Click;
+            // 
+            // btnDatPhong
+            // 
+            btnDatPhong.Animated = true;
+            btnDatPhong.BackColor = Color.Transparent;
+            btnDatPhong.BorderRadius = 4;
+            btnDatPhong.CustomizableEdges = customizableEdges53;
+            btnDatPhong.Dock = DockStyle.Top;
+            btnDatPhong.FillColor = Color.Transparent;
+            btnDatPhong.Font = new Font("Segoe UI", 9.5F);
+            btnDatPhong.ForeColor = Color.FromArgb(156, 163, 175);
+            btnDatPhong.HoverState.FillColor = Color.FromArgb(40, 40, 80);
+            btnDatPhong.HoverState.ForeColor = Color.White;
+            btnDatPhong.Location = new Point(0, 40);
+            btnDatPhong.Name = "btnDatPhong";
+            btnDatPhong.ShadowDecoration.CustomizableEdges = customizableEdges54;
+            btnDatPhong.Size = new Size(210, 40);
+            btnDatPhong.TabIndex = 3;
+            btnDatPhong.Text = "• Đặt Phòng";
+            btnDatPhong.TextAlign = HorizontalAlignment.Left;
+            btnDatPhong.TextOffset = new Point(25, 0);
+            btnDatPhong.Click += btnDatPhong_Click;
             // 
             // btnTraCuu
             // 
@@ -1273,7 +1328,9 @@
         private Guna.UI2.WinForms.Guna2Button btnGiangVien;
         private System.Windows.Forms.Panel pnlSubNghiepVu;
         private Guna.UI2.WinForms.Guna2Button btnTraCuu;
+        private Guna.UI2.WinForms.Guna2Button btnDatPhong;
         private Guna.UI2.WinForms.Guna2Button btnDuyetYeuCau;
+        private Guna.UI2.WinForms.Guna2Button btnCapTaiKhoan;
         private Guna.UI2.WinForms.Guna2Button btnBaoCaoSuCo;
         private System.Windows.Forms.Panel pnlSubThongKe;
         private Guna.UI2.WinForms.Guna2Button btnThongKeSuDung;
