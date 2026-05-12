@@ -10,14 +10,12 @@ namespace QuanLiPhongHocTDMU.DAL
 
         public DataTable LayDanhSachPhong()
         {
-            string query = "SELECT MaPhong, SucChua FROM PhongHoc WHERE TrangThai = N'Sẵn sàng'";
-            return kn.ExecuteQuery(query);
+            return kn.ExecuteQuery("SELECT MaPhong, SucChua FROM PhongHoc WHERE TrangThai = N'Sẵn sàng'");
         }
 
         public DataTable LayDanhSachGiangVien()
         {
-            string query = "SELECT MaGV, HoTen FROM GiangVien";
-            return kn.ExecuteQuery(query);
+            return kn.ExecuteQuery("SELECT MaGV, HoTen FROM GiangVien");
         }
 
         public DataTable LayChiTietGiangVien(string maGV)
@@ -33,24 +31,14 @@ namespace QuanLiPhongHocTDMU.DAL
         {
             string ngay = ngayDat.ToString("yyyy-MM-dd");
             string query = $"SELECT COUNT(*) FROM LichDatPhong WHERE MaPhong = '{maPhong}' AND NgayDat = '{ngay}' AND CaHoc = {caHoc} AND TrangThaiDuyet != N'Từ chối'";
-
             DataTable dt = kn.ExecuteQuery(query);
-            if (dt.Rows.Count > 0 && Convert.ToInt32(dt.Rows[0][0]) > 0)
-            {
-                return true;
-            }
-            return false;
+            return dt.Rows.Count > 0 && Convert.ToInt32(dt.Rows[0][0]) > 0;
         }
 
         public bool ThemDatPhong(LichDatPhongDTO dto)
         {
-            string mucDich = string.IsNullOrEmpty(dto.MucDich) ? "" : dto.MucDich.Replace("'", "''");
-            string maPhong = dto.MaPhong.Replace("'", "''");
-            string maGV = dto.MaGV.Replace("'", "''");
-            string ngayDat = dto.NgayDat.ToString("yyyy-MM-dd");
-
             string query = $@"INSERT INTO LichDatPhong (MaPhong, MaGV, NgayDat, CaHoc, TietBatDau, TietKetThuc, MucDich, TrangThaiDuyet) 
-                              VALUES ('{maPhong}', '{maGV}', '{ngayDat}', {dto.CaHoc}, {dto.TietBatDau}, {dto.TietKetThuc}, N'{mucDich}', N'{dto.TrangThaiDuyet}')";
+                              VALUES ('{dto.MaPhong}', '{dto.MaGV}', '{dto.NgayDat:yyyy-MM-dd}', {dto.CaHoc}, {dto.TietBatDau}, {dto.TietKetThuc}, N'{dto.MucDich}', N'{dto.TrangThaiDuyet}')";
             return kn.ExecuteNonQuery(query);
         }
     }
