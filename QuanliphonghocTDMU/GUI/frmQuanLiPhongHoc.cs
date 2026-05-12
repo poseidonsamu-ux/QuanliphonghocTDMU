@@ -148,5 +148,24 @@ namespace QuanLiPhongHocTDMU
         {
             dgvPhongHoc.DataSource = bll.GetPhongHoc();
         }
+
+        private void btnNhapExcel_Click(object sender, EventArgs e)
+        {
+            // Logic nhập Excel sẽ được xử lý sau
+            MessageBox.Show("Chức năng Nhập dữ liệu từ Excel đang được cập nhật!");
+        }
+
+        private void btnXuatExcel_Click(object sender, EventArgs e)
+        {
+            // Logic xuất Excel sẽ được xử lý sau
+            MessageBox.Show("Chức năng Xuất dữ liệu ra Excel đang được cập nhật!");
+        }
+
+        private void btnTaiMau_Click(object sender, EventArgs e)
+        {
+
+            // Logic: Mở SaveFileDialog -> Tạo file Excel trắng -> Ghi Header cột vào dòng 1
+            MessageBox.Show("Tính năng đang được xây dựng!");
+        }
     }
 }

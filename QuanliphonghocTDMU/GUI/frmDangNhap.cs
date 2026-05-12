@@ -35,15 +35,20 @@ namespace QuanLiPhongHocTDMU
 
                 frmMain frm = new frmMain();
 
-                frm.FormClosed += (s, args) =>
+                DialogResult result = frm.ShowDialog();
+
+                if (result == DialogResult.OK)
                 {
                     this.Show();
+
                     txtTenDangNhap.Clear();
                     txtMatKhau.Clear();
                     txtTenDangNhap.Focus();
-                };
-
-                frm.Show();
+                }
+                else
+                {
+                    Application.Exit();
+                }
             }
             else
             {

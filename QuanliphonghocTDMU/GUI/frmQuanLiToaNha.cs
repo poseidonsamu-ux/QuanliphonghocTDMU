@@ -143,5 +143,22 @@ namespace QuanLiPhongHocTDMU
         {
             dgvToaNha.DataSource = bll.LayToaNha();
         }
+
+        private void btnNhapExcel_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Tính năng Nhập dữ liệu Tòa nhà từ Excel đang được xây dựng!");
+        }
+
+        private void btnXuatExcel_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Tính năng Xuất danh sách Tòa nhà ra Excel đang được xây dựng!");
+        }
+
+        private void btnTaiMau_Click(object sender, EventArgs e)
+        {
+
+            // Logic: Mở SaveFileDialog -> Tạo file Excel trắng -> Ghi Header cột vào dòng 1
+            MessageBox.Show("Tính năng đang được xây dựng!");
+        }
     }
 }

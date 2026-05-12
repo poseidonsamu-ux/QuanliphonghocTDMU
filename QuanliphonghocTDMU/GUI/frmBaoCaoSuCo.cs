@@ -61,5 +61,20 @@ namespace QuanLiPhongHocTDMU
                 if (frmDangNhap.Role == "Admin") dgvThietBi.DataSource = bll.GetTatCaLoi(); else LoadThietBiTrongPhong();
             }
         }
+
+        private void dgvThietBi_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+           
+            if (dgvThietBi.Columns[e.ColumnIndex].Name == "TinhTrang" || dgvThietBi.Columns[e.ColumnIndex].HeaderText == "Tình Trạng")
+            {
+                if (e.Value != null && e.Value.ToString().Contains("Hư hỏng"))
+                {
+            
+                    e.CellStyle.ForeColor = Color.Red;
+                    e.CellStyle.SelectionForeColor = Color.Red;
+                    e.CellStyle.Font = new Font(dgvThietBi.Font, FontStyle.Bold);
+                }
+            }
+        }
     }
 }

@@ -3,459 +3,306 @@
     partial class frmTraCuu
     {
         private System.ComponentModel.IContainer components = null;
-        protected override void Dispose(bool disposing) { if (disposing && (components != null)) components.Dispose(); base.Dispose(disposing); }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
 
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTraCuu));
-            pnlTopAdmin = new Panel();
-            dtpNgay = new DateTimePicker();
-            cmbCaHoc = new ComboBox();
-            cmbToaNha = new ComboBox();
-            btnTimKiem = new Button();
-            splitContainer1 = new SplitContainer();
-            tabMain = new TabControl();
-            tabTraCuuAdmin = new TabPage();
-            dgvPhong = new DataGridView();
-            tabXungDotAdmin = new TabPage();
-            dgvXungDot = new DataGridView();
-            tabBocPhongGV = new TabPage();
-            tlpGacha = new TableLayoutPanel();
-            gbBocPhong = new GroupBox();
-            lbl1 = new Label();
-            dtpNgayGV = new DateTimePicker();
-            lbl2 = new Label();
-            cmbCaGV = new ComboBox();
-            lbl3 = new Label();
-            cmbLoaiPhongGV = new ComboBox();
-            lblSucChua = new Label();
-            cmbSucChuaGV = new ComboBox();
-            lblMucDichChung = new Label();
-            cmbMucDichChung = new ComboBox();
-            lbl4 = new Label();
-            txtMucDichGV = new TextBox();
-            btnTienHanhBocPhong = new Button();
-            gbHuongDan = new GroupBox();
-            lblHuongDan = new Label();
-            tabLichSuGV = new TabPage();
-            dgvLichSuGV = new DataGridView();
-            lblChiTiet = new Label();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            pnlTopAdmin = new Guna.UI2.WinForms.Guna2Panel();
+            lblTitleToaNha = new Label();
+            lblTitleCaHoc = new Label();
+            lblTitleNgay = new Label();
+            dtpNgay = new Guna.UI2.WinForms.Guna2DateTimePicker();
+            cmbCaHoc = new Guna.UI2.WinForms.Guna2ComboBox();
+            cmbToaNha = new Guna.UI2.WinForms.Guna2ComboBox();
+            btnTimKiem = new Guna.UI2.WinForms.Guna2Button();
+            pnlMainContent = new Guna.UI2.WinForms.Guna2Panel();
+            dgvPhong = new Guna.UI2.WinForms.Guna2DataGridView();
+            pnlRightDetail = new Guna.UI2.WinForms.Guna2Panel();
+            flpDetail = new FlowLayoutPanel();
+            lblDetailHeader = new Label();
             pnlTopAdmin.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
-            splitContainer1.Panel1.SuspendLayout();
-            splitContainer1.Panel2.SuspendLayout();
-            splitContainer1.SuspendLayout();
-            tabMain.SuspendLayout();
-            tabTraCuuAdmin.SuspendLayout();
+            pnlMainContent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvPhong).BeginInit();
-            tabXungDotAdmin.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvXungDot).BeginInit();
-            tabBocPhongGV.SuspendLayout();
-            tlpGacha.SuspendLayout();
-            gbBocPhong.SuspendLayout();
-            gbHuongDan.SuspendLayout();
-            tabLichSuGV.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvLichSuGV).BeginInit();
+            pnlRightDetail.SuspendLayout();
             SuspendLayout();
             // 
             // pnlTopAdmin
             // 
+            pnlTopAdmin.Controls.Add(lblTitleToaNha);
+            pnlTopAdmin.Controls.Add(lblTitleCaHoc);
+            pnlTopAdmin.Controls.Add(lblTitleNgay);
             pnlTopAdmin.Controls.Add(dtpNgay);
             pnlTopAdmin.Controls.Add(cmbCaHoc);
             pnlTopAdmin.Controls.Add(cmbToaNha);
             pnlTopAdmin.Controls.Add(btnTimKiem);
+            pnlTopAdmin.CustomizableEdges = customizableEdges9;
             pnlTopAdmin.Dock = DockStyle.Top;
+            pnlTopAdmin.FillColor = Color.White;
             pnlTopAdmin.Location = new Point(0, 0);
             pnlTopAdmin.Name = "pnlTopAdmin";
-            pnlTopAdmin.Size = new Size(1100, 60);
-            pnlTopAdmin.TabIndex = 1;
+            pnlTopAdmin.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            pnlTopAdmin.Size = new Size(1200, 90);
+            pnlTopAdmin.TabIndex = 0;
+            // 
+            // lblTitleToaNha
+            // 
+            lblTitleToaNha.BackColor = Color.Transparent;
+            lblTitleToaNha.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            lblTitleToaNha.ForeColor = Color.Gray;
+            lblTitleToaNha.Location = new Point(380, 10);
+            lblTitleToaNha.Name = "lblTitleToaNha";
+            lblTitleToaNha.Size = new Size(100, 23);
+            lblTitleToaNha.TabIndex = 0;
+            lblTitleToaNha.Text = "DÃY PHÒNG";
+            // 
+            // lblTitleCaHoc
+            // 
+            lblTitleCaHoc.BackColor = Color.Transparent;
+            lblTitleCaHoc.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            lblTitleCaHoc.ForeColor = Color.Gray;
+            lblTitleCaHoc.Location = new Point(230, 10);
+            lblTitleCaHoc.Name = "lblTitleCaHoc";
+            lblTitleCaHoc.Size = new Size(100, 23);
+            lblTitleCaHoc.TabIndex = 1;
+            lblTitleCaHoc.Text = "CA HỌC";
+            // 
+            // lblTitleNgay
+            // 
+            lblTitleNgay.BackColor = Color.Transparent;
+            lblTitleNgay.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            lblTitleNgay.ForeColor = Color.Gray;
+            lblTitleNgay.Location = new Point(20, 10);
+            lblTitleNgay.Name = "lblTitleNgay";
+            lblTitleNgay.Size = new Size(100, 23);
+            lblTitleNgay.TabIndex = 2;
+            lblTitleNgay.Text = "NGÀY HỌC";
             // 
             // dtpNgay
             // 
-            dtpNgay.Format = DateTimePickerFormat.Short;
-            dtpNgay.Location = new Point(20, 20);
+            dtpNgay.BorderRadius = 8;
+            dtpNgay.Checked = true;
+            dtpNgay.CustomizableEdges = customizableEdges1;
+            dtpNgay.FillColor = Color.FromArgb(224, 224, 224);
+            dtpNgay.Font = new Font("Segoe UI", 9F);
+            dtpNgay.Format = DateTimePickerFormat.Long;
+            dtpNgay.Location = new Point(20, 35);
+            dtpNgay.MaxDate = new DateTime(9998, 12, 31, 0, 0, 0, 0);
+            dtpNgay.MinDate = new DateTime(1753, 1, 1, 0, 0, 0, 0);
             dtpNgay.Name = "dtpNgay";
-            dtpNgay.Size = new Size(200, 27);
-            dtpNgay.TabIndex = 0;
+            dtpNgay.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            dtpNgay.Size = new Size(190, 36);
+            dtpNgay.TabIndex = 3;
+            dtpNgay.Value = new DateTime(2026, 5, 10, 18, 47, 49, 822);
             // 
             // cmbCaHoc
             // 
+            cmbCaHoc.BackColor = Color.Transparent;
+            cmbCaHoc.BorderRadius = 8;
+            cmbCaHoc.CustomizableEdges = customizableEdges3;
+            cmbCaHoc.DrawMode = DrawMode.OwnerDrawFixed;
             cmbCaHoc.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbCaHoc.Location = new Point(246, 18);
+            cmbCaHoc.FocusedColor = Color.Empty;
+            cmbCaHoc.Font = new Font("Segoe UI", 10F);
+            cmbCaHoc.ForeColor = Color.FromArgb(68, 88, 112);
+            cmbCaHoc.ItemHeight = 30;
+            cmbCaHoc.Location = new Point(230, 35);
             cmbCaHoc.Name = "cmbCaHoc";
-            cmbCaHoc.Size = new Size(80, 28);
-            cmbCaHoc.TabIndex = 1;
+            cmbCaHoc.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            cmbCaHoc.Size = new Size(130, 36);
+            cmbCaHoc.TabIndex = 4;
             // 
             // cmbToaNha
             // 
+            cmbToaNha.BackColor = Color.Transparent;
+            cmbToaNha.BorderRadius = 8;
+            cmbToaNha.CustomizableEdges = customizableEdges5;
+            cmbToaNha.DrawMode = DrawMode.OwnerDrawFixed;
             cmbToaNha.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbToaNha.Location = new Point(342, 18);
+            cmbToaNha.FocusedColor = Color.Empty;
+            cmbToaNha.Font = new Font("Segoe UI", 10F);
+            cmbToaNha.ForeColor = Color.FromArgb(68, 88, 112);
+            cmbToaNha.ItemHeight = 30;
+            cmbToaNha.Location = new Point(380, 35);
             cmbToaNha.Name = "cmbToaNha";
-            cmbToaNha.Size = new Size(120, 28);
-            cmbToaNha.TabIndex = 2;
+            cmbToaNha.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            cmbToaNha.Size = new Size(150, 36);
+            cmbToaNha.TabIndex = 5;
             // 
             // btnTimKiem
             // 
-            btnTimKiem.Location = new Point(517, 20);
+            btnTimKiem.BorderRadius = 8;
+            btnTimKiem.CustomizableEdges = customizableEdges7;
+            btnTimKiem.FillColor = Color.FromArgb(108, 40, 217);
+            btnTimKiem.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnTimKiem.ForeColor = Color.White;
+            btnTimKiem.Location = new Point(550, 35);
             btnTimKiem.Name = "btnTimKiem";
-            btnTimKiem.Size = new Size(75, 23);
-            btnTimKiem.TabIndex = 3;
-            btnTimKiem.Text = "Tìm kiếm";
+            btnTimKiem.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btnTimKiem.Size = new Size(120, 36);
+            btnTimKiem.TabIndex = 6;
+            btnTimKiem.Text = "TÌM KIẾM";
             btnTimKiem.Click += btnTimKiem_Click;
             // 
-            // splitContainer1
+            // pnlMainContent
             // 
-            splitContainer1.Dock = DockStyle.Fill;
-            splitContainer1.Location = new Point(0, 60);
-            splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            splitContainer1.Panel1.Controls.Add(tabMain);
-            // 
-            // splitContainer1.Panel2
-            // 
-            splitContainer1.Panel2.Controls.Add(lblChiTiet);
-            splitContainer1.Panel2.Padding = new Padding(10);
-            splitContainer1.Size = new Size(1100, 540);
-            splitContainer1.SplitterDistance = 887;
-            splitContainer1.TabIndex = 0;
-            // 
-            // tabMain
-            // 
-            tabMain.Controls.Add(tabTraCuuAdmin);
-            tabMain.Controls.Add(tabXungDotAdmin);
-            tabMain.Controls.Add(tabBocPhongGV);
-            tabMain.Controls.Add(tabLichSuGV);
-            tabMain.Dock = DockStyle.Fill;
-            tabMain.Location = new Point(0, 0);
-            tabMain.Name = "tabMain";
-            tabMain.SelectedIndex = 0;
-            tabMain.Size = new Size(887, 540);
-            tabMain.TabIndex = 0;
-            // 
-            // tabTraCuuAdmin
-            // 
-            tabTraCuuAdmin.Controls.Add(dgvPhong);
-            tabTraCuuAdmin.Location = new Point(4, 29);
-            tabTraCuuAdmin.Name = "tabTraCuuAdmin";
-            tabTraCuuAdmin.Size = new Size(879, 507);
-            tabTraCuuAdmin.TabIndex = 0;
-            tabTraCuuAdmin.Text = "Tra Cứu Phòng";
+            pnlMainContent.Controls.Add(dgvPhong);
+            pnlMainContent.Controls.Add(pnlRightDetail);
+            pnlMainContent.CustomizableEdges = customizableEdges13;
+            pnlMainContent.Dock = DockStyle.Fill;
+            pnlMainContent.Location = new Point(0, 90);
+            pnlMainContent.Name = "pnlMainContent";
+            pnlMainContent.Padding = new Padding(10);
+            pnlMainContent.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            pnlMainContent.Size = new Size(1200, 710);
+            pnlMainContent.TabIndex = 0;
             // 
             // dgvPhong
             // 
-            dgvPhong.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvPhong.AllowUserToAddRows = false;
+            dataGridViewCellStyle1.BackColor = Color.White;
+            dgvPhong.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(108, 40, 217);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvPhong.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvPhong.ColumnHeadersHeight = 29;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.White;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(231, 229, 255);
+            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dgvPhong.DefaultCellStyle = dataGridViewCellStyle3;
             dgvPhong.Dock = DockStyle.Fill;
-            dgvPhong.Location = new Point(0, 0);
+            dgvPhong.GridColor = Color.FromArgb(231, 229, 255);
+            dgvPhong.Location = new Point(10, 10);
             dgvPhong.Name = "dgvPhong";
+            dgvPhong.RowHeadersVisible = false;
             dgvPhong.RowHeadersWidth = 51;
-            dgvPhong.Size = new Size(879, 507);
+            dgvPhong.Size = new Size(870, 690);
             dgvPhong.TabIndex = 0;
+            dgvPhong.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White;
+            dgvPhong.ThemeStyle.AlternatingRowsStyle.Font = null;
+            dgvPhong.ThemeStyle.AlternatingRowsStyle.ForeColor = Color.Empty;
+            dgvPhong.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = Color.Empty;
+            dgvPhong.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = Color.Empty;
+            dgvPhong.ThemeStyle.BackColor = Color.White;
+            dgvPhong.ThemeStyle.GridColor = Color.FromArgb(231, 229, 255);
+            dgvPhong.ThemeStyle.HeaderStyle.BackColor = Color.FromArgb(108, 40, 217);
+            dgvPhong.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgvPhong.ThemeStyle.HeaderStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            dgvPhong.ThemeStyle.HeaderStyle.ForeColor = Color.White;
+            dgvPhong.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dgvPhong.ThemeStyle.HeaderStyle.Height = 29;
+            dgvPhong.ThemeStyle.ReadOnly = false;
+            dgvPhong.ThemeStyle.RowsStyle.BackColor = Color.White;
+            dgvPhong.ThemeStyle.RowsStyle.BorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvPhong.ThemeStyle.RowsStyle.Font = new Font("Segoe UI", 9F);
+            dgvPhong.ThemeStyle.RowsStyle.ForeColor = Color.FromArgb(71, 69, 94);
+            dgvPhong.ThemeStyle.RowsStyle.Height = 29;
+            dgvPhong.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(231, 229, 255);
+            dgvPhong.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(71, 69, 94);
             dgvPhong.CellClick += dgvPhong_CellClick;
             // 
-            // tabXungDotAdmin
+            // pnlRightDetail
             // 
-            tabXungDotAdmin.Controls.Add(dgvXungDot);
-            tabXungDotAdmin.Location = new Point(4, 29);
-            tabXungDotAdmin.Name = "tabXungDotAdmin";
-            tabXungDotAdmin.Size = new Size(879, 507);
-            tabXungDotAdmin.TabIndex = 2;
-            tabXungDotAdmin.Text = "Cảnh Báo Xung Đột";
+            pnlRightDetail.BorderRadius = 15;
+            pnlRightDetail.Controls.Add(flpDetail);
+            pnlRightDetail.Controls.Add(lblDetailHeader);
+            pnlRightDetail.CustomizableEdges = customizableEdges11;
+            pnlRightDetail.Dock = DockStyle.Right;
+            pnlRightDetail.FillColor = Color.White;
+            pnlRightDetail.Location = new Point(880, 10);
+            pnlRightDetail.Name = "pnlRightDetail";
+            pnlRightDetail.Padding = new Padding(10);
+            pnlRightDetail.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            pnlRightDetail.Size = new Size(310, 690);
+            pnlRightDetail.TabIndex = 1;
             // 
-            // dgvXungDot
+            // flpDetail
             // 
-            dgvXungDot.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvXungDot.ColumnHeadersHeight = 29;
-            dgvXungDot.Dock = DockStyle.Fill;
-            dgvXungDot.Location = new Point(0, 0);
-            dgvXungDot.Name = "dgvXungDot";
-            dgvXungDot.RowHeadersWidth = 51;
-            dgvXungDot.Size = new Size(879, 507);
-            dgvXungDot.TabIndex = 0;
+            flpDetail.AutoScroll = true;
+            flpDetail.BackColor = Color.Transparent;
+            flpDetail.Dock = DockStyle.Fill;
+            flpDetail.Location = new Point(10, 50);
+            flpDetail.Name = "flpDetail";
+            flpDetail.Size = new Size(290, 630);
+            flpDetail.TabIndex = 0;
             // 
-            // tabBocPhongGV
+            // lblDetailHeader
             // 
-            tabBocPhongGV.BackColor = Color.WhiteSmoke;
-            tabBocPhongGV.Controls.Add(tlpGacha);
-            tabBocPhongGV.Location = new Point(4, 29);
-            tabBocPhongGV.Name = "tabBocPhongGV";
-            tabBocPhongGV.Size = new Size(879, 507);
-            tabBocPhongGV.TabIndex = 3;
-            tabBocPhongGV.Text = "🎲 Đặt Phòng Random";
-            // 
-            // tlpGacha
-            // 
-            tlpGacha.ColumnCount = 2;
-            tlpGacha.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 450F));
-            tlpGacha.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tlpGacha.Controls.Add(gbBocPhong, 0, 0);
-            tlpGacha.Controls.Add(gbHuongDan, 1, 0);
-            tlpGacha.Dock = DockStyle.Fill;
-            tlpGacha.Location = new Point(0, 0);
-            tlpGacha.Name = "tlpGacha";
-            tlpGacha.Padding = new Padding(15);
-            tlpGacha.RowCount = 1;
-            tlpGacha.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tlpGacha.Size = new Size(879, 507);
-            tlpGacha.TabIndex = 0;
-            // 
-            // gbBocPhong
-            // 
-            gbBocPhong.BackColor = Color.White;
-            gbBocPhong.Controls.Add(lbl1);
-            gbBocPhong.Controls.Add(dtpNgayGV);
-            gbBocPhong.Controls.Add(lbl2);
-            gbBocPhong.Controls.Add(cmbCaGV);
-            gbBocPhong.Controls.Add(lbl3);
-            gbBocPhong.Controls.Add(cmbLoaiPhongGV);
-            gbBocPhong.Controls.Add(lblSucChua);
-            gbBocPhong.Controls.Add(cmbSucChuaGV);
-            gbBocPhong.Controls.Add(lblMucDichChung);
-            gbBocPhong.Controls.Add(cmbMucDichChung);
-            gbBocPhong.Controls.Add(lbl4);
-            gbBocPhong.Controls.Add(txtMucDichGV);
-            gbBocPhong.Controls.Add(btnTienHanhBocPhong);
-            gbBocPhong.Dock = DockStyle.Fill;
-            gbBocPhong.Font = new Font("Arial", 10F, FontStyle.Bold);
-            gbBocPhong.Location = new Point(15, 15);
-            gbBocPhong.Margin = new Padding(0, 0, 10, 0);
-            gbBocPhong.Name = "gbBocPhong";
-            gbBocPhong.Size = new Size(440, 477);
-            gbBocPhong.TabIndex = 0;
-            gbBocPhong.TabStop = false;
-            gbBocPhong.Text = "📝 THÔNG TIN YÊU CẦU";
-            // 
-            // lbl1
-            // 
-            lbl1.AutoSize = true;
-            lbl1.Location = new Point(20, 45);
-            lbl1.Name = "lbl1";
-            lbl1.Size = new Size(88, 19);
-            lbl1.TabIndex = 0;
-            lbl1.Text = "Ngày dạy:";
-            // 
-            // dtpNgayGV
-            // 
-            dtpNgayGV.Format = DateTimePickerFormat.Short;
-            dtpNgayGV.Location = new Point(140, 40);
-            dtpNgayGV.Name = "dtpNgayGV";
-            dtpNgayGV.Size = new Size(260, 27);
-            dtpNgayGV.TabIndex = 1;
-            // 
-            // lbl2
-            // 
-            lbl2.AutoSize = true;
-            lbl2.Location = new Point(20, 95);
-            lbl2.Name = "lbl2";
-            lbl2.Size = new Size(70, 19);
-            lbl2.TabIndex = 2;
-            lbl2.Text = "Ca học:";
-            // 
-            // cmbCaGV
-            // 
-            cmbCaGV.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbCaGV.Location = new Point(140, 90);
-            cmbCaGV.Name = "cmbCaGV";
-            cmbCaGV.Size = new Size(260, 27);
-            cmbCaGV.TabIndex = 3;
-            // 
-            // lbl3
-            // 
-            lbl3.AutoSize = true;
-            lbl3.Location = new Point(20, 145);
-            lbl3.Name = "lbl3";
-            lbl3.Size = new Size(103, 19);
-            lbl3.TabIndex = 4;
-            lbl3.Text = "Loại phòng:";
-            // 
-            // cmbLoaiPhongGV
-            // 
-            cmbLoaiPhongGV.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbLoaiPhongGV.Location = new Point(140, 140);
-            cmbLoaiPhongGV.Name = "cmbLoaiPhongGV";
-            cmbLoaiPhongGV.Size = new Size(260, 27);
-            cmbLoaiPhongGV.TabIndex = 5;
-            // 
-            // lblSucChua
-            // 
-            lblSucChua.AutoSize = true;
-            lblSucChua.Location = new Point(20, 195);
-            lblSucChua.Name = "lblSucChua";
-            lblSucChua.Size = new Size(89, 19);
-            lblSucChua.TabIndex = 10;
-            lblSucChua.Text = "Số lượng:";
-            // 
-            // cmbSucChuaGV
-            // 
-            cmbSucChuaGV.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbSucChuaGV.Location = new Point(140, 190);
-            cmbSucChuaGV.Name = "cmbSucChuaGV";
-            cmbSucChuaGV.Size = new Size(260, 27);
-            cmbSucChuaGV.TabIndex = 11;
-            // 
-            // lblMucDichChung
-            // 
-            lblMucDichChung.AutoSize = true;
-            lblMucDichChung.Location = new Point(20, 245);
-            lblMucDichChung.Name = "lblMucDichChung";
-            lblMucDichChung.Size = new Size(85, 19);
-            lblMucDichChung.TabIndex = 12;
-            lblMucDichChung.Text = "Mục đích:";
-            // 
-            // cmbMucDichChung
-            // 
-            cmbMucDichChung.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbMucDichChung.Location = new Point(140, 240);
-            cmbMucDichChung.Name = "cmbMucDichChung";
-            cmbMucDichChung.Size = new Size(260, 27);
-            cmbMucDichChung.TabIndex = 13;
-            // 
-            // lbl4
-            // 
-            lbl4.AutoSize = true;
-            lbl4.Location = new Point(20, 295);
-            lbl4.Name = "lbl4";
-            lbl4.Size = new Size(115, 19);
-            lbl4.TabIndex = 6;
-            lbl4.Text = "Chi tiết thêm:";
-            // 
-            // txtMucDichGV
-            // 
-            txtMucDichGV.Location = new Point(140, 290);
-            txtMucDichGV.Multiline = true;
-            txtMucDichGV.Name = "txtMucDichGV";
-            txtMucDichGV.Size = new Size(260, 60);
-            txtMucDichGV.TabIndex = 7;
-            // 
-            // btnTienHanhBocPhong
-            // 
-            btnTienHanhBocPhong.BackColor = Color.Gold;
-            btnTienHanhBocPhong.Cursor = Cursors.Hand;
-            btnTienHanhBocPhong.Location = new Point(140, 370);
-            btnTienHanhBocPhong.Name = "btnTienHanhBocPhong";
-            btnTienHanhBocPhong.Size = new Size(260, 50);
-            btnTienHanhBocPhong.TabIndex = 8;
-            btnTienHanhBocPhong.Text = "🎁 ĐẶT PHÒNG NGAY";
-            btnTienHanhBocPhong.UseVisualStyleBackColor = false;
-            btnTienHanhBocPhong.Click += btnTienHanhBocPhong_Click;
-            // 
-            // gbHuongDan
-            // 
-            gbHuongDan.BackColor = Color.White;
-            gbHuongDan.Controls.Add(lblHuongDan);
-            gbHuongDan.Dock = DockStyle.Fill;
-            gbHuongDan.Font = new Font("Arial", 10F, FontStyle.Bold);
-            gbHuongDan.Location = new Point(475, 15);
-            gbHuongDan.Margin = new Padding(10, 0, 0, 0);
-            gbHuongDan.Name = "gbHuongDan";
-            gbHuongDan.Size = new Size(389, 477);
-            gbHuongDan.TabIndex = 1;
-            gbHuongDan.TabStop = false;
-            gbHuongDan.Text = "📌 QUY CHẾ ĐẶT PHÒNG";
-            // 
-            // lblHuongDan
-            // 
-            lblHuongDan.Dock = DockStyle.Fill;
-            lblHuongDan.Font = new Font("Segoe UI", 10F);
-            lblHuongDan.ForeColor = Color.DarkSlateGray;
-            lblHuongDan.Location = new Point(3, 23);
-            lblHuongDan.Name = "lblHuongDan";
-            lblHuongDan.Padding = new Padding(15);
-            lblHuongDan.Size = new Size(383, 451);
-            lblHuongDan.TabIndex = 0;
-            lblHuongDan.Text = resources.GetString("lblHuongDan.Text");
-            // 
-            // tabLichSuGV
-            // 
-            tabLichSuGV.Controls.Add(dgvLichSuGV);
-            tabLichSuGV.Location = new Point(4, 29);
-            tabLichSuGV.Name = "tabLichSuGV";
-            tabLichSuGV.Size = new Size(879, 507);
-            tabLichSuGV.TabIndex = 4;
-            tabLichSuGV.Text = "Lịch Sử Đăng Ký Của Tôi";
-            // 
-            // dgvLichSuGV
-            // 
-            dgvLichSuGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvLichSuGV.ColumnHeadersHeight = 29;
-            dgvLichSuGV.Dock = DockStyle.Fill;
-            dgvLichSuGV.Location = new Point(0, 0);
-            dgvLichSuGV.Name = "dgvLichSuGV";
-            dgvLichSuGV.RowHeadersWidth = 51;
-            dgvLichSuGV.Size = new Size(879, 507);
-            dgvLichSuGV.TabIndex = 0;
-            // 
-            // lblChiTiet
-            // 
-            lblChiTiet.BackColor = Color.White;
-            lblChiTiet.Dock = DockStyle.Fill;
-            lblChiTiet.Location = new Point(10, 10);
-            lblChiTiet.Name = "lblChiTiet";
-            lblChiTiet.Size = new Size(189, 520);
-            lblChiTiet.TabIndex = 0;
-            lblChiTiet.Text = "Chọn một phòng để xem Thiết bị và Sự cố...";
+            lblDetailHeader.Dock = DockStyle.Top;
+            lblDetailHeader.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            lblDetailHeader.ForeColor = Color.FromArgb(108, 40, 217);
+            lblDetailHeader.Location = new Point(10, 10);
+            lblDetailHeader.Name = "lblDetailHeader";
+            lblDetailHeader.Size = new Size(290, 40);
+            lblDetailHeader.TabIndex = 1;
+            lblDetailHeader.Text = "THÔNG TIN PHÒNG";
+            lblDetailHeader.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // frmTraCuu
             // 
-            ClientSize = new Size(1100, 600);
-            Controls.Add(splitContainer1);
+            BackColor = Color.FromArgb(242, 245, 250);
+            ClientSize = new Size(1200, 800);
+            Controls.Add(pnlMainContent);
             Controls.Add(pnlTopAdmin);
             Name = "frmTraCuu";
-            Text = "TDMU Rooms - Hệ thống Tra cứu & Đặt phòng";
+            Text = "Tra cứu lịch học TDMU";
             Load += frmTraCuu_Load;
             pnlTopAdmin.ResumeLayout(false);
-            splitContainer1.Panel1.ResumeLayout(false);
-            splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
-            splitContainer1.ResumeLayout(false);
-            tabMain.ResumeLayout(false);
-            tabTraCuuAdmin.ResumeLayout(false);
+            pnlMainContent.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvPhong).EndInit();
-            tabXungDotAdmin.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgvXungDot).EndInit();
-            tabBocPhongGV.ResumeLayout(false);
-            tlpGacha.ResumeLayout(false);
-            gbBocPhong.ResumeLayout(false);
-            gbBocPhong.PerformLayout();
-            gbHuongDan.ResumeLayout(false);
-            tabLichSuGV.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgvLichSuGV).EndInit();
+            pnlRightDetail.ResumeLayout(false);
             ResumeLayout(false);
-
         }
-        private System.Windows.Forms.Panel pnlTopAdmin;
-        private System.Windows.Forms.DateTimePicker dtpNgay;
-        private System.Windows.Forms.ComboBox cmbCaHoc;
-        private System.Windows.Forms.ComboBox cmbToaNha;
-        private System.Windows.Forms.Button btnTimKiem;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TabControl tabMain;
-        private System.Windows.Forms.TabPage tabTraCuuAdmin;
-        private System.Windows.Forms.DataGridView dgvPhong;
-        private System.Windows.Forms.TabPage tabXungDotAdmin;
-        private System.Windows.Forms.DataGridView dgvXungDot;
-        private System.Windows.Forms.TabPage tabBocPhongGV;
-        private System.Windows.Forms.TableLayoutPanel tlpGacha;
-        private System.Windows.Forms.GroupBox gbBocPhong;
-        private System.Windows.Forms.Label lbl1;
-        private System.Windows.Forms.DateTimePicker dtpNgayGV;
-        private System.Windows.Forms.Label lbl2;
-        private System.Windows.Forms.ComboBox cmbCaGV;
-        private System.Windows.Forms.Label lbl3;
-        private System.Windows.Forms.ComboBox cmbLoaiPhongGV;
-        private System.Windows.Forms.Label lblSucChua;
-        private System.Windows.Forms.ComboBox cmbSucChuaGV;
-        private System.Windows.Forms.Label lblMucDichChung;
-        private System.Windows.Forms.ComboBox cmbMucDichChung;
-        private System.Windows.Forms.Label lbl4;
-        private System.Windows.Forms.TextBox txtMucDichGV;
-        private System.Windows.Forms.Button btnTienHanhBocPhong;
-        private System.Windows.Forms.GroupBox gbHuongDan;
-        private System.Windows.Forms.Label lblHuongDan;
-        private System.Windows.Forms.TabPage tabLichSuGV;
-        private System.Windows.Forms.DataGridView dgvLichSuGV;
-        private System.Windows.Forms.Label lblChiTiet;
+
+        #endregion
+
+        private Guna.UI2.WinForms.Guna2Panel pnlTopAdmin;
+        private System.Windows.Forms.Label lblTitleNgay;
+        private System.Windows.Forms.Label lblTitleCaHoc;
+        private System.Windows.Forms.Label lblTitleToaNha;
+        private Guna.UI2.WinForms.Guna2DateTimePicker dtpNgay;
+        private Guna.UI2.WinForms.Guna2ComboBox cmbCaHoc;
+        private Guna.UI2.WinForms.Guna2ComboBox cmbToaNha;
+        private Guna.UI2.WinForms.Guna2Button btnTimKiem;
+        private Guna.UI2.WinForms.Guna2DataGridView dgvPhong;
+        private Guna.UI2.WinForms.Guna2Panel pnlRightDetail;
+        private System.Windows.Forms.FlowLayoutPanel flpDetail;
+        private System.Windows.Forms.Label lblDetailHeader;
+        private Guna.UI2.WinForms.Guna2Panel pnlMainContent;
     }
 }

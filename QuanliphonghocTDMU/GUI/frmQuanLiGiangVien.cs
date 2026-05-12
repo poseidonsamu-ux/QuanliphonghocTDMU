@@ -124,5 +124,27 @@ namespace QuanLiPhongHocTDMU
         }
 
         private void TaiDanhSach() { dgvGiangVien.DataSource = bll.LayGiangVien(); }
+
+        // Sự kiện xuất Excel, code xử lí vào 2 nút này đang được chuẩn bị, nên tạm thời chỉ hiện thông báo
+
+        private void btnXuatExcel_Click(object sender, EventArgs e)
+        {
+            
+            MessageBox.Show("Tính năng xuất Excel đang được chuẩn bị!");
+        }
+
+        // Sự kiện nhập Excel
+        private void btnNhapExcel_Click(object sender, EventArgs e)
+        {
+            
+            MessageBox.Show("Tính năng nhập dữ liệu từ Excel đang được chuẩn bị!");
+        }
+
+        private void btnTaiMau_Click(object sender, EventArgs e)
+        {
+
+            // Logic: Mở SaveFileDialog -> Tạo file Excel trắng -> Ghi Header cột vào dòng 1
+            MessageBox.Show("Tính năng đang được xây dựng!");
+        }
     }
 }

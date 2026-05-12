@@ -165,9 +165,15 @@ namespace QuanLiPhongHocTDMU
         }
         private void btnDangXuat_Click(object sender, EventArgs e)
         {
-            DialogResult dr = MessageBox.Show("Bạn có chắc chắn muốn đăng xuất?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult dr = MessageBox.Show(
+                "Bạn có chắc chắn muốn đăng xuất?",
+                "Thông báo",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
             if (dr == DialogResult.Yes)
             {
+                this.DialogResult = DialogResult.OK;
                 this.Close();
             }
         }

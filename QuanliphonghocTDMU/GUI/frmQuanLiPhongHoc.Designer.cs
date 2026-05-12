@@ -13,293 +13,179 @@
             base.Dispose(disposing);
         }
 
+        #region Windows Form Designer generated code
+
         private void InitializeComponent()
         {
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
-            label5 = new Label();
-            label6 = new Label();
-            label7 = new Label();
-            txtMaPhong = new TextBox();
-            txtTenPhong = new TextBox();
-            txtTang = new TextBox();
-            txtSucChua = new TextBox();
-            cmbToaNha = new ComboBox();
-            cmbLoaiPhong = new ComboBox();
-            cmbTrangThai = new ComboBox();
-            dgvPhongHoc = new DataGridView();
-            btnThem = new Button();
-            btnSua = new Button();
-            btnXoa = new Button();
-            btnLuu = new Button();
-            btnHuy = new Button();
-            ((System.ComponentModel.ISupportInitialize)dgvPhongHoc).BeginInit();
-            SuspendLayout();
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(40, 46);
-            label1.Margin = new Padding(4, 0, 4, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(79, 20);
-            label1.TabIndex = 19;
-            label1.Text = "Mã Phòng:";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(40, 108);
-            label2.Margin = new Padding(4, 0, 4, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(81, 20);
-            label2.TabIndex = 18;
-            label2.Text = "Tên Phòng:";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(40, 169);
-            label3.Margin = new Padding(4, 0, 4, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(45, 20);
-            label3.TabIndex = 17;
-            label3.Text = "Tầng:";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(40, 231);
-            label4.Margin = new Padding(4, 0, 4, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(86, 20);
-            label4.TabIndex = 16;
-            label4.Text = "Loại Phòng:";
-            // 
-            // label5
-            // 
-            label5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label5.AutoSize = true;
-            label5.Location = new Point(600, 46);
-            label5.Margin = new Padding(4, 0, 4, 0);
-            label5.Name = "label5";
-            label5.Size = new Size(67, 20);
-            label5.TabIndex = 15;
-            label5.Text = "Tòa Nhà:";
-            // 
-            // label6
-            // 
-            label6.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label6.AutoSize = true;
-            label6.Location = new Point(600, 108);
-            label6.Margin = new Padding(4, 0, 4, 0);
-            label6.Name = "label6";
-            label6.Size = new Size(74, 20);
-            label6.TabIndex = 14;
-            label6.Text = "Sức Chứa:";
-            // 
-            // label7
-            // 
-            label7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label7.AutoSize = true;
-            label7.Location = new Point(600, 169);
-            label7.Margin = new Padding(4, 0, 4, 0);
-            label7.Name = "label7";
-            label7.Size = new Size(81, 20);
-            label7.TabIndex = 13;
-            label7.Text = "Trạng Thái:";
-            // 
-            // txtMaPhong
-            // 
-            txtMaPhong.Location = new Point(160, 42);
-            txtMaPhong.Margin = new Padding(4, 5, 4, 5);
-            txtMaPhong.Name = "txtMaPhong";
-            txtMaPhong.Size = new Size(265, 27);
-            txtMaPhong.TabIndex = 12;
-            // 
-            // txtTenPhong
-            // 
-            txtTenPhong.Location = new Point(160, 103);
-            txtTenPhong.Margin = new Padding(4, 5, 4, 5);
-            txtTenPhong.Name = "txtTenPhong";
-            txtTenPhong.Size = new Size(265, 27);
-            txtTenPhong.TabIndex = 11;
-            // 
-            // txtTang
-            // 
-            txtTang.Location = new Point(160, 165);
-            txtTang.Margin = new Padding(4, 5, 4, 5);
-            txtTang.Name = "txtTang";
-            txtTang.Size = new Size(265, 27);
-            txtTang.TabIndex = 10;
-            // 
-            // txtSucChua
-            // 
-            txtSucChua.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            txtSucChua.Location = new Point(707, 103);
-            txtSucChua.Margin = new Padding(4, 5, 4, 5);
-            txtSucChua.Name = "txtSucChua";
-            txtSucChua.Size = new Size(239, 27);
-            txtSucChua.TabIndex = 9;
-            // 
-            // cmbToaNha
-            // 
-            cmbToaNha.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            cmbToaNha.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbToaNha.Location = new Point(707, 42);
-            cmbToaNha.Margin = new Padding(4, 5, 4, 5);
-            cmbToaNha.Name = "cmbToaNha";
-            cmbToaNha.Size = new Size(239, 28);
-            cmbToaNha.TabIndex = 8;
-            // 
-            // cmbLoaiPhong
-            // 
-            cmbLoaiPhong.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbLoaiPhong.Location = new Point(160, 226);
-            cmbLoaiPhong.Margin = new Padding(4, 5, 4, 5);
-            cmbLoaiPhong.Name = "cmbLoaiPhong";
-            cmbLoaiPhong.Size = new Size(265, 28);
-            cmbLoaiPhong.TabIndex = 7;
-            // 
-            // cmbTrangThai
-            // 
-            cmbTrangThai.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            cmbTrangThai.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbTrangThai.Location = new Point(707, 165);
-            cmbTrangThai.Margin = new Padding(4, 5, 4, 5);
-            cmbTrangThai.Name = "cmbTrangThai";
-            cmbTrangThai.Size = new Size(239, 28);
-            cmbTrangThai.TabIndex = 6;
-            // 
-            // dgvPhongHoc
-            // 
-            dgvPhongHoc.AllowUserToAddRows = false;
-            dgvPhongHoc.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dgvPhongHoc.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvPhongHoc.BackgroundColor = Color.White;
-            dgvPhongHoc.ColumnHeadersHeight = 29;
-            dgvPhongHoc.Location = new Point(40, 308);
-            dgvPhongHoc.Margin = new Padding(4, 5, 4, 5);
-            dgvPhongHoc.Name = "dgvPhongHoc";
-            dgvPhongHoc.ReadOnly = true;
-            dgvPhongHoc.RowHeadersWidth = 51;
-            dgvPhongHoc.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvPhongHoc.Size = new Size(1267, 492);
-            dgvPhongHoc.TabIndex = 5;
-            dgvPhongHoc.CellClick += dgvPhongHoc_CellClick;
-            // 
-            // btnThem
-            // 
-            btnThem.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnThem.Location = new Point(1040, 38);
-            btnThem.Margin = new Padding(4, 5, 4, 5);
-            btnThem.Name = "btnThem";
-            btnThem.Size = new Size(120, 54);
-            btnThem.TabIndex = 4;
-            btnThem.Text = "Thêm";
-            btnThem.Click += btnThem_Click;
-            // 
-            // btnSua
-            // 
-            btnSua.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnSua.Location = new Point(1187, 38);
-            btnSua.Margin = new Padding(4, 5, 4, 5);
-            btnSua.Name = "btnSua";
-            btnSua.Size = new Size(120, 54);
-            btnSua.TabIndex = 3;
-            btnSua.Text = "Sửa";
-            btnSua.Click += btnSua_Click;
-            // 
-            // btnXoa
-            // 
-            btnXoa.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnXoa.Location = new Point(1040, 108);
-            btnXoa.Margin = new Padding(4, 5, 4, 5);
-            btnXoa.Name = "btnXoa";
-            btnXoa.Size = new Size(120, 54);
-            btnXoa.TabIndex = 2;
-            btnXoa.Text = "Xóa";
-            btnXoa.Click += btnXoa_Click;
-            // 
-            // btnLuu
-            // 
-            btnLuu.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnLuu.BackColor = SystemColors.Control;
-            btnLuu.Location = new Point(1187, 108);
-            btnLuu.Margin = new Padding(4, 5, 4, 5);
-            btnLuu.Name = "btnLuu";
-            btnLuu.Size = new Size(120, 54);
-            btnLuu.TabIndex = 1;
-            btnLuu.Text = "Lưu";
-            btnLuu.UseVisualStyleBackColor = false;
-            btnLuu.Click += btnLuu_Click;
-            // 
-            // btnHuy
-            // 
-            btnHuy.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnHuy.Location = new Point(1040, 177);
-            btnHuy.Margin = new Padding(4, 5, 4, 5);
-            btnHuy.Name = "btnHuy";
-            btnHuy.Size = new Size(267, 54);
-            btnHuy.TabIndex = 0;
-            btnHuy.Text = "Hủy thao tác";
-            btnHuy.Click += btnHuy_Click;
-            // 
-            // frmQuanLiPhongHoc
-            // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1360, 846);
-            Controls.Add(btnHuy);
-            Controls.Add(btnLuu);
-            Controls.Add(btnXoa);
-            Controls.Add(btnSua);
-            Controls.Add(btnThem);
-            Controls.Add(dgvPhongHoc);
-            Controls.Add(cmbTrangThai);
-            Controls.Add(cmbLoaiPhong);
-            Controls.Add(cmbToaNha);
-            Controls.Add(txtSucChua);
-            Controls.Add(txtTang);
-            Controls.Add(txtTenPhong);
-            Controls.Add(txtMaPhong);
-            Controls.Add(label7);
-            Controls.Add(label6);
-            Controls.Add(label5);
-            Controls.Add(label4);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
-            Margin = new Padding(4, 5, 4, 5);
-            Name = "frmQuanLiPhongHoc";
-            Text = "Quản Lý Phòng Học - TDMU";
-            Load += frmQuanLiPhongHoc_Load;
-            ((System.ComponentModel.ISupportInitialize)dgvPhongHoc).EndInit();
-            ResumeLayout(false);
-            PerformLayout();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+
+            this.gbThongTin = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.cmbTrangThai = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.cmbLoaiPhong = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.cmbToaNha = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.txtSucChua = new Guna.UI2.WinForms.Guna2TextBox();
+            this.txtTang = new Guna.UI2.WinForms.Guna2TextBox();
+            this.txtTenPhong = new Guna.UI2.WinForms.Guna2TextBox();
+            this.txtMaPhong = new Guna.UI2.WinForms.Guna2TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pnlActions = new Guna.UI2.WinForms.Guna2Panel();
+            this.btnTaiMau = new Guna.UI2.WinForms.Guna2Button();
+            this.btnXuatExcel = new Guna.UI2.WinForms.Guna2Button();
+            this.btnNhapExcel = new Guna.UI2.WinForms.Guna2Button();
+            this.btnHuy = new Guna.UI2.WinForms.Guna2Button();
+            this.btnLuu = new Guna.UI2.WinForms.Guna2Button();
+            this.btnXoa = new Guna.UI2.WinForms.Guna2Button();
+            this.btnSua = new Guna.UI2.WinForms.Guna2Button();
+            this.btnThem = new Guna.UI2.WinForms.Guna2Button();
+            this.dgvPhongHoc = new Guna.UI2.WinForms.Guna2DataGridView();
+
+            this.gbThongTin.SuspendLayout();
+            this.pnlActions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPhongHoc)).BeginInit();
+            this.SuspendLayout();
+
+            // gbThongTin
+            this.gbThongTin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbThongTin.BorderRadius = 15;
+            this.gbThongTin.CustomBorderColor = System.Drawing.Color.FromArgb(108, 40, 217);
+            this.gbThongTin.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold);
+            this.gbThongTin.ForeColor = System.Drawing.Color.White;
+            this.gbThongTin.Location = new System.Drawing.Point(30, 20);
+            this.gbThongTin.Name = "gbThongTin";
+            this.gbThongTin.Size = new System.Drawing.Size(1220, 210);
+            this.gbThongTin.Text = "THÔNG TIN PHÒNG HỌC";
+            this.gbThongTin.Controls.Add(this.cmbTrangThai);
+            this.gbThongTin.Controls.Add(this.cmbLoaiPhong);
+            this.gbThongTin.Controls.Add(this.cmbToaNha);
+            this.gbThongTin.Controls.Add(this.txtSucChua);
+            this.gbThongTin.Controls.Add(this.txtTang);
+            this.gbThongTin.Controls.Add(this.txtTenPhong);
+            this.gbThongTin.Controls.Add(this.txtMaPhong);
+            this.gbThongTin.Controls.Add(this.label7);
+            this.gbThongTin.Controls.Add(this.label6);
+            this.gbThongTin.Controls.Add(this.label5);
+            this.gbThongTin.Controls.Add(this.label4);
+            this.gbThongTin.Controls.Add(this.label3);
+            this.gbThongTin.Controls.Add(this.label2);
+            this.gbThongTin.Controls.Add(this.label1);
+
+            // Tọa độ Control
+            this.txtMaPhong.Location = new System.Drawing.Point(168, 60); this.txtMaPhong.Size = new System.Drawing.Size(250, 36); this.txtMaPhong.BorderRadius = 8;
+            this.txtTenPhong.Location = new System.Drawing.Point(168, 110); this.txtTenPhong.Size = new System.Drawing.Size(250, 36); this.txtTenPhong.BorderRadius = 8;
+            this.cmbToaNha.Location = new System.Drawing.Point(550, 60); this.cmbToaNha.Size = new System.Drawing.Size(300, 36); this.cmbToaNha.BorderRadius = 8;
+            this.txtTang.Location = new System.Drawing.Point(550, 110); this.txtTang.Size = new System.Drawing.Size(300, 36); this.txtTang.BorderRadius = 8;
+            this.cmbLoaiPhong.Location = new System.Drawing.Point(168, 160); this.cmbLoaiPhong.Size = new System.Drawing.Size(250, 36); this.cmbLoaiPhong.BorderRadius = 8;
+            this.txtSucChua.Location = new System.Drawing.Point(550, 160); this.txtSucChua.Size = new System.Drawing.Size(120, 36); this.txtSucChua.BorderRadius = 8;
+            this.cmbTrangThai.Location = new System.Drawing.Point(750, 160); this.cmbTrangThai.Size = new System.Drawing.Size(150, 36); this.cmbTrangThai.BorderRadius = 8;
+
+            // Labels
+            foreach (System.Windows.Forms.Control c in this.gbThongTin.Controls) if (c is System.Windows.Forms.Label) { c.ForeColor = System.Drawing.Color.Black; c.AutoSize = true; this.gbThongTin.BackColor = System.Drawing.Color.Transparent; }
+            this.label1.Text = "Mã Phòng:"; this.label1.Location = new System.Drawing.Point(30, 68);
+            this.label2.Text = "Tên Phòng:"; this.label2.Location = new System.Drawing.Point(30, 118);
+            this.label4.Text = "Loại Phòng:"; this.label4.Location = new System.Drawing.Point(30, 168);
+            this.label5.Text = "Tòa Nhà:"; this.label5.Location = new System.Drawing.Point(430, 68);
+            this.label3.Text = "Tầng:"; this.label3.Location = new System.Drawing.Point(430, 118);
+            this.label6.Text = "Sức Chứa:"; this.label6.Location = new System.Drawing.Point(430, 168);
+            this.label7.Text = "Trạng Thái:"; this.label7.Location = new System.Drawing.Point(680, 168);
+
+            // pnlActions
+            this.pnlActions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlActions.Location = new System.Drawing.Point(30, 240);
+            this.pnlActions.Size = new System.Drawing.Size(1220, 70);
+            this.pnlActions.Controls.Add(this.btnTaiMau);
+            this.pnlActions.Controls.Add(this.btnXuatExcel);
+            this.pnlActions.Controls.Add(this.btnNhapExcel);
+            this.pnlActions.Controls.Add(this.btnHuy);
+            this.pnlActions.Controls.Add(this.btnLuu);
+            this.pnlActions.Controls.Add(this.btnXoa);
+            this.pnlActions.Controls.Add(this.btnSua);
+            this.pnlActions.Controls.Add(this.btnThem);
+
+            // Cấu hình Nút (BO GÓC 10px)
+            this.btnThem.BorderRadius = 10; this.btnThem.Location = new System.Drawing.Point(0, 10); this.btnThem.Size = new System.Drawing.Size(110, 45); this.btnThem.FillColor = System.Drawing.Color.FromArgb(108, 40, 217); this.btnThem.Text = "THÊM"; this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
+            this.btnSua.BorderRadius = 10; this.btnSua.Location = new System.Drawing.Point(120, 10); this.btnSua.Size = new System.Drawing.Size(110, 45); this.btnSua.FillColor = System.Drawing.Color.FromArgb(108, 40, 217); this.btnSua.Text = "SỬA"; this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
+            this.btnXoa.BorderRadius = 10; this.btnXoa.Location = new System.Drawing.Point(240, 10); this.btnXoa.Size = new System.Drawing.Size(110, 45); this.btnXoa.FillColor = System.Drawing.Color.FromArgb(220, 38, 38); this.btnXoa.Text = "XÓA"; this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
+            this.btnLuu.BorderRadius = 10; this.btnLuu.Location = new System.Drawing.Point(360, 10); this.btnLuu.Size = new System.Drawing.Size(110, 45); this.btnLuu.FillColor = System.Drawing.Color.FromArgb(22, 163, 74); this.btnLuu.Text = "LƯU"; this.btnLuu.Click += new System.EventHandler(this.btnLuu_Click);
+            this.btnHuy.BorderRadius = 10; this.btnHuy.Location = new System.Drawing.Point(480, 10); this.btnHuy.Size = new System.Drawing.Size(110, 45); this.btnHuy.FillColor = System.Drawing.Color.FromArgb(156, 163, 175); this.btnHuy.Text = "HỦY"; this.btnHuy.Click += new System.EventHandler(this.btnHuy_Click);
+
+            this.btnTaiMau.BorderRadius = 10; this.btnTaiMau.Location = new System.Drawing.Point(670, 10); this.btnTaiMau.Size = new System.Drawing.Size(170, 45); this.btnTaiMau.FillColor = System.Drawing.Color.FromArgb(251, 146, 60); this.btnTaiMau.Text = "📄 TẢI FILE MẪU"; this.btnTaiMau.Click += new System.EventHandler(this.btnTaiMau_Click);
+            this.btnNhapExcel.BorderRadius = 10; this.btnNhapExcel.Location = new System.Drawing.Point(850, 10); this.btnNhapExcel.Size = new System.Drawing.Size(170, 45); this.btnNhapExcel.FillColor = System.Drawing.Color.FromArgb(21, 128, 61); this.btnNhapExcel.Text = "📥 NHẬP EXCEL"; this.btnNhapExcel.Click += new System.EventHandler(this.btnNhapExcel_Click);
+            this.btnXuatExcel.BorderRadius = 10; this.btnXuatExcel.Location = new System.Drawing.Point(1030, 10); this.btnXuatExcel.Size = new System.Drawing.Size(170, 45); this.btnXuatExcel.FillColor = System.Drawing.Color.FromArgb(31, 41, 55); this.btnXuatExcel.Text = "📤 XUẤT EXCEL"; this.btnXuatExcel.Click += new System.EventHandler(this.btnXuatExcel_Click);
+
+            // dgvPhongHoc (ÉP THEME CHUẨN)
+            this.dgvPhongHoc.AllowUserToAddRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.dgvPhongHoc.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvPhongHoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvPhongHoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvPhongHoc.BackgroundColor = System.Drawing.Color.White;
+            this.dgvPhongHoc.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvPhongHoc.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvPhongHoc.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(108, 40, 217);
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(108, 40, 217);
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvPhongHoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvPhongHoc.ColumnHeadersHeight = 35;
+
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(231, 229, 255);
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvPhongHoc.DefaultCellStyle = dataGridViewCellStyle3;
+
+            this.dgvPhongHoc.GridColor = System.Drawing.Color.FromArgb(231, 229, 255);
+            this.dgvPhongHoc.Location = new System.Drawing.Point(30, 320);
+            this.dgvPhongHoc.Name = "dgvPhongHoc";
+            this.dgvPhongHoc.RowHeadersVisible = false;
+            this.dgvPhongHoc.Size = new System.Drawing.Size(1220, 460);
+            this.dgvPhongHoc.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(108, 40, 217);
+            this.dgvPhongHoc.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(231, 229, 255);
+            this.dgvPhongHoc.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPhongHoc_CellClick);
+
+            // Form
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(242, 245, 250);
+            this.ClientSize = new System.Drawing.Size(1300, 846);
+            this.Controls.Add(this.dgvPhongHoc);
+            this.Controls.Add(this.pnlActions);
+            this.Controls.Add(this.gbThongTin);
+            this.Name = "frmQuanLiPhongHoc";
+            this.Text = "Hệ thống Quản lý Phòng học - TDMU Rooms";
+            this.Load += new System.EventHandler(this.frmQuanLiPhongHoc_Load);
+            this.gbThongTin.ResumeLayout(false);
+            this.gbThongTin.PerformLayout();
+            this.pnlActions.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPhongHoc)).EndInit();
+            this.ResumeLayout(false);
         }
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtMaPhong;
-        private System.Windows.Forms.TextBox txtTenPhong;
-        private System.Windows.Forms.TextBox txtTang;
-        private System.Windows.Forms.TextBox txtSucChua;
-        private System.Windows.Forms.ComboBox cmbToaNha;
-        private System.Windows.Forms.ComboBox cmbLoaiPhong;
-        private System.Windows.Forms.ComboBox cmbTrangThai;
-        private System.Windows.Forms.DataGridView dgvPhongHoc;
-        private System.Windows.Forms.Button btnThem;
-        private System.Windows.Forms.Button btnSua;
-        private System.Windows.Forms.Button btnXoa;
-        private System.Windows.Forms.Button btnLuu;
-        private System.Windows.Forms.Button btnHuy;
+        #endregion
+
+        private Guna.UI2.WinForms.Guna2GroupBox gbThongTin;
+        private Guna.UI2.WinForms.Guna2TextBox txtMaPhong, txtTenPhong, txtTang, txtSucChua;
+        private Guna.UI2.WinForms.Guna2ComboBox cmbToaNha, cmbLoaiPhong, cmbTrangThai;
+        private System.Windows.Forms.Label label1, label2, label3, label4, label5, label6, label7;
+        private Guna.UI2.WinForms.Guna2Panel pnlActions;
+        private Guna.UI2.WinForms.Guna2Button btnThem, btnSua, btnXoa, btnLuu, btnHuy, btnTaiMau, btnNhapExcel, btnXuatExcel;
+        private Guna.UI2.WinForms.Guna2DataGridView dgvPhongHoc;
     }
 }

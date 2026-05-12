@@ -133,5 +133,24 @@ namespace QuanLiPhongHocTDMU
         {
             dgvThietBi.DataSource = bll.GetThietBi();
         }
+
+        private void btnNhapExcel_Click(object sender, EventArgs e)
+        {
+            // Bạn tôi sẽ xử lý logic Import Excel sau
+            MessageBox.Show("Đang mở trình nhập dữ liệu từ Excel...");
+        }
+
+        private void btnXuatExcel_Click(object sender, EventArgs e)
+        {
+            // Bạn tôi sẽ xử lý logic Export Excel sau
+            MessageBox.Show("Đang trích xuất dữ liệu ra tệp Excel...");
+        }
+
+        private void btnTaiMau_Click(object sender, EventArgs e)
+        {
+
+            // Logic: Mở SaveFileDialog -> Tạo file Excel trắng -> Ghi Header cột vào dòng 1
+            MessageBox.Show("Tính năng đang được xây dựng!");
+        }
     }
 }

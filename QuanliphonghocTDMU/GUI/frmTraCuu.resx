@@ -117,20 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lblHuongDan.Text" xml:space="preserve">
-    <value>CHÀO MỪNG ĐẾN VỚI HỆ THỐNG GACHA PHÒNG HỌC TDMU!
-
-
-1. Khai báo thông tin:
-   - Chọn [Ngày], [Ca học], [Loại phòng] và ghi rõ [Mục đích].
-
-2. Hệ thống đặt phòng ngẫu nhiên:
-   - Hệ thống tự động quét và đặt 1 phòng trống phù hợp cho bạn.
-
-3. Đảm bảo công bằng:
-   - Không được chọn đích danh phòng giúp dàn đều tần suất sử dụng.
-
-4. Phê duyệt yêu cầu:
-   - Lệnh mượn phòng sẽ được chuyển cho Admin duyệt. Xem tại tab [Lịch sử].</value>
-  </data>
 </root>
