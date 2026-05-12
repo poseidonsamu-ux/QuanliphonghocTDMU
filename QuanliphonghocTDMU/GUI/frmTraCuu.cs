@@ -8,7 +8,7 @@ namespace QuanLiPhongHocTDMU
 {
     public partial class frmTraCuu : Form
     {
-        TraCuuBLL bll = new TraCuuBLL();
+        private TraCuuBLL bll = new TraCuuBLL();
 
         public frmTraCuu()
         {
@@ -17,21 +17,21 @@ namespace QuanLiPhongHocTDMU
 
         private void frmTraCuu_Load(object sender, EventArgs e)
         {
-            // Nạp dữ liệu Ca học
             cmbCaHoc.Items.Clear();
             cmbCaHoc.Items.AddRange(new object[] { "ALL", "1", "2", "3" });
             cmbCaHoc.SelectedIndex = 0;
 
-            // Nạp dữ liệu Tòa nhà
             try
             {
                 cmbToaNha.DataSource = bll.GetToaNhaCombobox();
                 cmbToaNha.DisplayMember = "TenKhu";
                 cmbToaNha.ValueMember = "MaToaNha";
             }
-            catch { }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
-            // Gọi tìm kiếm lần đầu
             btnTimKiem_Click(null, null);
         }
 
@@ -39,54 +39,115 @@ namespace QuanLiPhongHocTDMU
         {
             try
             {
-                string toaNha = cmbToaNha.SelectedValue?.ToString() ?? "";
-                dgvPhong.DataSource = bll.GetDanhSachPhong(dtpNgay.Value, cmbCaHoc.Text, toaNha, false);
+                string toaNha = cmbToaNha.SelectedValue?.ToString() ?? "ALL";
 
-                // Định dạng lưới cho đẹp
-                dgvPhong.AllowUserToAddRows = false;
-                dgvPhong.RowHeadersVisible = false;
+                DataTable dt = bll.GetDanhSachPhong(
+                    dtpNgay.Value,
+                    cmbCaHoc.Text,
+                    toaNha,
+                    false
+                );
+
+                dgvPhong.DataSource = dt;
+
+                if (dgvPhong.Columns.Contains("MaDatPhong"))
+                    dgvPhong.Columns["MaDatPhong"].Visible = false;
+
+                if (!dgvPhong.Columns.Contains("btnXoa"))
+                {
+                    DataGridViewButtonColumn btn = new DataGridViewButtonColumn();
+
+                    btn.Name = "btnXoa";
+                    btn.HeaderText = "Thao tác";
+                    btn.Text = "Hủy lịch";
+                    btn.UseColumnTextForButtonValue = true;
+
+                    dgvPhong.Columns.Add(btn);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi tìm kiếm: " + ex.Message);
+                MessageBox.Show("Lỗi: " + ex.Message);
+            }
+        }
+
+        private void dgvPhong_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            if (dgvPhong.Columns[e.ColumnIndex].Name == "btnXoa")
+            {
+                var maDatObj = dgvPhong.Rows[e.RowIndex].Cells["MaDatPhong"].Value;
+
+                if (maDatObj == null || maDatObj == DBNull.Value)
+                {
+                    MessageBox.Show("Không có lịch để xóa!");
+                    return;
+                }
+
+                int maDat = Convert.ToInt32(maDatObj);
+
+                DialogResult rs = MessageBox.Show(
+                    "Xác nhận hủy lịch?",
+                    "Thông báo",
+                    MessageBoxButtons.YesNo
+                );
+
+                if (rs == DialogResult.Yes)
+                {
+                    if (bll.XoaLich(maDat))
+                    {
+                        MessageBox.Show("Đã xóa!");
+
+                        btnTimKiem_Click(null, null);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Xóa thất bại!");
+                    }
+                }
             }
         }
 
         private void dgvPhong_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && dgvPhong.Columns.Contains("Phòng"))
+            if (e.RowIndex < 0)
+                return;
+
+            try
             {
-                string maP = dgvPhong.Rows[e.RowIndex].Cells["Phòng"].Value.ToString();
-                flpDetail.Controls.Clear();
-
-                // 1. Lấy dữ liệu chi tiết
-                string rawData = bll.GetChiTietPhong(maP);
-                string[] lines = rawData.Split('\n');
-
-                foreach (string line in lines)
+                if (dgvPhong.Columns.Contains("Phòng"))
                 {
-                    if (string.IsNullOrWhiteSpace(line)) continue;
+                    string maPhong = dgvPhong.Rows[e.RowIndex]
+                        .Cells["Phòng"]
+                        .Value
+                        .ToString();
 
-                    // Tạo Panel Card cho mỗi dòng thông tin
-                    Guna.UI2.WinForms.Guna2Panel card = new Guna.UI2.WinForms.Guna2Panel();
-                    card.Size = new Size(flpDetail.Width - 25, 45);
-                    card.FillColor = line.Contains("SỰ CỐ") ? Color.FromArgb(254, 242, 242) : Color.White;
-                    card.BorderRadius = 8;
-                    card.BorderThickness = 1;
-                    card.BorderColor = Color.FromArgb(230, 230, 230);
-                    card.Margin = new Padding(0, 0, 0, 8);
+                    flpDetail.Controls.Clear();
 
-                    Label lbl = new Label();
-                    lbl.Text = line.Trim();
-                    lbl.Dock = DockStyle.Fill;
-                    lbl.TextAlign = ContentAlignment.MiddleLeft;
-                    lbl.Padding = new Padding(10, 0, 0, 0);
-                    lbl.ForeColor = line.Contains("SỰ CỐ") ? Color.Red : Color.Black;
-                    lbl.Font = new Font("Segoe UI", 9, line.Contains("THIẾT BỊ") ? FontStyle.Bold : FontStyle.Regular);
+                    string raw = bll.GetChiTietPhong(maPhong);
 
-                    card.Controls.Add(lbl);
-                    flpDetail.Controls.Add(card);
+                    string[] lines = raw.Split('\n');
+
+                    foreach (string line in lines)
+                    {
+                        if (string.IsNullOrWhiteSpace(line))
+                            continue;
+
+                        Label lbl = new Label();
+
+                        lbl.Text = line.Trim();
+                        lbl.AutoSize = true;
+                        lbl.Font = new Font("Segoe UI", 10);
+                        lbl.Margin = new Padding(5);
+
+                        flpDetail.Controls.Add(lbl);
+                    }
                 }
+            }
+            catch
+            {
             }
         }
     }
