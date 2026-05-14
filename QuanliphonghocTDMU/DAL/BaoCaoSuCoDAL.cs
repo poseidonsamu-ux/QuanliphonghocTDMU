@@ -1,44 +1,71 @@
-﻿using System.Data;
-using QuanLiPhongHocTDMU;
-using QuanLiPhongHocTDMU.DAL;
+﻿using System;
+using System.Data;
 
-namespace QuanLiPhongHocTDMU
+namespace QuanLiPhongHocTDMU.DAL
 {
     public class BaoCaoSuCoDAL
     {
         KetNoiCSDL kn = new KetNoiCSDL();
 
-        public DataTable LayDanhSachPhong() => kn.ExecuteQuery("SELECT MaPhong, TenPhong FROM PhongHoc");
-
-        public DataTable LayThietBiTheoPhong(string maPhong)
+        // 1. Giảng viên gửi báo cáo
+        public bool GuiBaoCao(string maPhong, string maGV, string loaiSuCo, string moTa, int mucDo)
         {
-            string sql = string.Format(@"
-                SELECT tb.MaTB AS [Mã TB], tb.TenTB AS [Tên Thiết Bị], 
-                       tbp.SoLuong AS [Số Lượng], tbp.TinhTrang AS [Tình Trạng]
-                FROM TrangBiPhong tbp
-                JOIN ThietBi tb ON tbp.MaTB = tb.MaTB
-                WHERE tbp.MaPhong = '{0}'", maPhong);
+            string sql = $@"INSERT INTO BaoCaoSuCo (MaPhong, MaGV, LoaiSuCo, MoTa, MucDo, TrangThai) 
+                            VALUES ('{maPhong}', '{maGV}', N'{loaiSuCo}', N'{moTa}', {mucDo}, N'Chờ xử lý')";
+            return kn.ExecuteNonQuery(sql);
+        }
+
+        // 2. Thuật toán AI - Gợi ý phòng thay thế
+        public DataTable SuggestPhongThayThe(string maPhongGoc, DateTime ngay, int ca)
+        {
+            string ngayStr = ngay.ToString("yyyy-MM-dd");
+            string sql = $@"
+                DECLARE @ToaGoc VARCHAR(10) = (SELECT MaToaNha FROM PhongHoc WHERE MaPhong = '{maPhongGoc}');
+                DECLARE @TangGoc NVARCHAR(20) = (SELECT Tang FROM PhongHoc WHERE MaPhong = '{maPhongGoc}');
+                DECLARE @SucChuaGoc INT = (SELECT SucChua FROM PhongHoc WHERE MaPhong = '{maPhongGoc}');
+
+                SELECT TOP 5 p.MaPhong, p.MaToaNha, 
+                       (CASE WHEN p.MaToaNha = @ToaGoc THEN 20 ELSE 0 END +
+                        CASE WHEN p.Tang = @TangGoc THEN 15 ELSE 0 END +
+                        CASE WHEN p.SucChua >= @SucChuaGoc THEN 10 ELSE 0 END) AS DiemPhuHop
+                FROM PhongHoc p
+                WHERE p.MaPhong != '{maPhongGoc}'
+                  AND NOT EXISTS (
+                      SELECT 1 FROM LichDatPhong ld 
+                      WHERE ld.MaPhong = p.MaPhong AND ld.NgayDat = '{ngayStr}' AND ld.CaHoc = {ca} AND ld.TrangThaiDuyet = N'Đã duyệt'
+                  )
+                ORDER BY DiemPhuHop DESC, NEWID()"; // Trộn ngẫu nhiên nếu điểm bằng nhau
             return kn.ExecuteQuery(sql);
         }
 
-        public DataTable LayTatCaThietBiLoi()
+        // 3. ADMIN - Thống kê Dashboard
+        public DataTable GetThongKe()
         {
             string sql = @"
-                SELECT tbp.MaPhong AS [Mã Phòng], p.TenPhong AS [Tên Phòng],
-                       tb.MaTB AS [Mã TB], tb.TenTB AS [Tên Thiết Bị], 
-                       tbp.SoLuong AS [Số Lượng], tbp.TinhTrang AS [Tình Trạng]
-                FROM TrangBiPhong tbp
-                JOIN ThietBi tb ON tbp.MaTB = tb.MaTB
-                JOIN PhongHoc p ON tbp.MaPhong = p.MaPhong
-                WHERE tbp.TinhTrang LIKE N'%Hư hỏng%'";
+                SELECT 
+                    COUNT(*) AS TongSuCo,
+                    SUM(CASE WHEN TrangThai = N'Chờ xử lý' THEN 1 ELSE 0 END) AS DangXuLy,
+                    SUM(CASE WHEN TrangThai = N'Đã xử lý' THEN 1 ELSE 0 END) AS DaXuLy
+                FROM BaoCaoSuCo";
             return kn.ExecuteQuery(sql);
         }
 
-        public bool CapNhatTinhTrang(string maPhong, string maTB, string tinhTrang)
+        // 4. ADMIN - Lấy danh sách để quản lý
+        public DataTable GetDanhSachSuCo()
         {
-            string sql = string.Format("UPDATE TrangBiPhong SET TinhTrang = N'{0}' WHERE MaPhong = '{1}' AND MaTB = '{2}'",
-                                        tinhTrang, maPhong, maTB);
-            return kn.ExecuteNonQuery(sql);
+            string sql = @"
+                SELECT bc.MaSuCo AS [ID], bc.MaPhong AS [Phòng], gv.HoTen AS [Giảng viên], 
+                       bc.LoaiSuCo AS [Loại sự cố], bc.MoTa AS [Mô tả], bc.MucDo AS [Mức độ], 
+                       bc.TrangThai AS [Trạng thái], bc.NgayBaoCao AS [Ngày báo cáo]
+                FROM BaoCaoSuCo bc LEFT JOIN GiangVien gv ON bc.MaGV = gv.MaGV
+                ORDER BY bc.TrangThai ASC, bc.MucDo DESC, bc.NgayBaoCao DESC";
+            return kn.ExecuteQuery(sql);
+        }
+
+        // 5. ADMIN - Xác nhận đã sửa xong
+        public bool XacNhanXuLy(int id)
+        {
+            return kn.ExecuteNonQuery($"UPDATE BaoCaoSuCo SET TrangThai = N'Đã xử lý' WHERE MaSuCo = {id}");
         }
     }
 }
