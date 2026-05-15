@@ -31,7 +31,7 @@ namespace QuanLiPhongHocTDMU.BLL
                 {
                     for (int j = 0; j < dgv.Columns.Count; j++)
                     {
-                        excelApp.Cells[i + 2, j + 1] = dgv.Rows[i].Cells[j].Value?.ToString();
+                        excelApp.Cells[i + 2, j + 1] = dgv.Rows[i].Cells[j].FormattedValue?.ToString();
                     }
                 }
 

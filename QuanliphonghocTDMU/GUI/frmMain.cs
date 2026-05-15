@@ -1,9 +1,10 @@
-﻿using System;
+﻿using QuanLiPhongHocTDMU.BLL;
+using QuanLiPhongHocTDMU.DTO;
+using QuanLiPhongHocTDMU.GUI;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using QuanLiPhongHocTDMU.BLL;
-using QuanLiPhongHocTDMU.DTO;
 
 namespace QuanLiPhongHocTDMU
 {
@@ -180,7 +181,8 @@ namespace QuanLiPhongHocTDMU
 
         // Các form thống kê
         private void btnThongKeSuDung_Click(object sender, EventArgs e) { lblHeaderTitle.Text = "Thống Kê Sử Dụng"; openChildForm(new frmThongKeSuDung()); }
-        private void btnThongKeThietBi_Click(object sender, EventArgs e) { lblHeaderTitle.Text = "Thống Kê Thiết Bị"; openChildForm(new frmThongKeThietBi()); }
+
+        private void btnThongKeSuCo_Click(object sender, EventArgs e) { lblHeaderTitle.Text = "Thống Kê Sự Cố"; openChildForm(new frmThongKeSuCo()); }
 
         private void btnXuatBaoCao_Click(object sender, EventArgs e)
         {
