@@ -2,13 +2,15 @@
 using QuanLiPhongHocTDMU.DTO;
 using System;
 using System.Windows.Forms;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace QuanLiPhongHocTDMU
 {
     public partial class frmQuanLiToaNha : Form
     {
+        // 1. Khai báo nghiệp vụ
         ToaNhaBLL bll = new ToaNhaBLL();
-        string action = ""; // Lưu trạng thái: "Them", "Sua", "Xoa"
+        string action = "";
 
         public frmQuanLiToaNha()
         {
@@ -21,26 +23,17 @@ namespace QuanLiPhongHocTDMU
             TrangThaiBanDau();
         }
 
-        // Đóng gói dữ liệu vào DTO trước khi gửi xuống BLL
-        private ToaNhaDTO LayDuLieuTuForm()
+        // 2. Các hàm hỗ trợ giao diện
+        private void LoadDanhSachToaNha()
         {
-            return new ToaNhaDTO
-            {
-                MaToaNha = txtMaToaNha.Text,
-                TenKhu = "Khu " + txtMaToaNha.Text, // Tự động sinh Tên Khu
-                SoTang = string.IsNullOrEmpty(txtSoTang.Text) ? 1 : int.Parse(txtSoTang.Text), // Mặc định là 1 nếu bỏ trống
-                GhiChu = txtGhiChu.Text
-            };
+            dgvToaNha.DataSource = bll.LayToaNha();
         }
 
-        // TẤT CẢ NÚT ĐỀU HIỂN THỊ, CHỈ LÀM MỜ NÚT LƯU/HỦY BAN ĐẦU
         private void TrangThaiBanDau()
         {
             action = "";
-            txtMaToaNha.Clear();
-            txtSoTang.Clear();
-            txtGhiChu.Clear();
-            txtMaToaNha.Enabled = false;
+            txtMaToaNha.Clear(); txtSoTang.Clear(); txtGhiChu.Clear();
+            txtMaToaNha.Enabled = false; txtSoTang.Enabled = false; txtGhiChu.Enabled = false;
 
             btnThem.Enabled = true;
             btnSua.Enabled = false;
@@ -51,19 +44,32 @@ namespace QuanLiPhongHocTDMU
             dgvToaNha.Enabled = true;
         }
 
-        // BẤM THÊM/SỬA/XÓA SẼ LÀM MỜ TỤI NÓ, MỞ SÁNG NÚT LƯU/HỦY
         private void BatCheDoThaoTac()
         {
+            txtSoTang.Enabled = true;
+            txtGhiChu.Enabled = true;
+
             btnThem.Enabled = false;
             btnSua.Enabled = false;
             btnXoa.Enabled = false;
-
             btnLuu.Enabled = true;
             btnHuy.Enabled = true;
 
-            dgvToaNha.Enabled = false; // Khóa lưới
+            dgvToaNha.Enabled = false;
         }
 
+        private ToaNhaDTO LayDuLieuTuForm()
+        {
+            return new ToaNhaDTO
+            {
+                MaToaNha = txtMaToaNha.Text.Trim(),
+                TenKhu = "Khu " + txtMaToaNha.Text.Trim(),
+                SoTang = string.IsNullOrEmpty(txtSoTang.Text) ? 1 : int.Parse(txtSoTang.Text),
+                GhiChu = txtGhiChu.Text.Trim()
+            };
+        }
+
+        // 3. Xử lý Thêm, Sửa, Xóa
         private void btnThem_Click(object sender, EventArgs e)
         {
             action = "Them";
@@ -76,6 +82,7 @@ namespace QuanLiPhongHocTDMU
         private void btnSua_Click(object sender, EventArgs e)
         {
             action = "Sua";
+            txtMaToaNha.Enabled = false;
             BatCheDoThaoTac();
         }
 
@@ -83,12 +90,12 @@ namespace QuanLiPhongHocTDMU
         {
             action = "Xoa";
             BatCheDoThaoTac();
-            MessageBox.Show("Vui lòng nhấn LƯU để xác nhận xóa, hoặc HỦY để thôi!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show("Vui lòng nhấn LƯU để xác nhận xóa!", "Xác nhận", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void btnLuu_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtMaToaNha.Text))
+            if (string.IsNullOrEmpty(txtMaToaNha.Text) && action != "Xoa")
             {
                 MessageBox.Show("Vui lòng nhập Mã Tòa Nhà!");
                 return;
@@ -97,19 +104,14 @@ namespace QuanLiPhongHocTDMU
             ToaNhaDTO tn = LayDuLieuTuForm();
             bool kq = false;
 
+            // Xử lý theo từng hành động
             if (action == "Them") kq = bll.Them(tn);
             else if (action == "Sua") kq = bll.Sua(tn);
             else if (action == "Xoa")
             {
-                if (MessageBox.Show("Xóa Tòa Nhà này thì toàn bộ Phòng Học bên trong sẽ bị xóa theo! Tiếp tục?", "Nguy hiểm", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                {
+                if (MessageBox.Show("Xác nhận xóa Tòa Nhà và toàn bộ phòng học bên trong?", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                     kq = bll.Xoa(txtMaToaNha.Text);
-                }
-                else
-                {
-                    TrangThaiBanDau();
-                    return;
-                }
+                else { TrangThaiBanDau(); return; }
             }
 
             if (kq)
@@ -118,6 +120,7 @@ namespace QuanLiPhongHocTDMU
                 LoadDanhSachToaNha();
                 TrangThaiBanDau();
             }
+            else MessageBox.Show("Thao tác thất bại!");
         }
 
         private void btnHuy_Click(object sender, EventArgs e)
@@ -125,11 +128,13 @@ namespace QuanLiPhongHocTDMU
             TrangThaiBanDau();
         }
 
+        // 4. Đổ dữ liệu từ bảng lên textbox
         private void dgvToaNha_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int r = e.RowIndex;
             if (r >= 0 && action == "")
             {
+                // Lấy đúng tên cột alias từ DAL
                 txtMaToaNha.Text = dgvToaNha.Rows[r].Cells["Mã Tòa Nhà"].Value?.ToString();
                 txtSoTang.Text = dgvToaNha.Rows[r].Cells["Số Tầng"].Value?.ToString();
                 txtGhiChu.Text = dgvToaNha.Rows[r].Cells["Ghi Chú"].Value?.ToString();
@@ -139,26 +144,49 @@ namespace QuanLiPhongHocTDMU
             }
         }
 
-        private void LoadDanhSachToaNha()
+        // 5. Xử lý các sự kiện Excel (Đã fix lỗi Filter)
+        private void btnTaiMau_Click(object sender, EventArgs e)
         {
-            dgvToaNha.DataSource = bll.LayToaNha();
+            SaveFileDialog sfd = new SaveFileDialog()
+            {
+                // Fix Filter
+                Filter = "Excel Workbook (*.xlsx)|*.xlsx",
+                FileName = "Mau_Nhap_ToaNha.xlsx"
+            };
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                bll.TaiMau(sfd.FileName);
+                MessageBox.Show("Đã tải file mẫu thành công!");
+            }
         }
 
         private void btnNhapExcel_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Tính năng Nhập dữ liệu Tòa nhà từ Excel đang được xây dựng!");
+            OpenFileDialog ofd = new OpenFileDialog()
+            {
+                Filter = "Excel Files (*.xlsx;*.xls)|*.xlsx;*.xls",
+                Title = "Chọn file Excel nhập dữ liệu"
+            };
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    int thanhCong = bll.NhapExcel(ofd.FileName);
+                    MessageBox.Show($"Đã nhập thành công {thanhCong} dòng!");
+                    LoadDanhSachToaNha();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi đọc file: " + ex.Message);
+                }
+            }
         }
 
         private void btnXuatExcel_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Tính năng Xuất danh sách Tòa nhà ra Excel đang được xây dựng!");
-        }
-
-        private void btnTaiMau_Click(object sender, EventArgs e)
-        {
-
-            // Logic: Mở SaveFileDialog -> Tạo file Excel trắng -> Ghi Header cột vào dòng 1
-            MessageBox.Show("Tính năng đang được xây dựng!");
+            bll.XuatExcel(dgvToaNha);
         }
     }
 }

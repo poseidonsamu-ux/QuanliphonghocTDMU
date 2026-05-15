@@ -1,120 +1,30 @@
-﻿using QuanLiPhongHocTDMU.BLL;
-using QuanLiPhongHocTDMU.DTO;
-using System;
+﻿using System;
 using System.Windows.Forms;
+using QuanLiPhongHocTDMU.BLL;
+using QuanLiPhongHocTDMU.DTO;
 
 namespace QuanLiPhongHocTDMU
 {
     public partial class frmQuanLiGiangVien : Form
     {
         GiangVienBLL bll = new GiangVienBLL();
-        string action = ""; // Lưu trạng thái: "Them", "Sua", "Xoa"
+        string action = "";
 
         public frmQuanLiGiangVien() { InitializeComponent(); }
 
         private void frmQuanLiGiangVien_Load(object sender, EventArgs e)
         {
-            TaiDuLieuKhoa();
-            TaiDanhSach();
-            TrangThaiBanDau();
-        }
-
-        // TẤT CẢ NÚT ĐỀU HIỂN THỊ, CHỈ LÀM MỜ (Enabled = false)
-        private void TrangThaiBanDau()
-        {
-            action = "";
-            txtMaGV.Clear(); txtHoTen.Clear(); txtSDT.Clear(); txtEmail.Clear();
-            txtMaGV.Enabled = false;
-
-            // Nút nào được sáng, nút nào bị xám
-            btnThem.Enabled = true;  // Sáng
-            btnSua.Enabled = false;  // Xám
-            btnXoa.Enabled = false;  // Xám
-            btnLuu.Enabled = false;  // Xám
-            btnHuy.Enabled = false;  // Xám
-
-            dgvGiangVien.Enabled = true;
-        }
-
-        // BẤM THÊM/SỬA/XÓA SẼ LÀM MỜ TỤI NÓ, SÁNG NÚT LƯU/HỦY
-        private void BatCheDoThaoTac()
-        {
-            btnThem.Enabled = false; // Xám
-            btnSua.Enabled = false;  // Xám
-            btnXoa.Enabled = false;  // Xám
-
-            btnLuu.Enabled = true;   // Sáng
-            btnHuy.Enabled = true;   // Sáng
-
-            dgvGiangVien.Enabled = false; // Khóa lưới
-        }
-
-        private void btnThem_Click(object sender, EventArgs e)
-        {
-            action = "Them";
-            txtMaGV.Clear(); txtHoTen.Clear(); txtSDT.Clear(); txtEmail.Clear();
-            txtMaGV.Enabled = true;
-            txtMaGV.Focus();
-            BatCheDoThaoTac();
-        }
-
-        private void btnSua_Click(object sender, EventArgs e)
-        {
-            action = "Sua";
-            BatCheDoThaoTac();
-        }
-
-        private void btnXoa_Click(object sender, EventArgs e)
-        {
-            action = "Xoa";
-            BatCheDoThaoTac();
-            MessageBox.Show("Vui lòng nhấn LƯU để xác nhận xóa, hoặc HỦY để thôi!");
-        }
-
-        private void btnLuu_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(txtMaGV.Text)) return;
-
-            GiangVienDTO gv = new GiangVienDTO
+            try
             {
-                MaGV = txtMaGV.Text,
-                HoTen = txtHoTen.Text,
-                MaKhoa = cmbKhoa.SelectedValue.ToString(),
-                SoDienThoai = txtSDT.Text,
-                Email = txtEmail.Text
-            };
-
-            bool kq = false;
-            if (action == "Them") kq = bll.Them(gv);
-            else if (action == "Sua") kq = bll.Sua(gv);
-            else if (action == "Xoa") kq = bll.Xoa(txtMaGV.Text);
-
-            if (kq)
-            {
-                MessageBox.Show("Thành công!");
+                TaiDuLieuKhoa();
                 TaiDanhSach();
                 TrangThaiBanDau();
             }
+            catch (Exception ex) { MessageBox.Show("Lỗi: " + ex.Message); }
         }
 
-        private void btnHuy_Click(object sender, EventArgs e) { TrangThaiBanDau(); }
-
-        private void dgvGiangVien_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            int hangChon = e.RowIndex;
-            if (hangChon >= 0 && action == "")
-            {
-                txtMaGV.Text = dgvGiangVien.Rows[hangChon].Cells["Mã GV"].Value?.ToString();
-                txtHoTen.Text = dgvGiangVien.Rows[hangChon].Cells["Họ Tên"].Value?.ToString();
-                cmbKhoa.Text = dgvGiangVien.Rows[hangChon].Cells["Khoa/Viện"].Value?.ToString();
-                txtSDT.Text = dgvGiangVien.Rows[hangChon].Cells["SĐT"].Value?.ToString();
-                txtEmail.Text = dgvGiangVien.Rows[hangChon].Cells["Email"].Value?.ToString();
-
-                // Bấm vào lưới thì mở sáng nút Sửa và Xóa
-                btnSua.Enabled = true;
-                btnXoa.Enabled = true;
-            }
-        }
+        // 1. Hàm hỗ trợ
+        private void TaiDanhSach() { dgvGiangVien.DataSource = bll.LayGiangVien(); }
 
         private void TaiDuLieuKhoa()
         {
@@ -123,28 +33,125 @@ namespace QuanLiPhongHocTDMU
             cmbKhoa.ValueMember = "MaKhoa";
         }
 
-        private void TaiDanhSach() { dgvGiangVien.DataSource = bll.LayGiangVien(); }
+        private void TrangThaiBanDau()
+        {
+            action = "";
+            txtMaGV.Clear(); txtHoTen.Clear(); txtSDT.Clear(); txtEmail.Clear();
+            txtMaGV.Enabled = false;
+            btnThem.Enabled = true; btnSua.Enabled = false; btnXoa.Enabled = false;
+            btnLuu.Enabled = false; btnHuy.Enabled = false;
+            dgvGiangVien.Enabled = true;
+        }
 
-        // Sự kiện xuất Excel, code xử lí vào 2 nút này đang được chuẩn bị, nên tạm thời chỉ hiện thông báo
+        private void BatCheDoThaoTac()
+        {
+            btnThem.Enabled = false; btnSua.Enabled = false; btnXoa.Enabled = false;
+            btnLuu.Enabled = true; btnHuy.Enabled = true;
+            dgvGiangVien.Enabled = false;
+        }
+
+        // 2. Nghiệp vụ CRUD
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            action = "Them";
+            txtMaGV.Clear(); txtMaGV.Enabled = true; txtMaGV.Focus();
+            BatCheDoThaoTac();
+        }
+
+        private void btnSua_Click(object sender, EventArgs e) { action = "Sua"; BatCheDoThaoTac(); }
+
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            action = "Xoa";
+            BatCheDoThaoTac();
+            MessageBox.Show("Vui lòng nhấn LƯU để xác nhận XÓA!");
+        }
+
+        private void btnLuu_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(txtMaGV.Text) && action != "Xoa") { MessageBox.Show("Vui lòng nhập Mã GV!"); return; }
+
+                GiangVienDTO gv = new GiangVienDTO
+                {
+                    MaGV = txtMaGV.Text.Trim(),
+                    HoTen = txtHoTen.Text.Trim(),
+                    MaKhoa = cmbKhoa.SelectedValue.ToString(),
+                    SoDienThoai = txtSDT.Text.Trim(),
+                    Email = txtEmail.Text.Trim()
+                };
+
+                bool kq = false;
+                if (action == "Them") kq = bll.Them(gv);
+                else if (action == "Sua") kq = bll.Sua(gv);
+                else if (action == "Xoa")
+                {
+                    if (MessageBox.Show("Xác nhận xóa giảng viên này?", "Cảnh báo", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        kq = bll.Xoa(txtMaGV.Text);
+                    else { TrangThaiBanDau(); return; }
+                }
+
+                if (kq)
+                {
+                    MessageBox.Show("Thành công!");
+                    TaiDanhSach(); TrangThaiBanDau();
+                }
+                else MessageBox.Show("Thất bại!");
+            }
+            catch (Exception ex) { MessageBox.Show("Lỗi: " + ex.Message); }
+        }
+
+        private void btnHuy_Click(object sender, EventArgs e) { TrangThaiBanDau(); }
+
+        private void dgvGiangVien_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int r = e.RowIndex;
+            if (r >= 0 && action == "")
+            {
+                txtMaGV.Text = dgvGiangVien.Rows[r].Cells["Mã GV"].Value?.ToString();
+                txtHoTen.Text = dgvGiangVien.Rows[r].Cells["Họ Tên"].Value?.ToString();
+                cmbKhoa.Text = dgvGiangVien.Rows[r].Cells["Khoa/Viện"].Value?.ToString();
+                txtSDT.Text = dgvGiangVien.Rows[r].Cells["SĐT"].Value?.ToString();
+                txtEmail.Text = dgvGiangVien.Rows[r].Cells["Email"].Value?.ToString();
+                btnSua.Enabled = true; btnXoa.Enabled = true;
+            }
+        }
+
+        // 3. Nghiệp vụ EXCEL
+        private void btnTaiMau_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook (*.xlsx)|*.xlsx", FileName = "Mau_GiangVien.xlsx" };
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    bll.TaiMau(sfd.FileName);
+                    MessageBox.Show("Đã tải mẫu!");
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
+        private void btnNhapExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenFileDialog ofd = new OpenFileDialog() { Filter = "Excel Files (*.xlsx;*.xls)|*.xlsx;*.xls" };
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    int n = bll.NhapExcel(ofd.FileName);
+                    MessageBox.Show($"Thành công {n} dòng.");
+                    TaiDanhSach();
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
 
         private void btnXuatExcel_Click(object sender, EventArgs e)
         {
-            
-            MessageBox.Show("Tính năng xuất Excel đang được chuẩn bị!");
-        }
-
-        // Sự kiện nhập Excel
-        private void btnNhapExcel_Click(object sender, EventArgs e)
-        {
-            
-            MessageBox.Show("Tính năng nhập dữ liệu từ Excel đang được chuẩn bị!");
-        }
-
-        private void btnTaiMau_Click(object sender, EventArgs e)
-        {
-
-            // Logic: Mở SaveFileDialog -> Tạo file Excel trắng -> Ghi Header cột vào dòng 1
-            MessageBox.Show("Tính năng đang được xây dựng!");
+            try { bll.XuatExcel(dgvGiangVien); }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
     }
 }

@@ -1,71 +1,62 @@
-﻿using QuanLiPhongHocTDMU.BLL;
-using QuanLiPhongHocTDMU.DTO;
-using System;
+﻿using System;
 using System.Windows.Forms;
+using QuanLiPhongHocTDMU.BLL;
+using QuanLiPhongHocTDMU.DTO;
 
 namespace QuanLiPhongHocTDMU
 {
     public partial class frmQuanLiPhongHoc : Form
     {
         PhongHocBLL bll = new PhongHocBLL();
-        string action = ""; // Lưu trạng thái: "Them", "Sua", "Xoa"
+        string action = "";
 
-        public frmQuanLiPhongHoc()
-        {
-            InitializeComponent();
-        }
+        public frmQuanLiPhongHoc() { InitializeComponent(); }
 
         private void frmQuanLiPhongHoc_Load(object sender, EventArgs e)
         {
-            LoadComboBoxToaNha();
-
-            // Nạp dữ liệu cứng cho 2 ComboBox nếu chưa có
-            cmbLoaiPhong.Items.AddRange(new string[] { "Phòng thường", "Phòng máy", "Phòng thí nghiệm", "Giảng đường", "Hội trường" });
-            cmbTrangThai.Items.AddRange(new string[] { "Sẵn sàng", "Đang bảo trì", "Không sử dụng" });
-
-            LoadDanhSachPhongHoc();
-            TrangThaiBanDau();
+            try
+            {
+                LoadComboBoxToaNha();
+                cmbLoaiPhong.Items.AddRange(new string[] { "Phòng thường", "Phòng máy", "Phòng thí nghiệm", "Giảng đường", "Hội trường" });
+                cmbTrangThai.Items.AddRange(new string[] { "Sẵn sàng", "Đang bảo trì", "Không sử dụng" });
+                LoadDanhSachPhongHoc();
+                TrangThaiBanDau();
+            }
+            catch (Exception ex) { MessageBox.Show("Lỗi khởi tạo: " + ex.Message); }
         }
 
-        // TẤT CẢ NÚT ĐỀU HIỂN THỊ, CHỈ LÀM MỜ NÚT LƯU/HỦY BAN ĐẦU
+        // 1. Hàm bổ trợ giao diện
+        private void LoadDanhSachPhongHoc() { dgvPhongHoc.DataSource = bll.GetPhongHoc(); }
+
+        private void LoadComboBoxToaNha()
+        {
+            cmbToaNha.DataSource = bll.GetToaNha();
+            cmbToaNha.DisplayMember = "TenKhu";
+            cmbToaNha.ValueMember = "MaToaNha";
+        }
+
         private void TrangThaiBanDau()
         {
             action = "";
             txtMaPhong.Clear(); txtTenPhong.Clear(); txtTang.Clear(); txtSucChua.Clear();
             txtMaPhong.Enabled = false;
-
-            if (cmbLoaiPhong.Items.Count > 0) cmbLoaiPhong.SelectedIndex = 0;
-            if (cmbTrangThai.Items.Count > 0) cmbTrangThai.SelectedIndex = 0;
-
-            // Khóa/Mở nút
-            btnThem.Enabled = true;
-            btnSua.Enabled = false;
-            btnXoa.Enabled = false;
-            btnLuu.Enabled = false;
-            btnHuy.Enabled = false;
-
+            btnThem.Enabled = true; btnSua.Enabled = false; btnXoa.Enabled = false;
+            btnLuu.Enabled = false; btnHuy.Enabled = false;
             dgvPhongHoc.Enabled = true;
         }
 
-        // BẤM THÊM/SỬA/XÓA SẼ LÀM MỜ TỤI NÓ, MỞ SÁNG NÚT LƯU/HỦY
         private void BatCheDoThaoTac()
         {
-            btnThem.Enabled = false;
-            btnSua.Enabled = false;
-            btnXoa.Enabled = false;
-
-            btnLuu.Enabled = true;
-            btnHuy.Enabled = true;
-
-            dgvPhongHoc.Enabled = false; // Khóa lưới để tập trung nhập liệu
+            btnThem.Enabled = false; btnSua.Enabled = false; btnXoa.Enabled = false;
+            btnLuu.Enabled = true; btnHuy.Enabled = true;
+            dgvPhongHoc.Enabled = false;
         }
 
+        // 2. Nghiệp vụ CRUD
         private void btnThem_Click(object sender, EventArgs e)
         {
             action = "Them";
-            txtMaPhong.Clear(); txtTenPhong.Clear(); txtTang.Clear(); txtSucChua.Clear();
-            txtMaPhong.Enabled = true;
-            txtMaPhong.Focus();
+            txtMaPhong.Clear(); txtMaPhong.Enabled = true; txtMaPhong.Focus();
             BatCheDoThaoTac();
         }
 
@@ -79,44 +70,46 @@ namespace QuanLiPhongHocTDMU
         {
             action = "Xoa";
             BatCheDoThaoTac();
-            MessageBox.Show("Vui lòng nhấn LƯU để xác nhận xóa, hoặc HỦY để thôi!");
+            MessageBox.Show("Nhấn LƯU để xác nhận XÓA!");
         }
 
         private void btnLuu_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtMaPhong.Text))
+            try
             {
-                MessageBox.Show("Vui lòng nhập Mã Phòng!"); return;
+                if (string.IsNullOrEmpty(txtMaPhong.Text)) { MessageBox.Show("Vui lòng nhập Mã Phòng!"); return; }
+
+                PhongHocDTO ph = new PhongHocDTO
+                {
+                    MaPhong = txtMaPhong.Text.Trim(),
+                    MaToaNha = cmbToaNha.SelectedValue.ToString(),
+                    TenPhong = txtTenPhong.Text.Trim(),
+                    Tang = txtTang.Text.Trim(),
+                    LoaiPhong = cmbLoaiPhong.Text,
+                    SucChua = int.Parse(string.IsNullOrEmpty(txtSucChua.Text) ? "40" : txtSucChua.Text),
+                    TrangThai = cmbTrangThai.Text
+                };
+
+                bool kq = false;
+                if (action == "Them") kq = bll.Them(ph);
+                else if (action == "Sua") kq = bll.Sua(ph);
+                else if (action == "Xoa") kq = bll.Xoa(txtMaPhong.Text);
+
+                if (kq)
+                {
+                    MessageBox.Show("Thành công!");
+                    LoadDanhSachPhongHoc();
+                    TrangThaiBanDau();
+                }
+                else
+                {
+                    MessageBox.Show("Thất bại! Vui lòng kiểm tra lại dữ liệu.");
+                }
             }
-
-            PhongHocDTO ph = new PhongHocDTO
-            {
-                MaPhong = txtMaPhong.Text,
-                MaToaNha = cmbToaNha.SelectedValue.ToString(),
-                TenPhong = txtTenPhong.Text,
-                Tang = txtTang.Text,
-                LoaiPhong = cmbLoaiPhong.Text,
-                SucChua = string.IsNullOrEmpty(txtSucChua.Text) ? 40 : int.Parse(txtSucChua.Text),
-                TrangThai = cmbTrangThai.Text
-            };
-
-            bool kq = false;
-            if (action == "Them") kq = bll.Them(ph);
-            else if (action == "Sua") kq = bll.Sua(ph);
-            else if (action == "Xoa") kq = bll.Xoa(txtMaPhong.Text);
-
-            if (kq)
-            {
-                MessageBox.Show("Thao tác thành công!");
-                LoadDanhSachPhongHoc();
-                TrangThaiBanDau();
-            }
+            catch (Exception ex) { MessageBox.Show("Lỗi thực hiện: " + ex.Message); }
         }
 
-        private void btnHuy_Click(object sender, EventArgs e)
-        {
-            TrangThaiBanDau();
-        }
+        private void btnHuy_Click(object sender, EventArgs e) { TrangThaiBanDau(); }
 
         private void dgvPhongHoc_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -130,42 +123,44 @@ namespace QuanLiPhongHocTDMU
                 cmbLoaiPhong.Text = dgvPhongHoc.Rows[r].Cells["Loại Phòng"].Value?.ToString();
                 txtSucChua.Text = dgvPhongHoc.Rows[r].Cells["Sức Chứa"].Value?.ToString();
                 cmbTrangThai.Text = dgvPhongHoc.Rows[r].Cells["Trạng Thái"].Value?.ToString();
-
-                // Bấm vào lưới thì mở sáng nút Sửa và Xóa
-                btnSua.Enabled = true;
-                btnXoa.Enabled = true;
+                btnSua.Enabled = true; btnXoa.Enabled = true;
             }
         }
 
-        private void LoadComboBoxToaNha()
+        // 3. Xử lý Excel
+        private void btnTaiMau_Click(object sender, EventArgs e)
         {
-            cmbToaNha.DataSource = bll.GetToaNha();
-            cmbToaNha.DisplayMember = "TenKhu";
-            cmbToaNha.ValueMember = "MaToaNha";
-        }
-
-        private void LoadDanhSachPhongHoc()
-        {
-            dgvPhongHoc.DataSource = bll.GetPhongHoc();
+            try
+            {
+                SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx", FileName = "Mau_PhongHoc.xlsx" };
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    bll.TaiMau(sfd.FileName);
+                    MessageBox.Show("Đã tải file mẫu!");
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void btnNhapExcel_Click(object sender, EventArgs e)
         {
-            // Logic nhập Excel sẽ được xử lý sau
-            MessageBox.Show("Chức năng Nhập dữ liệu từ Excel đang được cập nhật!");
+            try
+            {
+                OpenFileDialog ofd = new OpenFileDialog() { Filter = "Excel Workbook|*.xlsx;*.xls" };
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    int sl = bll.NhapExcel(ofd.FileName);
+                    MessageBox.Show($"Thành công: {sl} dòng.");
+                    LoadDanhSachPhongHoc();
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void btnXuatExcel_Click(object sender, EventArgs e)
         {
-            // Logic xuất Excel sẽ được xử lý sau
-            MessageBox.Show("Chức năng Xuất dữ liệu ra Excel đang được cập nhật!");
-        }
-
-        private void btnTaiMau_Click(object sender, EventArgs e)
-        {
-
-            // Logic: Mở SaveFileDialog -> Tạo file Excel trắng -> Ghi Header cột vào dòng 1
-            MessageBox.Show("Tính năng đang được xây dựng!");
+            try { bll.XuatExcel(dgvPhongHoc); }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
     }
 }
