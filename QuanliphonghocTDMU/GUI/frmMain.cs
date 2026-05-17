@@ -100,7 +100,6 @@ namespace QuanLiPhongHocTDMU
                 btnThongKe.Visible = false;
                 pnlSubThongKe.Visible = false;
                 btnDuyetYeuCau.Visible = false;
-                btnTraCuu.Visible = false;
 
                 // Ẩn nút cấp tài khoản với quyền Giảng Viên
                 btnCapTaiKhoan.Visible = false;
@@ -167,14 +166,11 @@ namespace QuanLiPhongHocTDMU
         private void btnGiangVien_Click(object sender, EventArgs e) { lblHeaderTitle.Text = "Quản lý Giảng Viên"; openChildForm(new frmQuanLiGiangVien()); }
 
         // Các form nghiệp vụ
-        private void btnTraCuu_Click(object sender, EventArgs e) { lblHeaderTitle.Text = "Tra Cứu Lịch"; openChildForm(new frmTraCuu()); }
 
-        // Thêm sự kiện cho nút Đặt Phòng
         private void btnDatPhong_Click(object sender, EventArgs e) { lblHeaderTitle.Text = "Đặt Phòng Học"; openChildForm(new frmDatPhong()); }
 
         private void btnDuyetYeuCau_Click(object sender, EventArgs e) { lblHeaderTitle.Text = "Duyệt Yêu Cầu"; openChildForm(new frmDuyetYeuCau()); }
 
-        // Thêm sự kiện cho nút Cấp Tài Khoản
         private void btnCapTaiKhoan_Click(object sender, EventArgs e) { lblHeaderTitle.Text = "Cấp Tài Khoản Hệ Thống"; /* openChildForm(new frmQuanLiTaiKhoan()); */ }
 
         private void btnBaoCaoSuCo_Click(object sender, EventArgs e) { lblHeaderTitle.Text = "Báo Cáo Sự Cố"; openChildForm(new frmBaoCaoSuCo()); }
