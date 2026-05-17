@@ -16,12 +16,29 @@ namespace QuanLiPhongHocTDMU.BLL
 
         public string XuLyDatPhong(LichDatPhongDTO dto, string role)
         {
-            if (dal.KiemTraTrungLich(dto.MaPhong, dto.NgayDat, dto.CaHoc)) return "Phòng đã có lịch!";
+            if (dal.KiemTraTrungLich(dto.MaPhong, dto.NgayDat, dto.CaHoc)) return "Phòng đã có lịch! Vui lòng chọn phòng khác.";
             dto.TrangThaiDuyet = (role == "Admin") ? "Đã duyệt" : "Chờ duyệt";
             return dal.ThemDatPhong(dto) ? "Thành công" : "Lỗi hệ thống";
         }
 
-        // Hàm Nhập dữ liệu đặt phòng từ Excel 
+        // ==============================================================
+        // CÁC HÀM CẦU NỐI MỚI THÊM VÀO ĐỂ THAY THẾ TRACUUBLL
+        // ==============================================================
+        public DataTable LayDanhSachToaNha() => dal.LayDanhSachToaNha();
+        public DataTable GetDanhSachPhongAdmin(DateTime ngay, string ca, string maToaNha) => dal.GetDanhSachPhongAdmin(ngay, ca, maToaNha);
+        public bool XoaLich(int maDatPhong) => dal.XoaLichDatPhong(maDatPhong);
+
+        public DataTable GetTrangThaiPhong(string maToaNha, DateTime ngay, string ca) => dal.LayDanhSachTrangThaiPhong(maToaNha, ngay, ca);
+        public string GetChiTietThietBi(string maPhong)
+        {
+            DataTable dt = dal.GetThietBiPhong(maPhong);
+            if (dt.Rows.Count == 0) return "Phòng trống, không có trang thiết bị đặc biệt.";
+            string result = "";
+            foreach (DataRow row in dt.Rows) result += "📺 " + row["ThongTin"].ToString() + "\r\n";
+            return result;
+        }
+
+        // --- IMPORT EXCEL ---
         public string NhapTuExcel(string filePath, string role)
         {
             if (role != "Admin") return "Lỗi: Chỉ Admin mới có quyền nhập từ Excel!";
@@ -36,13 +53,11 @@ namespace QuanLiPhongHocTDMU.BLL
                 Excel.Worksheet ws = wb.Sheets[1];
                 Excel.Range range = ws.UsedRange;
 
-                // Chạy từ dòng 2 để bỏ qua dòng tiêu đề
                 for (int i = 2; i <= range.Rows.Count; i++)
                 {
                     string maPhong = range.Cells[i, 1].Value?.ToString();
                     if (string.IsNullOrEmpty(maPhong)) continue;
 
-                    // Xử lý ngày tháng
                     DateTime ngayDat = DateTime.Now;
                     var rawNgay = range.Cells[i, 3].Value;
                     if (rawNgay is DateTime dt) ngayDat = dt;
@@ -61,7 +76,6 @@ namespace QuanLiPhongHocTDMU.BLL
                         TrangThaiDuyet = "Đã duyệt"
                     };
 
-                    // Kiểm tra trùng lịch trước khi thêm
                     if (!dal.KiemTraTrungLich(dto.MaPhong, dto.NgayDat, dto.CaHoc))
                     {
                         if (dal.ThemDatPhong(dto)) count++;
