@@ -8,6 +8,8 @@ namespace QuanLiPhongHocTDMU.BLL
     {
         BaoCaoSuCoDAL dal = new BaoCaoSuCoDAL();
 
+        public DataTable GetPhongCuaGiangVien(string maGV) => dal.GetPhongCuaGiangVien(maGV);
+
         public bool GuiBaoCao(string maPhong, string maGV, string loaiSuCo, string moTa, int mucDo)
         {
             if (string.IsNullOrEmpty(loaiSuCo) || string.IsNullOrEmpty(moTa)) return false;

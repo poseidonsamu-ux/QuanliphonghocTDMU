@@ -2,6 +2,7 @@
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Collections.Generic;
 using QuanLiPhongHocTDMU.BLL;
 
 namespace QuanLiPhongHocTDMU
@@ -9,6 +10,7 @@ namespace QuanLiPhongHocTDMU
     public partial class frmBaoCaoSuCo : Form
     {
         BaoCaoSuCoBLL bll = new BaoCaoSuCoBLL();
+        DatPhongBLL dpBll = new DatPhongBLL();
         string loaiSuCoDangChon = "";
         string role = frmDangNhap.Role;
         string maGV = frmDangNhap.MaGV;
@@ -17,7 +19,6 @@ namespace QuanLiPhongHocTDMU
 
         private void frmBaoCaoSuCo_Load(object sender, EventArgs e)
         {
-            // Thiết lập ComboBox trạng thái
             cboTrangThai.Items.AddRange(new string[] { "Chưa xử lý", "Đang xử lý", "Đã khắc phục" });
             cboTrangThai.SelectedIndex = 0;
 
@@ -34,31 +35,75 @@ namespace QuanLiPhongHocTDMU
                 pnlAdminDashboard.Visible = false;
                 pnlGiangVien.Visible = true;
                 pnlGoiYAI.Visible = true;
-                trkMucDo.Minimum = 1; trkMucDo.Maximum = 5; trkMucDo.Value = 3;
+                cboMucDo.SelectedIndex = 2; // Mặc định chọn mức 3
+
+                DataTable dtPhongGV = bll.GetPhongCuaGiangVien(maGV);
+                if (dtPhongGV.Rows.Count == 0)
+                {
+                    MessageBox.Show("Hiện tại bạn chưa có lịch giảng dạy nào được phân công!", "Thông báo");
+                }
+                else
+                {
+                    cmbPhongHoc.DataSource = dtPhongGV;
+                    cmbPhongHoc.DisplayMember = "MaPhong";
+                    cmbPhongHoc.ValueMember = "MaPhong";
+                }
             }
         }
 
-        // --- CHỨC NĂNG GIẢNG VIÊN ---
+        // --- PHÂN HỆ GIẢNG VIÊN ---
         private void btnLoaiSuCo_Click(object sender, EventArgs e)
         {
-            Button btn = sender as Button;
-            loaiSuCoDangChon = btn.Text;
-            lblSuCoDangChon.Text = "Đang chọn: " + loaiSuCoDangChon;
+            Guna.UI2.WinForms.Guna2Button btn = sender as Guna.UI2.WinForms.Guna2Button;
+            if (btn == null) return;
+
+            // Xử lý đổi màu khi Click (Bật/Tắt)
+            if (btn.Tag == null || btn.Tag.ToString() == "Unchecked")
+            {
+                btn.Tag = "Checked";
+                btn.FillColor = Color.FromArgb(238, 242, 255);
+                btn.BorderColor = Color.FromArgb(79, 70, 229);
+                btn.ForeColor = Color.FromArgb(79, 70, 229);
+            }
+            else
+            {
+                ResetButtonColor(btn);
+            }
+
+            // Gom nhóm các lỗi
+            List<string> selected = new List<string>();
+            if (btnMayChieu.Tag != null && btnMayChieu.Tag.ToString() == "Checked") selected.Add("Máy chiếu");
+            if (btnMayLanh.Tag != null && btnMayLanh.Tag.ToString() == "Checked") selected.Add("Máy lạnh");
+            if (btnDien.Tag != null && btnDien.Tag.ToString() == "Checked") selected.Add("Điện");
+            if (btnInternet.Tag != null && btnInternet.Tag.ToString() == "Checked") selected.Add("Internet");
+            if (btnBanGhe.Tag != null && btnBanGhe.Tag.ToString() == "Checked") selected.Add("Cơ sở vật chất");
+
+            loaiSuCoDangChon = string.Join(", ", selected);
+            lblSuCoDangChon.Text = "Đang chọn: " + (selected.Count > 0 ? loaiSuCoDangChon : "Chưa có");
+        }
+
+        private void ResetButtonColor(Guna.UI2.WinForms.Guna2Button btn)
+        {
+            btn.Tag = "Unchecked";
+            btn.FillColor = Color.White;
+            btn.BorderColor = Color.FromArgb(203, 213, 225);
+            btn.ForeColor = Color.FromArgb(71, 85, 105);
         }
 
         private void btnGuiBaoCao_Click(object sender, EventArgs e)
         {
-            if (cmbPhongHoc.Text == "" || loaiSuCoDangChon == "" || txtMoTa.Text == "")
+            if (cmbPhongHoc.Text == "" || loaiSuCoDangChon == "" || string.IsNullOrWhiteSpace(txtMoTa.Text))
             {
-                MessageBox.Show("Vui lòng nhập đủ thông tin!"); return;
+                MessageBox.Show("Vui lòng điền đầy đủ thông tin báo cáo!", "Thông báo"); return;
             }
 
-            if (bll.GuiBaoCao(cmbPhongHoc.Text, maGV, loaiSuCoDangChon, txtMoTa.Text, trkMucDo.Value))
+            int mucDo = int.Parse(cboMucDo.SelectedItem.ToString());
+
+            if (bll.GuiBaoCao(cmbPhongHoc.Text, maGV, loaiSuCoDangChon, txtMoTa.Text, mucDo))
             {
-                MessageBox.Show("Gửi báo cáo thành công! AI đang tìm phòng thay thế...");
+                MessageBox.Show("Gửi báo cáo thành công! Đang tìm phòng trống thay thế...");
                 RenderAICards(cmbPhongHoc.Text, DateTime.Now, 1);
 
-                // NẾU LÀ ADMIN ĐANG DÙNG KÉ FORM NÀY THÌ LOAD LẠI LƯỚI SAU KHI GỬI
                 if (role == "Admin") LoadAdminData();
             }
         }
@@ -70,20 +115,31 @@ namespace QuanLiPhongHocTDMU
 
             foreach (DataRow row in dt.Rows)
             {
-                Panel card = new Panel { Width = 280, Height = 120, BackColor = Color.White, Margin = new Padding(10) };
-                Label lblPhong = new Label { Text = "🟢 " + row["MaPhong"].ToString(), Font = new Font("Arial", 14, FontStyle.Bold), ForeColor = Color.ForestGreen, Location = new Point(10, 10), AutoSize = true };
-                Label lblToa = new Label { Text = "🏢 Tòa: " + row["MaToaNha"].ToString(), Location = new Point(10, 40), AutoSize = true };
-                Label lblDiem = new Label { Text = "⭐ Điểm phù hợp: " + row["DiemPhuHop"].ToString(), Font = new Font("Arial", 10, FontStyle.Bold), ForeColor = Color.Orange, Location = new Point(10, 65), AutoSize = true };
-                Button btnChuyen = new Button { Text = "CHUYỂN NGAY", BackColor = Color.DodgerBlue, ForeColor = Color.White, Width = 120, Height = 35, Location = new Point(140, 75), Cursor = Cursors.Hand };
+                Panel card = new Panel { Width = 380, Height = 90, BackColor = Color.White, Margin = new Padding(10) };
 
-                btnChuyen.Click += (s, e) => { MessageBox.Show("Đã chuyển lịch sang phòng " + row["MaPhong"].ToString()); };
+                Label lblPhong = new Label { Text = "🟢 " + row["MaPhong"].ToString(), Font = new Font("Segoe UI", 14, FontStyle.Bold), ForeColor = Color.ForestGreen, Location = new Point(10, 10), AutoSize = true };
+                Label lblToa = new Label { Text = "🏢 Tòa: " + row["MaToaNha"].ToString() + "  |  ⭐ Điểm: " + row["DiemPhuHop"].ToString(), Location = new Point(10, 45), AutoSize = true, ForeColor = Color.DimGray };
+                Button btnChuyen = new Button { Text = "CHUYỂN NGAY", BackColor = Color.DodgerBlue, ForeColor = Color.White, Width = 140, Height = 35, Location = new Point(220, 25), Cursor = Cursors.Hand, FlatStyle = FlatStyle.Flat };
+                btnChuyen.FlatAppearance.BorderSize = 0;
 
-                card.Controls.Add(lblPhong); card.Controls.Add(lblToa); card.Controls.Add(lblDiem); card.Controls.Add(btnChuyen);
+                btnChuyen.Click += (s, e) => {
+                    MessageBox.Show("Đã chuyển lịch giảng dạy sang phòng " + row["MaPhong"].ToString() + " thành công!", "Thông báo");
+
+                    // Reset sạch sẽ giao diện sau khi chuyển
+                    flpGoiY.Controls.Clear();
+                    txtMoTa.Clear();
+                    ResetButtonColor(btnMayChieu); ResetButtonColor(btnMayLanh); ResetButtonColor(btnDien);
+                    ResetButtonColor(btnInternet); ResetButtonColor(btnBanGhe);
+                    loaiSuCoDangChon = "";
+                    lblSuCoDangChon.Text = "Đang chọn: Chưa có";
+                };
+
+                card.Controls.Add(lblPhong); card.Controls.Add(lblToa); card.Controls.Add(btnChuyen);
                 flpGoiY.Controls.Add(card);
             }
         }
 
-        // --- CHỨC NĂNG ADMIN ---
+        // --- PHÂN HỆ ADMIN ---
         private void LoadAdminData()
         {
             dgvSuCo.DataSource = bll.GetDanhSachSuCo();
@@ -97,28 +153,12 @@ namespace QuanLiPhongHocTDMU
             }
         }
 
-        private void btnXacNhanSuaXong_Click(object sender, EventArgs e)
-        {
-            if (dgvSuCo.CurrentRow != null)
-            {
-                int id = Convert.ToInt32(dgvSuCo.CurrentRow.Cells["ID"].Value);
-                if (bll.XacNhanDaXuLy(id))
-                {
-                    MessageBox.Show("Đã cập nhật trạng thái thành Đã khắc phục!");
-                    LoadAdminData();
-                }
-            }
-        }
-
-        // --- CÁC HÀM CRUD MỚI ---
         private void btnCapNhat_Click(object sender, EventArgs e)
         {
             if (dgvSuCo.CurrentRow != null)
             {
                 int id = Convert.ToInt32(dgvSuCo.CurrentRow.Cells["ID"].Value);
-                string trangThaiMoi = cboTrangThai.Text;
-
-                if (bll.CapNhatTrangThai(id, trangThaiMoi))
+                if (bll.CapNhatTrangThai(id, cboTrangThai.Text))
                 {
                     MessageBox.Show("Cập nhật trạng thái thành công!");
                     LoadAdminData();
@@ -141,10 +181,15 @@ namespace QuanLiPhongHocTDMU
 
         private void btnThemSuCoAdmin_Click(object sender, EventArgs e)
         {
-            // Mượn panel của GV để Admin tự nhập sự cố
             pnlAdminDashboard.Visible = false;
             pnlGiangVien.Visible = true;
-            pnlGiangVien.Dock = DockStyle.Fill;
+            pnlGiangVien.Dock = DockStyle.Left;
+            pnlGoiYAI.Visible = true;
+            pnlGoiYAI.Dock = DockStyle.Fill;
+
+            cmbPhongHoc.DataSource = dpBll.LayDSPhong();
+            cmbPhongHoc.DisplayMember = "MaPhong";
+            cmbPhongHoc.ValueMember = "MaPhong";
         }
     }
 }

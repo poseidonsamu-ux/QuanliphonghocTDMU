@@ -7,6 +7,17 @@ namespace QuanLiPhongHocTDMU.DAL
     {
         KetNoiCSDL kn = new KetNoiCSDL();
 
+        // 0. Lấy danh sách phòng mà Giảng Viên ĐANG CÓ LỊCH DẠY
+        public DataTable GetPhongCuaGiangVien(string maGV)
+        {
+            string sql = $@"
+                SELECT DISTINCT p.MaPhong 
+                FROM PhongHoc p
+                JOIN LichDatPhong ld ON p.MaPhong = ld.MaPhong
+                WHERE ld.MaGV = '{maGV}' AND ld.TrangThaiDuyet = N'Đã duyệt'";
+            return kn.ExecuteQuery(sql);
+        }
+
         // 1. Giảng viên gửi báo cáo
         public bool GuiBaoCao(string maPhong, string maGV, string loaiSuCo, string moTa, int mucDo)
         {
@@ -15,7 +26,7 @@ namespace QuanLiPhongHocTDMU.DAL
             return kn.ExecuteNonQuery(sql);
         }
 
-        // 2. Thuật toán AI - Gợi ý phòng thay thế
+        // 2. Thuật toán - Gợi ý phòng thay thế
         public DataTable SuggestPhongThayThe(string maPhongGoc, DateTime ngay, int ca)
         {
             string ngayStr = ngay.ToString("yyyy-MM-dd");
