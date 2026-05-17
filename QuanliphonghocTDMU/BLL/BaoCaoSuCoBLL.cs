@@ -18,5 +18,8 @@ namespace QuanLiPhongHocTDMU.BLL
         public DataTable GetThongKe() => dal.GetThongKe();
         public DataTable GetDanhSachSuCo() => dal.GetDanhSachSuCo();
         public bool XacNhanDaXuLy(int id) => dal.XacNhanXuLy(id);
+
+        public bool CapNhatTrangThai(int id, string trangThai) => dal.CapNhatTrangThai(id, trangThai);
+        public bool XoaSuCo(int id) => dal.XoaSuCo(id);
     }
 }

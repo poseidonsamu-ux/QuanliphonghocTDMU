@@ -1178,7 +1178,7 @@
             // 
             // cardSuCo
             // 
-            cardSuCo.BorderRadius = 10;
+            cardSuCo.BorderRadius = 15;
             cardSuCo.Controls.Add(lblTitleSuCo);
             cardSuCo.Controls.Add(lblCountSuCo);
             cardSuCo.CustomizableEdges = customizableEdges55;

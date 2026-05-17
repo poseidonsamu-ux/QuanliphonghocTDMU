@@ -19,7 +19,7 @@ namespace QuanLiPhongHocTDMU.DAL
                 SELECT TOP 5 
                     L.MaPhong, 
                     G.HoTen, 
-                    CONVERT(VARCHAR(10), L.NgayDat, 103) + N' (Tiết ' + CAST(L.TietBatDau AS VARCHAR) + '-' + CAST(L.TietKetThuc AS VARCHAR) + ')' AS ThoiGian
+                    CONVERT(VARCHAR(10), L.NgayDat, 103) + N' (Tiết ' + CAST(L.TietBatDau AS VARCHAR) + '-' + CAST(L.TietKetThuc AS VARCHAR) + ')' + '' AS 'ThoiGian'
                 FROM LichDatPhong L
                 JOIN GiangVien G ON L.MaGV = G.MaGV
                 ORDER BY L.MaDatPhong DESC";

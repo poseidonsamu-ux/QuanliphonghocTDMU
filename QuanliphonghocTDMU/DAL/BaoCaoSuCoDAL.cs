@@ -11,7 +11,7 @@ namespace QuanLiPhongHocTDMU.DAL
         public bool GuiBaoCao(string maPhong, string maGV, string loaiSuCo, string moTa, int mucDo)
         {
             string sql = $@"INSERT INTO BaoCaoSuCo (MaPhong, MaGV, LoaiSuCo, MoTa, MucDo, TrangThai) 
-                            VALUES ('{maPhong}', '{maGV}', N'{loaiSuCo}', N'{moTa}', {mucDo}, N'Chờ xử lý')";
+                            VALUES ('{maPhong}', '{maGV}', N'{loaiSuCo}', N'{moTa}', {mucDo}, N'Chưa xử lý')";
             return kn.ExecuteNonQuery(sql);
         }
 
@@ -34,7 +34,7 @@ namespace QuanLiPhongHocTDMU.DAL
                       SELECT 1 FROM LichDatPhong ld 
                       WHERE ld.MaPhong = p.MaPhong AND ld.NgayDat = '{ngayStr}' AND ld.CaHoc = {ca} AND ld.TrangThaiDuyet = N'Đã duyệt'
                   )
-                ORDER BY DiemPhuHop DESC, NEWID()"; // Trộn ngẫu nhiên nếu điểm bằng nhau
+                ORDER BY DiemPhuHop DESC, NEWID()";
             return kn.ExecuteQuery(sql);
         }
 
@@ -44,8 +44,8 @@ namespace QuanLiPhongHocTDMU.DAL
             string sql = @"
                 SELECT 
                     COUNT(*) AS TongSuCo,
-                    SUM(CASE WHEN TrangThai = N'Chờ xử lý' THEN 1 ELSE 0 END) AS DangXuLy,
-                    SUM(CASE WHEN TrangThai = N'Đã xử lý' THEN 1 ELSE 0 END) AS DaXuLy
+                    SUM(CASE WHEN TrangThai = N'Đang xử lý' THEN 1 ELSE 0 END) AS DangXuLy,
+                    SUM(CASE WHEN TrangThai = N'Đã khắc phục' OR TrangThai = N'Đã xử lý' THEN 1 ELSE 0 END) AS DaXuLy
                 FROM BaoCaoSuCo";
             return kn.ExecuteQuery(sql);
         }
@@ -62,10 +62,22 @@ namespace QuanLiPhongHocTDMU.DAL
             return kn.ExecuteQuery(sql);
         }
 
-        // 5. ADMIN - Xác nhận đã sửa xong
+        // 5. ADMIN - Xác nhận xử lý nhanh
         public bool XacNhanXuLy(int id)
         {
-            return kn.ExecuteNonQuery($"UPDATE BaoCaoSuCo SET TrangThai = N'Đã xử lý' WHERE MaSuCo = {id}");
+            return kn.ExecuteNonQuery($"UPDATE BaoCaoSuCo SET TrangThai = N'Đã khắc phục' WHERE MaSuCo = {id}");
+        }
+
+        // 6. ADMIN - Cập nhật trạng thái tùy chỉnh
+        public bool CapNhatTrangThai(int id, string trangThai)
+        {
+            return kn.ExecuteNonQuery($"UPDATE BaoCaoSuCo SET TrangThai = N'{trangThai}' WHERE MaSuCo = {id}");
+        }
+
+        // 7. ADMIN - Xóa sự cố
+        public bool XoaSuCo(int id)
+        {
+            return kn.ExecuteNonQuery($"DELETE FROM BaoCaoSuCo WHERE MaSuCo = {id}");
         }
     }
 }

@@ -7,7 +7,6 @@ namespace QuanLiPhongHocTDMU.BLL
     {
         TaiKhoanDAL dal = new TaiKhoanDAL();
 
-        // --- DÀNH CHO FORM ĐĂNG NHẬP ---
         public TaiKhoanDTO DangNhap(string tenDangNhap, string matKhau)
         {
             if (string.IsNullOrEmpty(tenDangNhap) || string.IsNullOrEmpty(matKhau))
@@ -17,7 +16,6 @@ namespace QuanLiPhongHocTDMU.BLL
             return dal.KiemTraDangNhap(tenDangNhap, matKhau);
         }
 
-        // --- DÀNH CHO FORM ĐỔI MẬT KHẨU ---
         public string ThucHienDoiMatKhau(string tenDangNhap, string matKhauCu, string matKhauMoi, string xacNhan)
         {
             // 1. Kiểm tra rỗng

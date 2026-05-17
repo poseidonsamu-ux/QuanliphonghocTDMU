@@ -14,7 +14,7 @@ namespace QuanLiPhongHocTDMU.BLL
         public DataTable LayKhoa() => dal.LayDanhSachKhoa();
         public DataTable LayGiangVien() => dal.LayDanhSachGiangVien();
 
-        // 1. Nghiệp vụ CRUD có bẫy lỗi
+        // 1. Nghiệp vụ CRUD
         public bool Them(GiangVienDTO gv)
         {
             try { return dal.ThemGiangVien(gv); }

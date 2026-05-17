@@ -4,7 +4,6 @@ namespace QuanLiPhongHocTDMU.DTO
 {
     public class LichDatPhongDTO
     {
-        public int MaDatPhong { get; set; }
         public string MaPhong { get; set; }
         public string MaGV { get; set; }
         public DateTime NgayDat { get; set; }

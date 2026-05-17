@@ -3,7 +3,7 @@ using System.Data;
 using System.Windows.Forms;
 using QuanLiPhongHocTDMU.DAL;
 using QuanLiPhongHocTDMU.DTO;
-using Excel = Microsoft.Office.Interop.Excel; // Thêm thư viện Excel
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace QuanLiPhongHocTDMU.BLL
 {
@@ -13,7 +13,6 @@ namespace QuanLiPhongHocTDMU.BLL
 
         public DataTable GetThietBi() => dal.GetThietBi();
 
-        // 1. Thêm/Sửa/Xóa với bẫy lỗi try-catch
         public bool Them(ThietBiDTO tb)
         {
             try { return dal.Them(tb); }
@@ -32,7 +31,7 @@ namespace QuanLiPhongHocTDMU.BLL
             catch { return false; }
         }
 
-        // 2. Hàm Tải File Mẫu Excel
+        // 1. Hàm Tải File Mẫu Excel
         public void TaiMau(string filePath)
         {
             try
@@ -54,7 +53,7 @@ namespace QuanLiPhongHocTDMU.BLL
             catch (Exception ex) { throw new Exception("Lỗi tạo file mẫu: " + ex.Message); }
         }
 
-        // 3. Hàm Xuất toàn bộ danh sách ra Excel
+        // 2. Hàm Xuất toàn bộ danh sách ra Excel
         public void XuatExcel(DataGridView dgv)
         {
             try
@@ -82,7 +81,7 @@ namespace QuanLiPhongHocTDMU.BLL
             catch (Exception ex) { throw new Exception("Lỗi xuất Excel: " + ex.Message); }
         }
 
-        // 4. Hàm Nhập dữ liệu từ Excel vào Database
+        // 3. Hàm Nhập dữ liệu từ Excel vào Database
         public int NhapExcel(string filePath)
         {
             Excel.Application app = new Excel.Application();
